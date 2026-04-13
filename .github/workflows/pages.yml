@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -20,15 +20,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            docs/prototypes
-          sparse-checkout-cone-mode: false
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        with:
-          static_site_generator: none
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
