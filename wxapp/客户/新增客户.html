@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>新增客户 - 房产AI助手</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #FA8C16;
+            --brand-primary-dark: #E67A0E;
+            --brand-primary-light: #FFF7E6;
+            --color-success: #00B42A;
+            --color-warning: #FF7D00;
+            --color-danger: #FA5151;
+            --color-title: #1D2129;
+            --color-text: #4E5969;
+            --color-sub: #86909C;
+            --color-border: #E5E6EB;
+            --color-bg: #F7F8FA;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+            font-size: 14px;
+            color: var(--color-text);
+            background: var(--color-bg);
+        }
+
+        /* 顶部导航 */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 44px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 100;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .nav-back {
+            color: var(--brand-primary);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--color-title);
+        }
+
+        .nav-save {
+            color: var(--brand-primary);
+            font-size: 15px;
+        }
+
+        /* 表单 */
+        .form-list {
+            padding: 60px 16px 100px;
+        }
+
+        .form-item {
+            background: white;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .form-label {
+            padding: 12px 16px 8px;
+            font-size: 13px;
+            color: var(--color-sub);
+        }
+
+        .form-label.required::after {
+            content: ' *';
+            color: var(--color-danger);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0 16px 12px;
+            font-size: 15px;
+            color: var(--color-title);
+            border: none;
+            outline: none;
+            background: transparent;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0 16px 12px;
+            font-size: 15px;
+            color: var(--color-title);
+            border: none;
+            outline: none;
+            background: transparent;
+            -webkit-appearance: none;
+        }
+
+        .form-row {
+            display: flex;
+            border-top: 1px solid var(--color-border);
+            padding: 8px 16px;
+        }
+
+        .form-row-label {
+            width: 80px;
+            font-size: 13px;
+            color: var(--color-sub);
+            padding-top: 4px;
+        }
+
+        .form-row-content {
+            flex: 1;
+        }
+
+        .form-radio {
+            display: flex;
+            gap: 24px;
+        }
+
+        .form-radio-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--color-text);
+        }
+
+        .radio-circle {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .radio-circle.checked {
+            border-color: var(--brand-primary);
+            background: var(--brand-primary);
+        }
+
+        .radio-circle.checked::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        /* 底部按钮 */
+        .bottom-btn {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 16px;
+            background: white;
+            border-top: 1px solid var(--color-border);
+            z-index: 100;
+        }
+
+        .btn-primary {
+            width: 100%;
+            height: 44px;
+            background: var(--brand-primary);
+            color: white;
+            border: none;
+            border-radius: 22px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .btn-primary:disabled {
+            background: #CCC;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 10000;
+            display: none;
+        }
+
+        .toast.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="nav-back" onclick="goBack()">
+            <i class="fa fa-chevron-left"></i>
+            <span>取消</span>
+        </div>
+        <span class="nav-title">新增客户</span>
+        <div class="nav-save" onclick="saveCustomer()">保存</div>
+    </div>
+
+    <div class="form-list">
+        <!-- 基本信息 -->
+        <div class="form-item">
+            <div class="form-label required">客户姓名</div>
+            <input type="text" class="form-input" id="name" placeholder="请输入客户姓名" value="">
+        </div>
+
+        <div class="form-item">
+            <div class="form-label required">联系电话</div>
+            <input type="tel" class="form-input" id="phone" placeholder="请输入手机号" value="" maxlength="11">
+        </div>
+
+        <div class="form-item">
+            <div class="form-label">性别</div>
+            <div class="form-row">
+                <div class="form-row-content">
+                    <div class="form-radio">
+                        <div class="form-radio-item" onclick="selectRadio(this)">
+                            <div class="radio-circle checked"></div>
+                            <span>男</span>
+                        </div>
+                        <div class="form-radio-item" onclick="selectRadio(this)">
+                            <div class="radio-circle"></div>
+                            <span>女</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-item">
+            <div class="form-label required">意向等级</div>
+            <div class="form-row">
+                <div class="form-row-content">
+                    <div class="form-radio">
+                        <div class="form-radio-item" onclick="selectIntentLevel(this, 'high')">
+                            <div class="radio-circle checked"></div>
+                            <span>高意向</span>
+                        </div>
+                        <div class="form-radio-item" onclick="selectIntentLevel(this, 'medium')">
+                            <div class="radio-circle"></div>
+                            <span>中意向</span>
+                        </div>
+                        <div class="form-radio-item" onclick="selectIntentLevel(this, 'low')">
+                            <div class="radio-circle"></div>
+                            <span>低意向</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-item">
+            <div class="form-label">意向楼盘</div>
+            <div class="form-row">
+                <div class="form-row-content">
+                    <select class="form-select" id="building">
+                        <option value="">请选择楼盘</option>
+                        <option value="1">中海汇德里</option>
+                        <option value="2">保利中央公园</option>
+                        <option value="3">万科城市之光</option>
+                        <option value="4">碧桂园天玺</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-item">
+            <div class="form-label">客户来源</div>
+            <div class="form-row">
+                <div class="form-row-content">
+                    <select class="form-select" id="source">
+                        <option value="">请选择来源</option>
+                        <option value="online">线上获客</option>
+                        <option value="referral">转介绍</option>
+                        <option value="visit">自然到访</option>
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-item">
+            <div class="form-label">备注</div>
+            <textarea class="form-input" id="remark" placeholder="请输入备注信息" rows="3" style="resize: none; height: auto;"></textarea>
+        </div>
+    </div>
+
+    <!-- 底部保存按钮 -->
+    <div class="bottom-btn">
+        <button class="btn-primary" id="saveBtn" onclick="saveCustomer()">保存</button>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let intentLevel = 'high';
+        let gender = 'male';
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        function goBack() {
+            if (confirm('确定取消编辑？未保存的内容将丢失')) {
+                window.history.back();
+            }
+        }
+
+        function selectRadio(el) {
+            document.querySelectorAll('.form-radio-item').forEach(item => {
+                item.querySelector('.radio-circle').classList.remove('checked');
+            });
+            el.querySelector('.radio-circle').classList.add('checked');
+            gender = el.querySelector('span').textContent === '男' ? 'male' : 'female';
+        }
+
+        function selectIntentLevel(el, level) {
+            el.parentElement.querySelectorAll('.radio-circle').forEach(circle => {
+                circle.classList.remove('checked');
+            });
+            el.querySelector('.radio-circle').classList.add('checked');
+            intentLevel = level;
+        }
+
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            if (!name) {
+                showToast('请输入客户姓名');
+                return false;
+            }
+
+            if (!phone) {
+                showToast('请输入联系电话');
+                return false;
+            }
+
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+                showToast('请输入正确的手机号');
+                return false;
+            }
+
+            return true;
+        }
+
+        function saveCustomer() {
+            if (!validateForm()) {
+                return;
+            }
+
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const building = document.getElementById('building').value;
+            const source = document.getElementById('source').value;
+            const remark = document.getElementById('remark').value.trim();
+
+            console.log('保存客户信息:', {
+                name,
+                phone,
+                gender,
+                intentLevel,
+                building,
+                source,
+                remark
+            });
+
+            showToast('保存成功');
+
+            setTimeout(() => {
+                window.location.href = '客户详情.html?id=CUST_NEW';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
