@@ -92,30 +92,32 @@
             justify-content: center;
             color: white;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 12px;
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
         }
         .funnel-step:hover {
             transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
         }
         .funnel-step span {
             margin-right: 12px;
             font-size: 14px;
         }
         .funnel-step strong {
-            font-size: 18px;
+            font-size: 20px;
         }
         .funnel-arrow {
-            color: #86909C;
-            font-size: 12px;
-            font-weight: 600;
-            background: #F7F8FA;
-            padding: 4px 12px;
-            border-radius: 12px;
-            margin: 2px 0;
+            font-size: 13px;
+            font-weight: 700;
+            background: #F2F3F5;
+            padding: 6px 14px;
+            border-radius: 16px;
+            margin: 4px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
         
         /* 标签 */
@@ -405,39 +407,73 @@
         <div class="grid grid-cols-2 gap-5 mb-6">
             <!-- 核心业务漏斗 -->
             <div class="card p-6">
-                <div class="section-title">
-                    🔄 核心业务漏斗
-                    <span class="text-xs font-normal text-gray-400 ml-auto">报备 → 成交</span>
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title mb-0">🔄 核心业务漏斗</div>
+                    <div class="text-xs text-gray-400 bg-gray-50 px-3 py-1.5 rounded-lg">本月</div>
                 </div>
-                <div class="flex items-center">
-                    <div class="funnel-container flex-1">
-                        <div class="funnel-step bg-blue-500 w-full py-4" style="width: 100%;">
-                            <span>报备数</span>
-                            <strong>3,856</strong>
+                <div class="flex items-start gap-6">
+                    <!-- 漏斗主体 -->
+                    <div class="flex-1">
+                        <!-- 步骤1：报备数 -->
+                        <div class="funnel-step bg-gradient-to-r from-blue-500 to-blue-600 hover:scale-[1.02] cursor-pointer transition-transform" style="width: 100%; padding: 16px 20px;">
+                            <div class="flex-1">
+                                <div class="text-sm text-white/80">报备数</div>
+                                <strong class="text-2xl">3,856</strong>
+                            </div>
+                            <div class="text-right text-xs text-white/70">
+                                <div>占比 100%</div>
+                            </div>
                         </div>
-                        <div class="funnel-arrow">↓ 33.3% 转化</div>
-                        <div class="funnel-step bg-blue-400 w-full py-4" style="width: 80%;">
-                            <span>带看组数</span>
-                            <strong>1,286</strong>
+                        <!-- 箭头 -->
+                        <div class="flex items-center justify-center my-2">
+                            <div class="bg-gray-100 px-4 py-2 rounded-full">
+                                <span class="text-blue-500 font-bold">↓ 33.3%</span>
+                                <span class="text-green-500 text-xs ml-1">转化率</span>
+                            </div>
                         </div>
-                        <div class="funnel-arrow">↓ 9.9% 转化</div>
-                        <div class="funnel-step bg-green-500 w-full py-4" style="width: 50%;">
-                            <span>成交单量</span>
-                            <strong>128</strong>
+                        <!-- 步骤2：带看组数 -->
+                        <div class="funnel-step bg-gradient-to-r from-blue-400 to-blue-500 hover:scale-[1.02] cursor-pointer transition-transform" style="width: 80%; padding: 16px 20px; margin-left: auto;">
+                            <div class="flex-1">
+                                <div class="text-sm text-white/80">带看组数</div>
+                                <strong class="text-2xl">1,286</strong>
+                            </div>
+                            <div class="text-right text-xs text-white/70">
+                                <div>占报备 33.3%</div>
+                            </div>
+                        </div>
+                        <!-- 箭头 -->
+                        <div class="flex items-center justify-center my-2">
+                            <div class="bg-gray-100 px-4 py-2 rounded-full">
+                                <span class="text-green-500 font-bold">↓ 9.9%</span>
+                                <span class="text-orange-500 text-xs ml-1">转化率</span>
+                            </div>
+                        </div>
+                        <!-- 步骤3：成交单量 -->
+                        <div class="funnel-step bg-gradient-to-r from-green-500 to-green-600 hover:scale-[1.02] cursor-pointer transition-transform" style="width: 50%; padding: 16px 20px; margin-left: auto;">
+                            <div class="flex-1">
+                                <div class="text-sm text-white/80">成交单量</div>
+                                <strong class="text-2xl">128</strong>
+                            </div>
+                            <div class="text-right text-xs text-white/70">
+                                <div>占带看 9.9%</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="pl-6 ml-6 border-l border-gray-100 space-y-3">
-                        <div class="text-center p-3 bg-blue-50 rounded-xl">
-                            <div class="text-xl font-bold text-blue-500">33.3%</div>
-                            <div class="text-xs text-gray-500">报备转带看</div>
+                    <!-- 右侧转化率详情 -->
+                    <div class="w-44 pl-6 ml-6 border-l border-gray-100 space-y-3">
+                        <div class="text-center p-4 bg-blue-50 rounded-xl">
+                            <div class="text-2xl font-bold text-blue-500">33.3%</div>
+                            <div class="text-xs text-gray-500 mt-1">报备转带看</div>
+                            <div class="text-xs text-green-500 mt-1">↑ 较上月 +5%</div>
                         </div>
-                        <div class="text-center p-3 bg-green-50 rounded-xl">
-                            <div class="text-xl font-bold text-green-500">9.9%</div>
-                            <div class="text-xs text-gray-500">带看转成交</div>
+                        <div class="text-center p-4 bg-green-50 rounded-xl">
+                            <div class="text-2xl font-bold text-green-500">9.9%</div>
+                            <div class="text-xs text-gray-500 mt-1">带看转成交</div>
+                            <div class="text-xs text-orange-500 mt-1">↓ 较上月 -0.3%</div>
                         </div>
-                        <div class="text-center p-3 bg-orange-50 rounded-xl">
-                            <div class="text-xl font-bold text-orange-500">22.5%</div>
-                            <div class="text-xs text-gray-500">复访率</div>
+                        <div class="text-center p-4 bg-orange-50 rounded-xl">
+                            <div class="text-2xl font-bold text-orange-500">22.5%</div>
+                            <div class="text-xs text-gray-500 mt-1">复访率</div>
                         </div>
                     </div>
                 </div>
@@ -445,51 +481,92 @@
 
             <!-- 获客转化漏斗 -->
             <div class="card p-6">
-                <div class="section-title">
-                    📈 获客转化漏斗
-                    <span class="text-xs font-normal text-gray-400 ml-auto">咨询 → 带看</span>
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title mb-0">📈 获客转化漏斗</div>
+                    <div class="text-xs text-gray-400 bg-gray-50 px-3 py-1.5 rounded-lg">本月</div>
                 </div>
-                <div class="flex items-center">
-                    <div class="funnel-container flex-1">
-                        <div class="funnel-step bg-blue-500 w-full py-3" style="width: 100%;">
-                            <span>咨询量</span>
-                            <strong>386</strong>
+                <div class="flex items-start gap-6">
+                    <!-- 漏斗主体 -->
+                    <div class="flex-1">
+                        <!-- 步骤1：咨询量 -->
+                        <div class="funnel-step bg-gradient-to-r from-blue-500 to-blue-600 hover:scale-[1.02] cursor-pointer transition-transform" style="width: 100%; padding: 14px 20px;">
+                            <div class="flex-1">
+                                <div class="text-sm text-white/80">咨询量</div>
+                                <strong class="text-xl">386</strong>
+                            </div>
+                            <div class="text-right text-xs text-white/70">
+                                <div>占比 100%</div>
+                            </div>
                         </div>
-                        <div class="funnel-arrow">↓ 33.2%</div>
-                        <div class="funnel-step bg-green-500 w-full py-3" style="width: 85%;">
-                            <span>线索量</span>
-                            <strong>128</strong>
+                        <!-- 箭头 -->
+                        <div class="flex items-center justify-center my-1">
+                            <div class="bg-gray-100 px-3 py-1.5 rounded-full text-xs">
+                                <span class="text-blue-500 font-bold">↓ 33.2%</span>
+                            </div>
                         </div>
-                        <div class="funnel-arrow">↓ 75.0%</div>
-                        <div class="funnel-step bg-orange-500 w-full py-3" style="width: 70%;">
-                            <span>报备量</span>
-                            <strong>96</strong>
+                        <!-- 步骤2：线索量 -->
+                        <div class="funnel-step bg-gradient-to-r from-green-500 to-green-600 hover:scale-[1.02] cursor-pointer transition-transform" style="width: 85%; padding: 14px 20px; margin-left: auto;">
+                            <div class="flex-1">
+                                <div class="text-sm text-white/80">线索量</div>
+                                <strong class="text-xl">128</strong>
+                            </div>
+                            <div class="text-right text-xs text-white/70">
+                                <div>占咨询 33.2%</div>
+                            </div>
                         </div>
-                        <div class="funnel-arrow">↓ 60.4%</div>
-                        <div class="funnel-step bg-purple-500 w-full py-3" style="width: 55%;">
-                            <span>带看量</span>
-                            <strong>58</strong>
+                        <!-- 箭头 -->
+                        <div class="flex items-center justify-center my-1">
+                            <div class="bg-gray-100 px-3 py-1.5 rounded-full text-xs">
+                                <span class="text-green-500 font-bold">↓ 75.0%</span>
+                            </div>
+                        </div>
+                        <!-- 步骤3：报备量 -->
+                        <div class="funnel-step bg-gradient-to-r from-orange-500 to-orange-600 hover:scale-[1.02] cursor-pointer transition-transform" style="width: 70%; padding: 14px 20px; margin-left: auto;">
+                            <div class="flex-1">
+                                <div class="text-sm text-white/80">报备量</div>
+                                <strong class="text-xl">96</strong>
+                            </div>
+                            <div class="text-right text-xs text-white/70">
+                                <div>占线索 75.0%</div>
+                            </div>
+                        </div>
+                        <!-- 箭头 -->
+                        <div class="flex items-center justify-center my-1">
+                            <div class="bg-gray-100 px-3 py-1.5 rounded-full text-xs">
+                                <span class="text-orange-500 font-bold">↓ 60.4%</span>
+                            </div>
+                        </div>
+                        <!-- 步骤4：带看量 -->
+                        <div class="funnel-step bg-gradient-to-r from-purple-500 to-purple-600 hover:scale-[1.02] cursor-pointer transition-transform" style="width: 55%; padding: 14px 20px; margin-left: auto;">
+                            <div class="flex-1">
+                                <div class="text-sm text-white/80">带看量</div>
+                                <strong class="text-xl">58</strong>
+                            </div>
+                            <div class="text-right text-xs text-white/70">
+                                <div>占报备 60.4%</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="pl-6 ml-6 border-l border-gray-100">
-                        <div class="text-center p-3 bg-red-50 rounded-xl mb-3">
-                            <div class="text-xl font-bold text-danger">¥128</div>
-                            <div class="text-xs text-gray-500">获客成本</div>
-                            <div class="text-xs text-success">↓ 5.2%</div>
+                    <!-- 右侧详情 -->
+                    <div class="w-44 pl-6 ml-6 border-l border-gray-100 space-y-3">
+                        <div class="text-center p-4 bg-red-50 rounded-xl">
+                            <div class="text-2xl font-bold text-danger">¥128</div>
+                            <div class="text-xs text-gray-500 mt-1">获客成本</div>
+                            <div class="text-xs text-green-500 mt-1">↓ 较上月 -5.2%</div>
                         </div>
-                        <div class="text-xs text-gray-400 mb-2">转化率明细</div>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-500">咨询→线索</span>
-                                <span class="font-bold text-primary">33.2%</span>
+                        <div class="text-xs text-gray-400 mb-2 px-1">转化率明细</div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 bg-blue-50 rounded-lg">
+                                <span class="text-xs text-gray-500">咨询→线索</span>
+                                <span class="font-bold text-blue-500">33.2%</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-500">线索→报备</span>
-                                <span class="font-bold text-success">75.0%</span>
+                            <div class="flex justify-between items-center p-2 bg-green-50 rounded-lg">
+                                <span class="text-xs text-gray-500">线索→报备</span>
+                                <span class="font-bold text-green-500">75.0%</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-500">报备→带看</span>
-                                <span class="font-bold text-warning">60.4%</span>
+                            <div class="flex justify-between items-center p-2 bg-orange-50 rounded-lg">
+                                <span class="text-xs text-gray-500">报备→带看</span>
+                                <span class="font-bold text-orange-500">60.4%</span>
                             </div>
                         </div>
                     </div>
