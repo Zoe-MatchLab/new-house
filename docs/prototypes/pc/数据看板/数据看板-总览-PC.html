@@ -523,7 +523,7 @@
         </div>
 
         <!-- 3. 内容与运营 -->
-        <div class="grid grid-cols-3 gap-5 mb-6">
+        <div class="grid grid-cols-4 gap-5 mb-6">
             <!-- 内容发布 -->
             <div class="card p-5">
                 <div class="flex justify-between items-center mb-4">
@@ -599,6 +599,57 @@
                 </div>
             </div>
 
+            <!-- 探盘任务 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-cyan-100 text-cyan-600">🎯</div>
+                        探盘任务
+                    </div>
+                    <select class="bg-gray-50 border-0 rounded-lg px-2 py-1 text-xs">
+                        <option>本月</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-primary">856</div>
+                        <div class="mini-stat-label">任务总数</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-success">782</div>
+                        <div class="mini-stat-label">已完成</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-warning">68</div>
+                        <div class="mini-stat-label">超时</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-gray-400">6</div>
+                        <div class="mini-stat-label">待审核</div>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-gray-500">完成率</span>
+                        <span class="font-bold text-success">91.4%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value bg-success" style="width: 91.4%"></div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm mt-2">
+                        <span class="text-gray-500">超时率</span>
+                        <span class="font-bold text-warning">7.9%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value bg-warning" style="width: 7.9%"></div>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-gray-100 text-center">
+                    <span class="text-xs text-gray-400">超时预警：</span>
+                    <span class="text-xs text-danger">华东区域超时较多(18%)</span>
+                </div>
+            </div>
+
             <!-- 产品力成长 -->
             <div class="card p-5">
                 <div class="flex justify-between items-center mb-4">
@@ -610,42 +661,42 @@
                         <option>本月</option>
                     </select>
                 </div>
-                <div class="flex gap-4">
-                    <div class="w-24">
-                        <canvas id="radarChart" width="96" height="96"></canvas>
+                <div class="flex gap-3">
+                    <div class="w-20">
+                        <canvas id="radarChart" width="80" height="80"></canvas>
                     </div>
-                    <div class="flex-1 space-y-2">
-                        <div class="flex items-center justify-between">
+                    <div class="flex-1 space-y-1.5">
+                        <div class="flex items-center justify-between p-1.5 bg-orange-50 rounded">
                             <div class="flex items-center gap-2">
                                 <span class="ability-tag s4">S4</span>
                                 <span class="text-xs">全城专家</span>
                             </div>
-                            <span class="text-sm font-bold">328人</span>
+                            <span class="text-sm font-bold text-orange-500">328人</span>
                         </div>
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between p-1.5 bg-green-50 rounded">
                             <div class="flex items-center gap-2">
                                 <span class="ability-tag s3">S3</span>
                                 <span class="text-xs">行政区</span>
                             </div>
-                            <span class="text-sm font-bold">856人</span>
+                            <span class="text-sm font-bold text-green-500">856人</span>
                         </div>
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between p-1.5 bg-blue-50 rounded">
                             <div class="flex items-center gap-2">
                                 <span class="ability-tag s2">S2</span>
                                 <span class="text-xs">商圈专家</span>
                             </div>
-                            <span class="text-sm font-bold">1,562人</span>
+                            <span class="text-sm font-bold text-primary">1,562人</span>
                         </div>
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between p-1.5 bg-gray-100 rounded">
                             <div class="flex items-center gap-2">
                                 <span class="ability-tag s1">S1</span>
                                 <span class="text-xs">单盘专家</span>
                             </div>
-                            <span class="text-sm font-bold">2,153人</span>
+                            <span class="text-sm font-bold text-gray-500">2,153人</span>
                         </div>
                     </div>
                 </div>
-                <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between text-center">
+                <div class="mt-3 pt-3 border-t border-gray-100 flex justify-around text-center">
                     <div>
                         <div class="text-lg font-bold text-green-500">623</div>
                         <div class="text-xs text-gray-400">本月晋升</div>
