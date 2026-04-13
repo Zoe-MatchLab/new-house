@@ -511,44 +511,60 @@
             </div>
         </div>
 
-        <!-- ==================== 核心指标卡片 ==================== -->
-        <div class="grid grid-cols-4 gap-5 mb-6">
-            <div class="metric-card">
-                <div class="metric-label">本月带看组数</div>
-                <div class="metric-value mt-2">1,286</div>
-                <div class="metric-trend up">
-                    <i class="fa fa-arrow-up"></i> 12.5%
+        <!-- ======================================================= -->
+        <!-- ==================== 1. 核心指标 ==================== -->
+        <!-- ======================================================= -->
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center gap-3">
+                    <h2 class="text-lg font-bold text-dark">📊 核心指标</h2>
+                    <span class="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded">本月数据</span>
                 </div>
-                <div class="text-xs opacity-70 mt-2">较上月</div>
             </div>
-            <div class="metric-card success">
-                <div class="metric-label">本月成交单量</div>
-                <div class="metric-value mt-2">128</div>
-                <div class="metric-trend up">
-                    <i class="fa fa-arrow-up"></i> 8.3%
+            <div class="grid grid-cols-4 gap-5">
+                <div class="metric-card">
+                    <div class="metric-label">本月带看组数</div>
+                    <div class="metric-value mt-2">1,286</div>
+                    <div class="metric-trend up">
+                        <i class="fa fa-arrow-up"></i> 12.5%
+                    </div>
+                    <div class="text-xs opacity-70 mt-2">较上月</div>
                 </div>
-                <div class="text-xs opacity-70 mt-2">较上月</div>
-            </div>
-            <div class="metric-card warning">
-                <div class="metric-label">本月GMV</div>
-                <div class="metric-value mt-2">3.57<span class="text-lg">亿</span></div>
-                <div class="metric-trend up">
-                    <i class="fa fa-arrow-up"></i> 15.2%
+                <div class="metric-card success">
+                    <div class="metric-label">本月成交单量</div>
+                    <div class="metric-value mt-2">128</div>
+                    <div class="metric-trend up">
+                        <i class="fa fa-arrow-up"></i> 8.3%
+                    </div>
+                    <div class="text-xs opacity-70 mt-2">较上月</div>
                 </div>
-                <div class="text-xs opacity-70 mt-2">较上月</div>
-            </div>
-            <div class="metric-card danger">
-                <div class="metric-label">整体转化率</div>
-                <div class="metric-value mt-2">9.9%</div>
-                <div class="metric-trend down">
-                    <i class="fa fa-arrow-down"></i> 0.3%
+                <div class="metric-card warning">
+                    <div class="metric-label">本月GMV</div>
+                    <div class="metric-value mt-2">3.57<span class="text-lg">亿</span></div>
+                    <div class="metric-trend up">
+                        <i class="fa fa-arrow-up"></i> 15.2%
+                    </div>
+                    <div class="text-xs opacity-70 mt-2">较上月</div>
                 </div>
-                <div class="text-xs opacity-70 mt-2">较上月</div>
+                <div class="metric-card danger">
+                    <div class="metric-label">整体转化率</div>
+                    <div class="metric-value mt-2">9.9%</div>
+                    <div class="metric-trend down">
+                        <i class="fa fa-arrow-down"></i> 0.3%
+                    </div>
+                    <div class="text-xs opacity-70 mt-2">较上月</div>
+                </div>
             </div>
         </div>
 
-        <!-- ==================== 双漏斗区域 ==================== -->
-        <div class="grid grid-cols-2 gap-5 mb-6">
+        <!-- ======================================================= -->
+        <!-- ==================== 2. 业务漏斗 ==================== -->
+        <!-- ======================================================= -->
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-dark">🔄 业务漏斗</h2>
+            </div>
+            <div class="grid grid-cols-2 gap-5">
             <!-- 核心业务漏斗 -->
             <div class="card p-6">
                 <div class="flex justify-between items-center mb-4">
@@ -718,8 +734,14 @@
             </div>
         </div>
 
-        <!-- ==================== 三大指标模块 ==================== -->
-        <div class="grid grid-cols-3 gap-5 mb-6">
+        <!-- ======================================================= -->
+        <!-- ==================== 3. 内容与获客 ==================== -->
+        <!-- ======================================================= -->
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-dark">📝 内容与获客</h2>
+            </div>
+            <div class="grid grid-cols-3 gap-5">
             <!-- A. 内容发布 -->
             <div class="card p-6">
                 <div class="flex justify-between items-center mb-4">
@@ -1009,10 +1031,60 @@
                     </div>
                 </div>
             </div>
+            <!-- 获客转化 - 简化版 -->
+            <div class="card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title mb-0">🎯 B. 获客转化</div>
+                    <div class="flex items-center gap-2">
+                        <select id="acquireDeptFilter2" onchange="moduleFilterChanged('acquire')" class="appearance-none bg-white border border-gray-200 rounded-lg px-2 py-1.5 text-xs cursor-pointer hover:border-primary focus:border-primary focus:outline-none transition-colors">
+                            <option value="all">全部部门</option>
+                        </select>
+                        <select id="acquireTimeFilter2" onchange="moduleFilterChanged('acquire')" class="appearance-none bg-white border border-gray-200 rounded-lg px-2 py-1.5 text-xs cursor-pointer hover:border-primary focus:border-primary focus:outline-none transition-colors">
+                            <option value="month">本月</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-blue-50 rounded-xl">
+                        <div class="flex items-center gap-2">
+                            <i class="fa fa-comments-o text-blue-500"></i>
+                            <span class="text-sm font-medium">咨询量</span>
+                        </div>
+                        <span class="font-bold text-primary">386</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-xl">
+                        <div class="flex items-center gap-2">
+                            <i class="fa fa-user-o text-green-500"></i>
+                            <span class="text-sm font-medium">线索量</span>
+                        </div>
+                        <span class="font-bold text-success">128</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-orange-50 rounded-xl">
+                        <div class="flex items-center gap-2">
+                            <i class="fa fa-paper-plane-o text-orange-500"></i>
+                            <span class="text-sm font-medium">报备量</span>
+                        </div>
+                        <span class="font-bold text-warning">96</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-purple-50 rounded-xl">
+                        <div class="flex items-center gap-2">
+                            <i class="fa fa-map-marker text-purple-500"></i>
+                            <span class="text-sm font-medium">带看量</span>
+                        </div>
+                        <span class="font-bold text-purple-600">58</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- ==================== 老客盘活 + 内容产出结构 ==================== -->
-        <div class="grid grid-cols-2 gap-5 mb-6">
+        <!-- ======================================================= -->
+        <!-- ==================== 4. 运营分析 ==================== -->
+        <!-- ======================================================= -->
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-dark">📞 运营分析</h2>
+            </div>
+            <div class="grid grid-cols-2 gap-5">
             <!-- 约看-老客盘活运营 -->
             <div class="card p-6">
                 <div class="flex justify-between items-center mb-6">
@@ -1143,12 +1215,18 @@
             </div>
         </div>
 
-        <!-- ==================== 获客渠道分析 ==================== -->
-        <div class="grid grid-cols-2 gap-5 mb-6">
-            <!-- 获客渠道分析 -->
-            <div class="card p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="section-title mb-0">📱 获客渠道分析</div>
+        <!-- ======================================================= -->
+        <!-- ==================== 5. 获客渠道 ==================== -->
+        <!-- ======================================================= -->
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-dark">📱 获客渠道分析</h2>
+            </div>
+            <div class="grid grid-cols-2 gap-5">
+                <!-- 获客渠道分析 -->
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="section-title mb-0">📱 获客渠道分析</div>
                     <div class="flex items-center gap-2">
                         <select id="channelDeptFilter" onchange="moduleFilterChanged('channel')" class="appearance-none bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm cursor-pointer hover:border-primary focus:border-primary focus:outline-none transition-colors">
                             <option value="all">全部部门</option>
@@ -1303,8 +1381,14 @@
             </div>
         </div>
 
-        <!-- ==================== 趋势图 + 排名 ==================== -->
-        <div class="grid grid-cols-3 gap-5 mb-6">
+        <!-- ======================================================= -->
+        <!-- ==================== 6. 趋势与排名 ==================== -->
+        <!-- ======================================================= -->
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-dark">📈 趋势与排名</h2>
+            </div>
+            <div class="grid grid-cols-3 gap-5">
             <!-- 业绩趋势 -->
             <div class="card p-6">
                 <div class="flex justify-between items-start mb-4">
@@ -1414,6 +1498,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- ======================================================= -->
 
         <!-- ==================== 空状态与骨架屏示例 ==================== -->
         <div class="mt-8 p-6 bg-gray-100 rounded-xl">
