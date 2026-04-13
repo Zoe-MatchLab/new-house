@@ -77,12 +77,12 @@
 <aside class="w-64 bg-white h-[calc(100vh-56px)] fixed left-0 shadow-sm">
     <nav class="py-4">
         <div class="px-4 py-2 text-xs text-gray-400 uppercase font-medium">功能菜单</div>
-<a href="../material/new-house-list.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50"><i class="fa fa-building-o w-5 text-center"></i><span class="ml-3">新盘管理</span></a>
-<a href="../task/task-manage.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50"><i class="fa fa-tasks w-5 text-center"></i><span class="ml-3">探盘任务</span></a>
-<a href="../generation/material-generation.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50"><i class="fa fa-cubes w-5 text-center"></i><span class="ml-3">物料管理</span></a>
+<a href="../新盘管理/新盘管理-列表-PC.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50"><i class="fa fa-building-o w-5 text-center"></i><span class="ml-3">新盘管理</span></a>
+<a href="../探盘任务/探盘任务-列表.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50"><i class="fa fa-tasks w-5 text-center"></i><span class="ml-3">探盘任务</span></a>
+<a href="../物料生成管理/物料生成管理-列表.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50"><i class="fa fa-cubes w-5 text-center"></i><span class="ml-3">物料管理</span></a>
 <a href="录音分析-列表.html" class="flex items-center px-4 py-3 text-primary bg-blue-50 border-r-4 border-primary"><i class="fa fa-microphone w-5 text-center"></i><span class="ml-3">录音分析</span></a>
-<a href="../customer/customer-list.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50"><i class="fa fa-users w-5 text-center"></i><span class="ml-3">客户管理</span></a>
-<a href="../board/data-dashboard.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50"><i class="fa fa-line-chart w-5 text-center"></i><span class="ml-3">数据看板</span></a>
+<a href="../数据看板/数据看板-总览-PC.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50"><i class="fa fa-users w-5 text-center"></i><span class="ml-3">客户管理</span></a>
+<a href="../数据看板/数据看板-总览-PC.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50"><i class="fa fa-line-chart w-5 text-center"></i><span class="ml-3">数据看板</span></a>
     </nav>
 </aside>
 
@@ -95,17 +95,22 @@
                     <p class="text-gray-500 mt-1">V3.0 · 约看录音AI分析 · 支持播放 + 导出 + Drill-Down</p>
                 </div>
                 <div class="flex gap-2">
+                    <!-- 新增录音按钮 -->
+                    <button onclick="location.href='录音分析-上传.html'" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 flex items-center gap-2">
+                        <i class="fa fa-plus"></i>新增录音
+                    </button>
+                    <!-- 数据统计 -->
+                    <button onclick="location.href='录音分析-数据统计.html'" class="px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
+                        <i class="fa fa-bar-chart mr-1"></i>数据统计
+                    </button>
+                    <!-- 提示词配置 -->
+                    <button onclick="location.href='录音分析-提示词配置.html'" class="px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
+                        <i class="fa fa-gear mr-1"></i>提示词配置
+                    </button>
                     <!-- 导出按钮 + 下拉菜单 -->
                     <div class="relative" id="exportDropdownWrapper">
-                        <button id="exportBtn" class="text-sm text-gray-500 hover:text-primary border border-gray-300 rounded-lg px-3 py-2 flex items-center gap-1">
-                            <button onclick="location.href='录音分析-数据统计.html'" class="px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
-                                <i class="fa fa-bar-chart mr-1"></i>数据统计
-                            </button>
-                            <button onclick="location.href='录音分析-提示词配置.html'" class="px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
-                                <i class="fa fa-gear mr-1"></i>提示词配置
-                            </button>
-                            <button class="px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
-                                <i class="fa fa-download mr-1"></i>导出报告
+                        <button id="exportBtn" class="px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 flex items-center gap-1">
+                            <i class="fa fa-download mr-1"></i>导出报告
                             <i class="fa fa-angle-down text-xs ml-1"></i>
                         </button>
                         <div class="dropdown-menu" id="exportDropdown">
