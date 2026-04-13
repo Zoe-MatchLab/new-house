@@ -1672,7 +1672,7 @@
                         <button class="empty-btn secondary" onclick="showToast('刷新')">
                             <i class="fa fa-refresh"></i> 刷新
                         </button>
-                        <button class="empty-btn primary" onclick="location.href='../task/task-create.html'">
+                        <button class="empty-btn primary" onclick="location.href='../探盘任务/探盘任务-打卡配置.html'">
                             <i class="fa fa-plus"></i> 新建任务
                         </button>
                     </div>
@@ -2002,17 +2002,17 @@
             
             // 跳转到对应页面
             if (type === 'house') {
-                location.href = '../task/task-detail.html';
+                location.href = '../探盘任务/探盘任务-详情.html';
             } else if (type === 'train') {
-                location.href = 'speech-train.html';
+                location.href = '话术训练-原型.html';
             } else if (type === 'text') {
-                location.href = '../result/confirm-copywriter.html';
+                location.href = '#';
             } else if (type === 'video') {
-                location.href = '../result/submit-result.html';
+                location.href = '#';
             } else if (type === 'custom') {
-                location.href = '../task/task-create.html';
+                location.href = '../探盘任务/探盘任务-打卡配置.html';
             } else if (type === 'pending') {
-                location.href = '../task/checkin-config.html';
+                location.href = '../探盘任务/探盘任务-打卡配置.html';
             } else {
                 showToast('功能即将上线');
             }

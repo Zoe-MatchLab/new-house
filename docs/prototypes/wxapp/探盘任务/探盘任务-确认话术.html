@@ -705,7 +705,7 @@
         }
 
         function goBack() {
-            window.location.href = 'task-detail.html?step=2';
+            window.location.href = '探盘任务-详情.html?step=2';
         }
 
         function startGenerate() {
@@ -1029,7 +1029,7 @@
             showToast('确认提交' + selected + '文案');
             
             setTimeout(() => {
-                window.location.href = 'result-generate.html?step=3&selected=' + Array.from(selectedCopies).join(',');
+                window.location.href = '探盘任务-内容生成.html?step=3&selected=' + Array.from(selectedCopies).join(',');
             }, 1000);
         }
 
