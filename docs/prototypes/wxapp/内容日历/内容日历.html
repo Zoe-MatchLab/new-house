@@ -495,214 +495,13 @@
             font-size: 10px;
             padding: 2px 8px;
             border-radius: 10px;
-            font-weight: 600;
+            font-weight: 500;
             margin-left: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
         }
-        .task-status-badge.active { background: #FFF7E6; color: var(--brand-primary); border: 1px solid #FFD9A8; }
-        .task-status-badge.completed { background: #E8FFEA; color: var(--color-success); border: 1px solid #B6EFBC; }
-        .task-status-badge.overdue { background: #FFECE8; color: var(--color-danger); border: 1px solid #FFBDAD; }
-        .task-status-badge.pending { background: #F2F3F5; color: var(--color-sub); border: 1px solid #E5E6EB; }
-        .task-status-badge.not-started { background: #F2F3F5; color: var(--color-sub); border: 1px solid #E5E6EB; }
-        .task-status-badge.expiring { background: #FFF7E8; color: var(--color-warning); border: 1px solid #FFD9A8; }
-        .task-status-badge.urged { background: #FFE8E8; color: var(--color-danger); border: 1px solid #FFBDAD; animation: pulse-badge 1.5s infinite; }
-        
-        @keyframes pulse-badge {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        .task-status-badge .badge-icon { font-size: 8px; }
-        
-        /* ========== 新版探盘任务卡片布局 ========== */
-        .task-card {
-            background: var(--color-card);
-            border-radius: var(--radius-xl);
-            padding: var(--spacing-md);
-            margin-bottom: var(--spacing-md);
-            box-shadow: var(--shadow-sm);
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .task-card:active { transform: scale(0.98); }
-        
-        .task-card.type-house::before { background: var(--brand-primary); }
-        .task-card.type-train::before { background: var(--color-purple); }
-        .task-card.type-text::before { background: var(--color-info); }
-        .task-card.type-video::before { background: var(--color-success); }
-        .task-card.type-custom::before { background: var(--color-warning); }
-        .task-card.type-pending::before { background: var(--color-sub); }
-        
-        /* 卡片顶部 */
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--spacing-sm);
-        }
-        
-        .card-type-badge {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        
-        .card-type-badge.house { background: var(--brand-primary-light); color: var(--brand-primary); }
-        .card-type-badge.train { background: var(--color-purple-light); color: var(--color-purple); }
-        .card-type-badge.text { background: var(--color-info-light); color: var(--color-info); }
-        
-        .card-type-badge .type-icon {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-        }
-        
-        .card-type-badge.house .type-icon { background: var(--brand-primary); color: white; }
-        
-        /* 卡片标题 */
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--color-title);
-            margin-bottom: var(--spacing-sm);
-        }
-        
-        /* 卡片信息 */
-        .card-info {
-            display: flex;
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-md);
-        }
-        
-        .info-item {
-            font-size: 12px;
-            color: var(--color-sub);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .info-item.warning { color: var(--brand-primary); }
-        .info-item.danger { color: var(--color-danger); }
-        
-        /* 卡片进度 */
-        .card-progress {
-            margin-bottom: var(--spacing-md);
-        }
-        
-        .card-progress .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-        
-        .card-progress .progress-label {
-            font-size: 12px;
-            color: var(--color-text);
-            font-weight: 500;
-        }
-        
-        .card-progress .progress-value {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--brand-primary);
-        }
-        
-        .card-progress .progress-bar {
-            height: 6px;
-            background: var(--color-bg);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        
-        .card-progress .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--brand-primary), #FF9D2B);
-            border-radius: 3px;
-            transition: width 0.3s ease;
-        }
-        
-        /* 进度阶段 */
-        .card-stages {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-bottom: var(--spacing-md);
-            padding: var(--spacing-sm);
-            background: var(--color-bg);
-            border-radius: var(--radius-lg);
-        }
-        
-        .stage-pill {
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .stage-pill.done { background: var(--color-success-light); color: var(--color-success); }
-        .stage-pill.active { background: var(--brand-primary-light); color: var(--brand-primary); }
-        .stage-pill.pending { background: var(--color-bg); color: var(--color-sub); }
-        
-        .stage-pill.done i { font-size: 8px; }
-        
-        .stage-arrow {
-            color: var(--color-border);
-            font-size: 10px;
-        }
-        
-        /* 操作按钮 */
-        .card-actions {
-            display: flex;
-            gap: var(--spacing-sm);
-        }
-        
-        .action-btn {
-            flex: 1;
-            padding: 10px 8px;
-            border-radius: var(--radius-lg);
-            font-size: 12px;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            transition: all var(--transition-fast);
-        }
-        
-        .action-btn:active { transform: scale(0.96); }
-        
-        .action-btn.primary {
-            background: var(--brand-primary);
-            color: white;
-        }
-        
-        .action-btn.secondary {
-            background: var(--color-bg);
-            color: var(--color-text);
-            border: 1px solid var(--color-border);
-        }
-        
-        .action-btn i { font-size: 12px; }
+        .task-status-badge.active { background: #FFF7E6; color: var(--brand-primary); }
+        .task-status-badge.completed { background: #E8FFEA; color: var(--color-success); }
+        .task-status-badge.overdue { background: #FFECE8; color: var(--color-danger); }
+        .task-status-badge.pending { background: #F2F3F5; color: var(--color-sub); }
 
         .task-header {
             display: flex;
@@ -1424,59 +1223,75 @@
                     <span class="task-count">3个任务</span>
                 </div>
 
-                <!-- 探盘任务 - 进行中 - 新布局 -->
-                <div class="task-card type-house" onclick="location.href='../task/探盘任务-详情.html'">
-                    <!-- 卡片顶部 -->
-                    <div class="card-top">
-                        <div class="card-type-badge house">
+                <!-- 探盘任务 - 进行中 -->
+                <div class="task-card type-house">
+                    <div class="task-header">
+                        <div class="task-type">
                             <span class="type-icon house"><i class="fa fa-map-marker"></i></span>
-                            <span class="type-text house">探盘任务</span>
+                            <span class="type-text house">探盘</span>
                         </div>
-                        <span class="task-status-badge active"><i class="fa fa-circle badge-icon"></i>进行中</span>
+                        <div class="task-sponsor"><i class="fa fa-user"></i> 张三(发起人)</div>
+                        <span class="task-time warning">
+                            <i class="fa fa-clock-o"></i> 今日18:00
+                        </span>
                     </div>
+                    <div class="task-title">中海汇德里新盘探盘<span class="task-status-badge active">进行中</span></div>
                     
-                    <!-- 任务标题 -->
-                    <div class="card-title">中海汇德里新盘探盘</div>
-                    
-                    <!-- 任务信息 -->
-                    <div class="card-info">
-                        <span class="info-item"><i class="fa fa-map-marker"></i>上海市浦东新区</span>
-                        <span class="info-item warning"><i class="fa fa-clock-o"></i>今日18:00截止</span>
-                    </div>
-                    
-                    <!-- 探盘进度 -->
-                    <div class="card-progress">
-                        <div class="progress-header">
-                            <span class="progress-label">探盘进度</span>
-                            <span class="progress-value">3/4 完成</span>
+                    <!-- 探盘进度(4阶段) + 训练进度(3阶段) -->
+                    <div class="stage-group-row">
+                        <div class="stage-group">
+                            <div class="stage-group-label">探盘进度</div>
+                            <div class="stage-items">
+                                <div class="stage-item">
+                                    <span class="stage-name">打卡</span>
+                                    <div class="stage-bar"><div class="stage-fill done"></div></div>
+                                </div>
+                                <div class="stage-item">
+                                    <span class="stage-name">素材</span>
+                                    <div class="stage-bar"><div class="stage-fill done"></div></div>
+                                </div>
+                                <div class="stage-item">
+                                    <span class="stage-name">文案</span>
+                                    <div class="stage-bar"><div class="stage-fill generating" style="width: 60%;"></div></div>
+                                </div>
+                                <div class="stage-item">
+                                    <span class="stage-name">封面</span>
+                                    <div class="stage-bar"><div class="stage-fill pending"></div></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 75%;"></div>
+                        <div class="stage-group">
+                            <div class="stage-group-label">训练进度</div>
+                            <div class="stage-items">
+                                <div class="stage-item">
+                                    <span class="stage-name">阅读</span>
+                                    <div class="stage-bar"><div class="stage-fill done"></div></div>
+                                </div>
+                                <div class="stage-item">
+                                    <span class="stage-name">开始</span>
+                                    <div class="stage-bar"><div class="stage-fill active" style="width: 30%;"></div></div>
+                                </div>
+                                <div class="stage-item">
+                                    <span class="stage-name">完成</span>
+                                    <div class="stage-bar"><div class="stage-fill pending"></div></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- 进度阶段 -->
-                    <div class="card-stages">
-                        <div class="stage-pill done"><i class="fa fa-check"></i>打卡</div>
-                        <div class="stage-arrow"><i class="fa fa-angle-right"></i></div>
-                        <div class="stage-pill done"><i class="fa fa-check"></i>素材</div>
-                        <div class="stage-arrow"><i class="fa fa-angle-right"></i></div>
-                        <div class="stage-pill active">文案</div>
-                        <div class="stage-arrow"><i class="fa fa-angle-right"></i></div>
-                        <div class="stage-pill pending">封面</div>
+                    <!-- 生成中状态 -->
+                    <div class="generating-status show">
+                        <div class="generating-spinner"></div>
+                        <div class="generating-info">
+                            <div class="generating-text">阶段3 文案生成中 45%...</div>
+                            <div class="generating-progress">阶段4 封面/视频生成等待中</div>
+                        </div>
                     </div>
                     
-                    <!-- 操作按钮 -->
-                    <div class="card-actions">
-                        <button class="action-btn primary" onclick="event.stopPropagation();location.href='../task/探盘任务-详情.html'">
-                            <i class="fa fa-play"></i> 进入任务
-                        </button>
-                        <button class="action-btn secondary" onclick="event.stopPropagation();location.href='speech-train.html'">
-                            <i class="fa fa-microphone"></i> 话术训练
-                        </button>
-                        <button class="action-btn secondary" onclick="event.stopPropagation();location.href='../record/record-upload.html'">
-                            <i class="fa fa-volume-up"></i> 邀约录音
-                        </button>
+                    <div class="task-actions">
+                        <button class="task-btn task-btn-primary" onclick="location.href='../task/探盘任务-详情.html'">进入任务</button>
+                        <button class="task-btn task-btn-secondary" onclick="location.href='speech-train.html'">话术训练</button>
+                        <button class="task-btn task-btn-tertiary" onclick="location.href='../record/record-upload.html'">邀约录音</button>
                     </div>
                 </div>
 
