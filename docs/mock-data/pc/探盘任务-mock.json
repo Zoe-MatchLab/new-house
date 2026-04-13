@@ -1,0 +1,114 @@
+{
+  "list": [
+    {
+      "id": 1,
+      "propertyName": "龙湖·云景",
+      "propertyId": 1,
+      "subTasks": [
+        { "type": "rota", "label": "探盘路书", "required": true, "status": "in_progress" },
+        { "type": "training", "label": "话术训练", "required": false, "status": "pending" },
+        { "type": "record", "label": "约看录音", "required": false, "status": "pending" }
+      ],
+      "status": "progress",
+      "progress": { "completed": 18, "total": 30 },
+      "deadline": "2026-04-20T18:00:00Z",
+      "createdAt": "2026-04-13T10:00:00Z",
+      "reminders": [
+        { "level": "light", "hours": 24, "type": "notification", "triggered": false },
+        { "level": "medium", "hours": 12, "type": "sms", "triggered": false },
+        { "level": "severe", "hours": 2, "type": "call", "triggered": false }
+      ],
+      "executors": [
+        { "id": 101, "name": "张三", "dept": "朝阳区一组" },
+        { "id": 102, "name": "李四", "dept": "朝阳区二组" }
+      ],
+      "visibility": "all"
+    },
+    {
+      "id": 2,
+      "propertyName": "万科·翡翠公园",
+      "propertyId": 2,
+      "subTasks": [
+        { "type": "rota", "label": "探盘路书", "required": true, "status": "pending" },
+        { "type": "record", "label": "约看录音", "required": false, "status": "pending" }
+      ],
+      "status": "pending",
+      "progress": { "completed": 0, "total": 25 },
+      "deadline": "2026-04-25T18:00:00Z",
+      "createdAt": "2026-04-13T11:00:00Z",
+      "reminders": [
+        { "level": "light", "hours": 24, "type": "notification", "triggered": false }
+      ],
+      "executors": [
+        { "id": 103, "name": "王五", "dept": "海淀区一组" }
+      ],
+      "visibility": "dept"
+    },
+    {
+      "id": 3,
+      "propertyName": "中海·寰宇天下",
+      "propertyId": 3,
+      "subTasks": [
+        { "type": "rota", "label": "探盘路书", "required": true, "status": "expired" }
+      ],
+      "status": "expired",
+      "progress": { "completed": 9, "total": 30 },
+      "deadline": "2026-04-10T18:00:00Z",
+      "createdAt": "2026-04-05T10:00:00Z",
+      "reminders": [],
+      "executors": [
+        { "id": 104, "name": "赵六", "dept": "石景山区组" }
+      ],
+      "visibility": "all",
+      "expireReason": "任务逾期未完成"
+    },
+    {
+      "id": 4,
+      "propertyName": "华润·橡树湾",
+      "propertyId": 4,
+      "subTasks": [
+        { "type": "rota", "label": "探盘路书", "required": true, "status": "completed" },
+        { "type": "training", "label": "话术训练", "required": false, "status": "completed" },
+        { "type": "record", "label": "约看录音", "required": false, "status": "completed" }
+      ],
+      "status": "completed",
+      "progress": { "completed": 35, "total": 35 },
+      "deadline": "2026-04-08T18:00:00Z",
+      "createdAt": "2026-04-01T10:00:00Z",
+      "completedAt": "2026-04-08T15:30:00Z",
+      "reminders": [],
+      "executors": [
+        { "id": 105, "name": "钱七", "dept": "朝阳区三组" },
+        { "id": 106, "name": "孙八", "dept": "朝阳区三组" }
+      ],
+      "visibility": "all"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "pageSize": 20,
+    "total": 4,
+    "totalPages": 1
+  },
+  "statusOptions": [
+    { "value": "pending", "label": "待下发", "color": "#86909c" },
+    { "value": "progress", "label": "进行中", "color": "#165dff" },
+    { "value": "expired", "label": "已失效", "color": "#cf1322" },
+    { "value": "completed", "label": "已完成", "color": "#00b42a" }
+  ],
+  "subTaskTypes": [
+    { "type": "rota", "label": "探盘路书", "color": "#ff7d00", "bgColor": "#fff7e6" },
+    { "type": "training", "label": "话术训练", "color": "#165dff", "bgColor": "#e6f0ff" },
+    { "type": "record", "label": "约看录音", "color": "#722ed1", "bgColor": "#f9f0ff" }
+  ],
+  "reminderLevels": [
+    { "level": "light", "label": "轻度提醒", "color": "#86909c" },
+    { "level": "medium", "label": "中度提醒", "color": "#ff7d00" },
+    { "level": "severe", "label": "严重提醒", "color": "#cf1322" }
+  ],
+  "reminderTypes": [
+    { "value": "notification", "label": "推送通知" },
+    { "value": "sms", "label": "强提醒+短信" },
+    { "value": "call", "label": "强提醒+电话催办" }
+  ]
+}
