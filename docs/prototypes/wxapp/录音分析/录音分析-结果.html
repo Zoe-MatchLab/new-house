@@ -1065,32 +1065,33 @@
             }, 2000);
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        // 页面加载完成后初始化
+        window.onload = function() {
             renderResult();
             
             // 绑定录音转文本按钮
             var toggleBtn = document.getElementById('transcriptToggleBtn');
             if (toggleBtn) {
-                toggleBtn.addEventListener('click', toggleTranscript);
+                toggleBtn.onclick = toggleTranscript;
             }
             
             // 绑定更换客户按钮
             var changeBtn = document.getElementById('changeCustomerBtn');
             if (changeBtn) {
-                changeBtn.addEventListener('click', changeCustomer);
+                changeBtn.onclick = changeCustomer;
             }
             
             // 绑定确认弹窗按钮
             var closeBtn = document.getElementById('closeConfirmBtn');
             if (closeBtn) {
-                closeBtn.addEventListener('click', closeConfirmModal);
+                closeBtn.onclick = closeConfirmModal;
             }
             
             var confirmBtn = document.getElementById('confirmChangeBtn');
             if (confirmBtn) {
-                confirmBtn.addEventListener('click', confirmChangeCustomer);
+                confirmBtn.onclick = confirmChangeCustomer;
             }
-        });
+        };
     </script>
 </body>
 </html>
