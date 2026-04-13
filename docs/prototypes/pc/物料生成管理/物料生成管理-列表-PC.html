@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物料生成管理 - 房产AI作业平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        success: '#00B42A',
+                        warning: '#FF7D00',
+                        danger: '#F53F3F',
+                        purple: '#9B5DE5',
+                        dark: '#1D2129',
+                        'gray-light': '#F2F3F5',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <nav class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        <div class="flex justify-between items-center px-6 py-3">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-home text-primary text-2xl"></i>
+                <span class="text-xl font-bold text-dark">房产AI作业平台</span>
+                <span class="text-sm text-gray-500 ml-2">管理后台</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-600 hover:text-primary">
+                    <i class="fa fa-bell-o text-lg"></i>
+                </button>
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center">管</div>
+                    <span class="text-sm font-medium">区域经理</span>
+                    <i class="fa fa-angle-down text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex pt-14">
+        <!-- 侧边栏 -->
+        <aside class="w-64 bg-white h-[calc(100vh-56px)] fixed left-0 shadow-sm">
+            <nav class="py-4">
+                <div class="px-4 py-2 text-xs text-gray-400 uppercase font-medium">功能菜单</div>
+                <a href="../新盘管理/新盘管理-列表-PC.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                    <i class="fa fa-building-o w-5 text-center"></i>
+                    <span class="ml-3">新盘管理</span>
+                </a>
+                <a href="../探盘任务/探盘任务-原型-PC.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                    <i class="fa fa-tasks w-5 text-center"></i>
+                    <span class="ml-3">探盘任务</span>
+                </a>
+                <a href="物料生成管理-列表-PC.html" class="flex items-center px-4 py-3 text-primary bg-blue-50 border-r-4 border-primary">
+                    <i class="fa fa-cubes w-5 text-center"></i>
+                    <span class="ml-3">物料生成管理</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                    <i class="fa fa-microphone w-5 text-center"></i>
+                    <span class="ml-3">录音分析</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                    <i class="fa fa-users w-5 text-center"></i>
+                    <span class="ml-3">客户管理</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                    <i class="fa fa-line-chart w-5 text-center"></i>
+                    <span class="ml-3">数据看板</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="ml-64 flex-1 p-6">
+            <!-- 面包屑 -->
+            <div class="mb-4 text-sm">
+                <span class="text-gray-500">物料生成管理</span>
+            </div>
+
+            <!-- 页面标题 -->
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold text-dark">物料生成管理</h1>
+                <p class="text-gray-500 mt-1">统一管理探盘成果和AI生成内容</p>
+            </div>
+
+            <!-- 占位提示 -->
+            <div class="bg-white rounded-lg shadow-sm p-12 text-center">
+                <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa fa-cubes text-4xl text-gray-400"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 mb-2">物料生成管理</h2>
+                <p class="text-gray-500 mb-6">此页面正在规划中，暂不支持访问</p>
+                
+                <div class="bg-gray-50 rounded-lg p-6 max-w-md mx-auto text-left">
+                    <h3 class="font-medium text-gray-700 mb-3">预计功能：</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li><i class="fa fa-check text-success mr-2"></i>物料库（按楼盘查看）</li>
+                        <li><i class="fa fa-check text-success mr-2"></i>素材分类（类型/任务/楼盘/渠道）</li>
+                        <li><i class="fa fa-check text-success mr-2"></i>权限配置</li>
+                        <li><i class="fa fa-check text-success mr-2"></i>物料审核/筛选</li>
+                    </ul>
+                </div>
+
+                <div class="mt-6">
+                    <a href="../新盘管理/新盘管理-列表-PC.html" class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">
+                        <i class="fa fa-arrow-left mr-2"></i>
+                        返回新盘管理
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
