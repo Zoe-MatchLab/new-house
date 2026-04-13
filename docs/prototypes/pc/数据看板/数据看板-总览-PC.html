@@ -167,6 +167,31 @@
         .platform-gzh { background: #E8F3FF; color: #165DFF; }
         .platform-sph { background: #FFF3E6; color: #FF7D00; }
         .platform-pyq { background: #E8FFEA; color: #00B42A; }
+        .funnel-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .funnel-step {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            transition: all 0.3s;
+        }
+        .funnel-step span {
+            margin-right: 12px;
+        }
+        .funnel-arrow {
+            color: #86909C;
+            font-size: 12px;
+            font-weight: 500;
+            margin: 2px 0;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -298,38 +323,40 @@
                 <!-- 核心漏斗 -->
                 <div class="card p-5 mb-6">
                     <h3 class="font-bold text-dark mb-4">核心业务漏斗</h3>
-                    <div class="flex items-center justify-around py-4">
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-primary">3,856</div>
-                            <div class="text-gray-500 mt-1">报备数</div>
+                    <div class="flex items-center justify-center">
+                        <div class="flex flex-col items-center">
+                            <div class="funnel-box" style="width: 280px;">
+                                <div class="funnel-step bg-blue-500" style="width: 100%;">
+                                    <span>报备数</span>
+                                    <strong>3,856</strong>
+                                </div>
+                                <div class="funnel-arrow">↓ 33.3%</div>
+                                <div class="funnel-step bg-blue-400" style="width: 80%;">
+                                    <span>带看组数</span>
+                                    <strong>1,286</strong>
+                                </div>
+                                <div class="funnel-arrow">↓ 9.9%</div>
+                                <div class="funnel-step bg-green-500" style="width: 50%;">
+                                    <span>成交单量</span>
+                                    <strong>128</strong>
+                                </div>
+                            </div>
                         </div>
-                        <i class="fa fa-arrow-right text-gray-300 text-xl"></i>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-primary">1,286</div>
-                            <div class="text-gray-500 mt-1">带看组数</div>
-                        </div>
-                        <i class="fa fa-arrow-right text-gray-300 text-xl"></i>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-success">128</div>
-                            <div class="text-gray-500 mt-1">成交单量</div>
-                        </div>
-                        <div class="text-center border-l border-gray-200 pl-6 ml-4">
-                            <div class="text-3xl font-bold text-warning">9.9%</div>
-                            <div class="text-gray-500 mt-1">转化率</div>
-                        </div>
-                    </div>
-                    <div class="flex justify-center gap-8 mt-4 pt-4 border-t border-gray-100">
-                        <div class="text-sm">
-                            <span class="text-gray-500">报备→带看转化率：</span>
-                            <span class="font-bold text-primary">33.3%</span>
-                        </div>
-                        <div class="text-sm">
-                            <span class="text-gray-500">带看→成交转化率：</span>
-                            <span class="font-bold text-success">9.9%</span>
-                        </div>
-                        <div class="text-sm">
-                            <span class="text-gray-500">复访率：</span>
-                            <span class="font-bold text-warning">22.5%</span>
+                        <div class="ml-12 pl-8 border-l border-gray-200">
+                            <div class="space-y-4">
+                                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                    <div class="text-2xl font-bold text-blue-500">33.3%</div>
+                                    <div class="text-sm text-gray-500">报备转带看率</div>
+                                </div>
+                                <div class="text-center p-4 bg-green-50 rounded-lg">
+                                    <div class="text-2xl font-bold text-green-500">9.9%</div>
+                                    <div class="text-sm text-gray-500">带看转成交率</div>
+                                </div>
+                                <div class="text-center p-4 bg-orange-50 rounded-lg">
+                                    <div class="text-2xl font-bold text-orange-500">22.5%</div>
+                                    <div class="text-sm text-gray-500">复访率</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -620,30 +647,55 @@
                     </div>
                 </div>
 
-                <!-- 转化漏斗 -->
+                <!-- 获客转化漏斗 -->
                 <div class="card p-5 mb-6">
                     <h3 class="font-bold text-dark mb-4">获客转化漏斗</h3>
-                    <div class="flex items-center justify-around py-4">
-                        <div class="text-center">
-                            <div class="w-32 h-12 bg-blue-500 rounded flex items-center justify-center text-white font-bold">咨询量 386</div>
+                    <div class="flex items-center justify-center">
+                        <div class="flex flex-col items-center">
+                            <div class="funnel-box" style="width: 320px;">
+                                <div class="funnel-step bg-blue-500" style="width: 100%;">
+                                    <span>咨询量</span>
+                                    <strong>386</strong>
+                                </div>
+                                <div class="funnel-arrow">↓ 33.2%</div>
+                                <div class="funnel-step bg-green-500" style="width: 85%;">
+                                    <span>线索量</span>
+                                    <strong>128</strong>
+                                </div>
+                                <div class="funnel-arrow">↓ 75.0%</div>
+                                <div class="funnel-step bg-orange-500" style="width: 70%;">
+                                    <span>报备量</span>
+                                    <strong>96</strong>
+                                </div>
+                                <div class="funnel-arrow">↓ 60.4%</div>
+                                <div class="funnel-step bg-purple-500" style="width: 55%;">
+                                    <span>带看量</span>
+                                    <strong>58</strong>
+                                </div>
+                            </div>
                         </div>
-                        <i class="fa fa-arrow-right text-gray-300 text-xl"></i>
-                        <div class="text-center">
-                            <div class="w-28 h-12 bg-green-500 rounded flex items-center justify-center text-white font-bold">线索量 128</div>
+                        <div class="ml-12 pl-8 border-l border-gray-200">
+                            <div class="text-center p-4 bg-blue-50 rounded-lg mb-3">
+                                <div class="text-2xl font-bold text-blue-500">¥128</div>
+                                <div class="text-sm text-gray-500">获客成本</div>
+                                <div class="text-xs text-success mt-1">↓ 5.2%</div>
+                            </div>
+                            <div class="text-sm text-gray-500 mb-2">转化率明细：</div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span>咨询→线索</span>
+                                    <span class="font-bold text-primary">33.2%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>线索→报备</span>
+                                    <span class="font-bold text-success">75.0%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>报备→带看</span>
+                                    <span class="font-bold text-warning">60.4%</span>
+                                </div>
+                            </div>
                         </div>
-                        <i class="fa fa-arrow-right text-gray-300 text-xl"></i>
-                        <div class="text-center">
-                            <div class="w-24 h-12 bg-orange-500 rounded flex items-center justify-center text-white font-bold">报备量 96</div>
-                        </div>
-                        <i class="fa fa-arrow-right text-gray-300 text-xl"></i>
-                        <div class="text-center">
-                            <div class="w-20 h-12 bg-purple-500 rounded flex items-center justify-center text-white font-bold">带看量 58</div>
-                        </div>
-                    </div>
-                    <div class="flex justify-center gap-8 mt-4 pt-4 border-t border-gray-100 text-sm">
-                        <div><span class="text-gray-500">咨询→线索：</span><span class="font-bold text-primary">33.2%</span></div>
-                        <div><span class="text-gray-500">线索→报备：</span><span class="font-bold text-success">75.0%</span></div>
-                        <div><span class="text-gray-500">报备→带看：</span><span class="font-bold text-warning">60.4%</span></div>
                     </div>
                 </div>
 
@@ -661,83 +713,103 @@
 
             <!-- ==================== C. 产品力训练 ==================== -->
             <div id="tab-training" class="tab-content hidden">
-                <div class="grid grid-cols-3 gap-6 mb-6">
-                    <div class="card p-5 text-center">
-                        <h3 class="font-bold text-dark mb-4">🏅 专家占比</h3>
-                        <div class="h-48 mb-4">
-                            <canvas id="expertPieChart"></canvas>
+                <!-- 个人能力阶梯分布 + 团队能力占比 -->
+                <div class="grid grid-cols-2 gap-6 mb-6">
+                    <!-- 个人能力阶梯分布 -->
+                    <div class="card p-5">
+                        <h3 class="font-bold text-dark mb-4">🏅 个人能力阶梯分布</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <div class="flex items-center">
+                                        <span class="ability-tag s4 mr-2">S4</span>
+                                        <span class="text-sm text-gray-600">全城专家</span>
+                                    </div>
+                                    <span class="text-sm font-bold text-dark" id="abilityS4Count">328 人</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value bg-gradient-to-r from-orange-500 to-yellow-400" style="width: 8%"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-1">要求：全城90%以上楼盘得分≥80分</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <div class="flex items-center">
+                                        <span class="ability-tag s3 mr-2">S3</span>
+                                        <span class="text-sm text-gray-600">行政区专家</span>
+                                    </div>
+                                    <span class="text-sm font-bold text-dark" id="abilityS3Count">856 人</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value bg-gradient-to-r from-green-500 to-emerald-400" style="width: 22%"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-1">要求：所在行政区80%以上楼盘得分≥80分</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <div class="flex items-center">
+                                        <span class="ability-tag s2 mr-2">S2</span>
+                                        <span class="text-sm text-gray-600">商圈专家</span>
+                                    </div>
+                                    <span class="text-sm font-bold text-dark" id="abilityS2Count">1,562 人</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value" style="width: 40%; background: linear-gradient(90deg, #165DFF, #4080FF);"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-1">要求：所在商圈80%以上楼盘得分≥80分</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <div class="flex items-center">
+                                        <span class="ability-tag s1 mr-2">S1</span>
+                                        <span class="text-sm text-gray-600">单盘专家</span>
+                                    </div>
+                                    <span class="text-sm font-bold text-dark" id="abilityS1Count">2,153 人</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value bg-gradient-to-r from-gray-400 to-gray-500" style="width: 55%"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-1">要求：负责楼盘得分≥90分</p>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2 text-xs">
+                    </div>
+
+                    <!-- 团队能力占比 -->
+                    <div class="card p-5">
+                        <h3 class="font-bold text-dark mb-4">📊 团队能力占比</h3>
+                        <div class="h-56 mb-4">
+                            <canvas id="abilityPieChart"></canvas>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-center">
                             <div class="p-2 bg-red-50 rounded">
-                                <span class="ability-tag s1">S1</span> 单盘专家 <span class="font-bold">30%</span>
+                                <p class="text-xs text-gray-400">单盘专家占比</p>
+                                <p class="text-xl font-bold text-danger" id="s1Percent">55.2%</p>
                             </div>
                             <div class="p-2 bg-blue-50 rounded">
-                                <span class="ability-tag s2">S2</span> 商圈专家 <span class="font-bold">40%</span>
+                                <p class="text-xs text-gray-400">商圈专家占比</p>
+                                <p class="text-xl font-bold text-primary" id="s2Percent">39.8%</p>
                             </div>
                             <div class="p-2 bg-green-50 rounded">
-                                <span class="ability-tag s3">S3</span> 行政区专家 <span class="font-bold">22%</span>
+                                <p class="text-xs text-gray-400">行政区专家占比</p>
+                                <p class="text-xl font-bold text-success" id="s3Percent">21.9%</p>
                             </div>
                             <div class="p-2 bg-orange-50 rounded">
-                                <span class="ability-tag s4">S4</span> 全城专家 <span class="font-bold">8%</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card p-5 text-center">
-                        <h3 class="font-bold text-dark mb-4">📊 平均能力分</h3>
-                        <div class="text-center p-6">
-                            <div class="text-6xl font-bold text-primary mb-2">82.5</div>
-                            <div class="text-gray-500">团队整体能力均值</div>
-                            <div class="text-success mt-4">
-                                <i class="fa fa-arrow-up"></i> 较上月 +5.2%
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-gray-100">
-                            <div class="flex justify-between text-sm mb-2">
-                                <span class="text-gray-500">S4全城专家平均分</span>
-                                <span class="font-bold text-orange-500">95.2</span>
-                            </div>
-                            <div class="flex justify-between text-sm mb-2">
-                                <span class="text-gray-500">S3行政区专家平均分</span>
-                                <span class="font-bold text-green-500">88.6</span>
-                            </div>
-                            <div class="flex justify-between text-sm mb-2">
-                                <span class="text-gray-500">S2商圈专家平均分</span>
-                                <span class="font-bold text-blue-500">82.3</span>
-                            </div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-500">S1单盘专家平均分</span>
-                                <span class="font-bold text-gray-500">75.0</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card p-5 text-center">
-                        <h3 class="font-bold text-dark mb-4">📈 能力提升率</h3>
-                        <div class="text-center p-6">
-                            <div class="text-6xl font-bold text-success mb-2">12.8%</div>
-                            <div class="text-gray-500">较上一周期提升</div>
-                            <div class="text-success mt-4">
-                                <i class="fa fa-arrow-up"></i> 呈上升趋势
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-gray-100">
-                            <div class="flex justify-between text-sm mb-2">
-                                <span class="text-gray-500">本月晋升人数</span>
-                                <span class="font-bold text-primary">623人</span>
-                            </div>
-                            <div class="flex justify-between text-sm mb-2">
-                                <span class="text-gray-500">S2→S3晋升</span>
-                                <span class="font-bold text-success">128人</span>
-                            </div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-500">S3→S4晋升</span>
-                                <span class="font-bold text-success">36人</span>
+                                <p class="text-xs text-gray-400">全城专家占比</p>
+                                <p class="text-xl font-bold text-warning" id="s4Percent">8.4%</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- 能力晋升统计 -->
+                <div class="card p-5 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 mb-6">
+                    <p class="text-sm text-green-600">
+                        <i class="fa fa-arrow-up mr-2"></i> 
+                        本月共有<span id="promotionCount" class="font-bold">623</span>人完成能力等级晋升，其中128人从S2晋升到S3，36人从S3晋升到S4，整体能力成长速度同比提升<span id="promotionGrowth" class="font-bold">32</span>%。
+                    </p>
+                </div>
+
+                <!-- 能力趋势图 -->
                 <div class="card p-5">
                     <h3 class="font-bold text-dark mb-4">能力分步趋势</h3>
                     <canvas id="abilityTrendChart" height="200"></canvas>
@@ -866,26 +938,6 @@
                         }]
                     },
                     options: { responsive: true, plugins: { legend: { display: false } } }
-                });
-            }
-
-            // 专家占比饼图
-            const expertPieCtx = document.getElementById('expertPieChart');
-            if (expertPieCtx) {
-                new Chart(expertPieCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['S1单盘专家', 'S2商圈专家', 'S3行政区专家', 'S4全城专家'],
-                        datasets: [{
-                            data: [30, 40, 22, 8],
-                            backgroundColor: ['#86909C', '#165DFF', '#00B42A', '#FF7D00']
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { position: 'bottom' } }
-                    }
                 });
             }
 
