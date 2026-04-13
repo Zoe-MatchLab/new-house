@@ -166,6 +166,11 @@
         .ability-tag.high { background: #E8F3FF; color: #165DFF; }
         .ability-tag.mid { background: #F0F0F0; color: #4E5969; }
         .ability-tag.low { background: #FFF3E6; color: #86909C; }
+        .bg-dark-600 { background: #1f2937; }
+        .bg-dark-700 { background: #1a1f2e; }
+        .text-dark { color: #1D2129; }
+        .bg-dark-600 { background: #1f2937; }
+        .text-dark-600 { color: #1f2937; }
         .loading-skeleton {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
@@ -771,128 +776,115 @@
 
                 <!-- 产品力成长 -->
                 <div id="training-growth" class="training-subtab hidden">
-                    <div class="flex gap-2 mb-4">
-                        <span class="time-tab active">本周</span>
-                        <span class="time-tab" onclick="switchGrowthTime(this)">本月</span>
-                        <span class="time-tab" onclick="switchGrowthTime(this)">本季度</span>
-                        <span class="time-tab" onclick="switchGrowthTime(this)">自定义</span>
-                    </div>
-                    <div class="flex gap-2 mb-6">
-                        <button class="tab-btn active" onclick="switchGrowthTab(this, 'my')">我的</button>
-                        <button class="tab-btn" onclick="switchGrowthTab(this, 'team')">团队</button>
-                    </div>
-
-                    <!-- 核心指标 -->
-                    <div class="grid grid-cols-4 gap-4 mb-6">
-                        <div class="metric-card">
-                            <div class="metric-label">能力评分</div>
-                            <div class="flex items-end justify-between mt-2">
-                                <div class="metric-value">92</div>
-                                <span class="metric-trend up"><i class="fa fa-arrow-up"></i> 8分</span>
-                            </div>
-                            <div class="text-xs opacity-70 mt-2">较上周</div>
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex gap-2">
+                            <span class="time-tab active">本周</span>
+                            <span class="time-tab" onclick="switchGrowthTime(this)">本月</span>
+                            <span class="time-tab" onclick="switchGrowthTime(this)">本季度</span>
+                            <span class="time-tab" onclick="switchGrowthTime(this)">自定义</span>
                         </div>
-                        <div class="metric-card success">
-                            <div class="metric-label">掌握度</div>
-                            <div class="flex items-end justify-between mt-2">
-                                <div class="metric-value">88%</div>
-                                <span class="metric-trend up"><i class="fa fa-arrow-up"></i> 5%</span>
-                            </div>
-                            <div class="text-xs opacity-70 mt-2">较上周</div>
-                        </div>
-                        <div class="metric-card warning">
-                            <div class="metric-label">训练时长</div>
-                            <div class="flex items-end justify-between mt-2">
-                                <div class="metric-value">12.5h</div>
-                                <span class="metric-trend down"><i class="fa fa-arrow-down"></i> 2.3h</span>
-                            </div>
-                            <div class="text-xs opacity-70 mt-2">较上周</div>
-                        </div>
-                        <div class="metric-card danger">
-                            <div class="metric-label">训练人次</div>
-                            <div class="flex items-end justify-between mt-2">
-                                <div class="metric-value">156</div>
-                                <span class="metric-trend up"><i class="fa fa-arrow-up"></i> 23</span>
-                            </div>
-                            <div class="text-xs opacity-70 mt-2">较上周</div>
-                        </div>
+                        <select id="abilityFilter" class="border border-gray-300 rounded px-3 py-1.5 text-sm bg-white" onchange="filterAbilityData()">
+                            <option value="company" selected>全公司</option>
+                            <option value="east">华东区域</option>
+                            <option value="south">华南区域</option>
+                            <option value="north">华北区域</option>
+                        </select>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-6">
-                        <!-- 五维能力雷达图 -->
+                    <!-- 个人能力阶梯分布 + 团队能力占比 -->
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <!-- 个人能力阶梯分布 -->
                         <div class="card p-5">
-                            <h4 class="font-bold text-dark mb-4">能力评估报告</h4>
-                            <canvas id="radarChart" height="280"></canvas>
-                            <div class="grid grid-cols-5 gap-2 mt-4 text-center text-xs">
-                                <div><span class="text-primary font-bold">95</span><br><span class="text-gray-500">产品力</span></div>
-                                <div><span class="text-success font-bold">88</span><br><span class="text-gray-500">抗压能力</span></div>
-                                <div><span class="text-warning font-bold">92</span><br><span class="text-gray-500">沟通技巧</span></div>
-                                <div><span class="text-primary font-bold">90</span><br><span class="text-gray-500">业务熟悉度</span></div>
-                                <div><span class="text-gray-400 font-bold">87</span><br><span class="text-gray-500">销冠经验值</span></div>
+                            <h4 class="font-bold text-dark mb-4">🏅 个人能力阶梯分布</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <div class="flex items-center">
+                                            <span class="ability-tag elite mr-2">S4</span>
+                                            <span class="text-sm text-gray-600">全城专家</span>
+                                        </div>
+                                        <span class="text-sm font-bold text-dark" id="abilityS4Count">328 人</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-value bg-gradient-to-r from-orange-500 to-yellow-400" style="width: 8%"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-400 mt-1">要求：全城90%以上楼盘得分≥80分</p>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <div class="flex items-center">
+                                            <span class="ability-tag high mr-2">S3</span>
+                                            <span class="text-sm text-gray-600">行政区专家</span>
+                                        </div>
+                                        <span class="text-sm font-bold text-dark" id="abilityS3Count">856 人</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-value bg-gradient-to-r from-green-500 to-emerald-400" style="width: 22%"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-400 mt-1">要求：所在行政区80%以上楼盘得分≥80分</p>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <div class="flex items-center">
+                                            <span class="ability-tag mid mr-2">S2</span>
+                                            <span class="text-sm text-gray-600">商圈专家</span>
+                                        </div>
+                                        <span class="text-sm font-bold text-dark" id="abilityS2Count">1,562 人</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-value" style="width: 40%; background: linear-gradient(90deg, #FF7D00, #FFB84D);"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-400 mt-1">要求：所在商圈80%以上楼盘得分≥80分</p>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <div class="flex items-center">
+                                            <span class="ability-tag low mr-2">S1</span>
+                                            <span class="text-sm text-gray-600">单盘专家</span>
+                                        </div>
+                                        <span class="text-sm font-bold text-dark" id="abilityS1Count">2,153 人</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-value bg-gradient-to-r from-blue-500 to-blue-400" style="width: 55%"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-400 mt-1">要求：负责楼盘得分≥90分</p>
+                                </div>
                             </div>
                         </div>
-                        <!-- 能力分布 -->
+
+                        <!-- 团队能力占比 -->
                         <div class="card p-5">
-                            <h4 class="font-bold text-dark mb-4">能力分布</h4>
-                            <canvas id="abilityDistChart" height="200"></canvas>
-                            <div class="flex justify-around mt-4 pt-4 border-t border-gray-100">
-                                <div class="text-center">
-                                    <div class="ability-tag elite">销冠</div>
-                                    <div class="text-lg font-bold mt-1">15%</div>
+                            <h4 class="font-bold text-dark mb-4">📊 团队能力占比</h4>
+                            <div class="h-56 mb-4">
+                                <canvas id="abilityPieChart"></canvas>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-center">
+                                <div class="p-2 bg-red-50 rounded">
+                                    <p class="text-xs text-gray-400">单盘专家占比</p>
+                                    <p class="text-xl font-bold text-danger" id="s1Percent">55.2%</p>
                                 </div>
-                                <div class="text-center">
-                                    <div class="ability-tag high">高</div>
-                                    <div class="text-lg font-bold mt-1">35%</div>
+                                <div class="p-2 bg-orange-50 rounded">
+                                    <p class="text-xs text-gray-400">商圈专家占比</p>
+                                    <p class="text-xl font-bold text-warning" id="s2Percent">39.8%</p>
                                 </div>
-                                <div class="text-center">
-                                    <div class="ability-tag mid">中</div>
-                                    <div class="text-lg font-bold mt-1">40%</div>
+                                <div class="p-2 bg-green-50 rounded">
+                                    <p class="text-xs text-gray-400">行政区专家占比</p>
+                                    <p class="text-xl font-bold text-success" id="s3Percent">21.9%</p>
                                 </div>
-                                <div class="text-center">
-                                    <div class="ability-tag low">低</div>
-                                    <div class="text-lg font-bold mt-1">10%</div>
+                                <div class="p-2 bg-blue-50 rounded">
+                                    <p class="text-xs text-gray-400">全城专家占比</p>
+                                    <p class="text-xl font-bold text-primary" id="s4Percent">8.4%</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 进步幅度 -->
-                    <div class="card p-5 mt-6">
-                        <h4 class="font-bold text-dark mb-4">🏆 进步幅度排行</h4>
-                        <div class="flex gap-2 mb-4">
-                            <span class="time-tab active">较上周</span>
-                            <span class="time-tab" onclick="switchProgressTime(this)">较上月</span>
-                        </div>
-                        <div class="rank-item">
-                            <div class="rank-num top1">1</div>
-                            <div class="flex-1">
-                                <div class="font-medium">李娜</div>
-                                <div class="text-xs text-gray-500">华南区域</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-bold text-success">+15分</div>
-                            </div>
-                        </div>
-                        <div class="rank-item">
-                            <div class="rank-num top2">2</div>
-                            <div class="flex-1">
-                                <div class="font-medium">王强</div>
-                                <div class="text-xs text-gray-500">华北区域</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-bold text-success">+12分</div>
-                            </div>
-                        </div>
-                        <div class="rank-item">
-                            <div class="rank-num top3">3</div>
-                            <div class="flex-1">
-                                <div class="font-medium">张伟</div>
-                                <div class="text-xs text-gray-500">华东区域</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-bold text-success">+8分</div>
-                            </div>
-                        </div>
+                    <!-- 能力晋升统计 -->
+                    <div class="card p-5 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+                        <p class="text-sm text-green-600">
+                            <i class="fa fa-arrow-up mr-2"></i> 
+                            本月共有<span id="promotionCount" class="font-bold">623</span>人完成能力等级晋升，其中128人从S2晋升到S3，36人从S3晋升到S4，整体能力成长速度同比提升<span id="promotionGrowth" class="font-bold">32</span>%。
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1029,6 +1021,30 @@
             btn.classList.add('active');
         }
 
+        // 筛选能力数据
+        function filterAbilityData() {
+            const filter = document.getElementById('abilityFilter').value;
+            let data = {
+                'company': { s1: 2153, s2: 1562, s3: 856, s4: 328, promotion: 623, growth: 32 },
+                'east': { s1: 682, s2: 523, s3: 286, s4: 102, promotion: 198, growth: 28 },
+                'south': { s1: 756, s2: 489, s3: 312, s4: 125, promotion: 215, growth: 35 },
+                'north': { s1: 715, s2: 550, s3: 258, s4: 101, promotion: 210, growth: 31 }
+            };
+            
+            const selected = data[filter];
+            const total = selected.s1 + selected.s2 + selected.s3 + selected.s4;
+            document.getElementById('abilityS1Count').textContent = selected.s1.toLocaleString() + ' 人';
+            document.getElementById('abilityS2Count').textContent = selected.s2.toLocaleString() + ' 人';
+            document.getElementById('abilityS3Count').textContent = selected.s3.toLocaleString() + ' 人';
+            document.getElementById('abilityS4Count').textContent = selected.s4.toLocaleString() + ' 人';
+            document.getElementById('s1Percent').textContent = (selected.s1/total*100).toFixed(1) + '%';
+            document.getElementById('s2Percent').textContent = (selected.s2/total*100).toFixed(1) + '%';
+            document.getElementById('s3Percent').textContent = (selected.s3/total*100).toFixed(1) + '%';
+            document.getElementById('s4Percent').textContent = (selected.s4/total*100).toFixed(1) + '%';
+            document.getElementById('promotionCount').textContent = selected.promotion;
+            document.getElementById('promotionGrowth').textContent = selected.growth;
+        }
+
         // 刷新数据
         function refreshData() {
             alert('正在刷新数据...');
@@ -1084,51 +1100,28 @@
                 });
             }
 
-            // 五维能力雷达图
-            const radarCtx = document.getElementById('radarChart');
-            if (radarCtx) {
-                new Chart(radarCtx, {
-                    type: 'radar',
+            // 团队能力占比饼图
+            const abilityPieCtx = document.getElementById('abilityPieChart');
+            if (abilityPieCtx) {
+                new Chart(abilityPieCtx, {
+                    type: 'doughnut',
                     data: {
-                        labels: ['产品力', '抗压能力', '沟通技巧', '业务熟悉度', '销冠经验值'],
+                        labels: ['单盘专家S1', '商圈专家S2', '行政区专家S3', '全城专家S4'],
                         datasets: [{
-                            label: '能力评分',
-                            data: [95, 88, 92, 90, 87],
-                            backgroundColor: 'rgba(22, 93, 255, 0.2)',
-                            borderColor: '#165DFF',
-                            pointBackgroundColor: '#165DFF'
+                            data: [55.2, 39.8, 21.9, 8.4],
+                            backgroundColor: ['#F53F3F', '#FF7D00', '#00B42A', '#165DFF']
                         }]
                     },
                     options: {
                         responsive: true,
-                        scales: {
-                            r: {
-                                beginAtZero: true,
-                                max: 100
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    color: '#4E5969'
+                                }
                             }
-                        },
-                        plugins: { legend: { display: false } }
-                    }
-                });
-            }
-
-            // 能力分布柱状图
-            const abilityDistCtx = document.getElementById('abilityDistChart');
-            if (abilityDistCtx) {
-                new Chart(abilityDistCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['销冠', '高', '中', '低'],
-                        datasets: [{
-                            data: [15, 35, 40, 10],
-                            backgroundColor: ['#FF7D00', '#165DFF', '#00B42A', '#86909C']
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { display: false } },
-                        scales: {
-                            y: { beginAtZero: true, max: 50 }
                         }
                     }
                 });
