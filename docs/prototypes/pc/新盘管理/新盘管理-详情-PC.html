@@ -55,27 +55,27 @@
                 <aside class="w-64 bg-white h-[calc(100vh-56px)] fixed left-0 shadow-sm">
             <nav class="py-4">
                 <div class="px-4 py-2 text-xs text-gray-400 uppercase font-medium">功能菜单</div>
-                <a href="../material/new-house-list.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <a href="新盘管理-列表-PC.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
                     <i class="fa fa-building-o w-5 text-center"></i>
                     <span class="ml-3">新盘管理</span>
                 </a>
-                <a href="../task/task-manage.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <a href="../探盘任务/探盘任务-原型-PC.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
                     <i class="fa fa-tasks w-5 text-center"></i>
                     <span class="ml-3">探盘任务</span>
                 </a>
-                <a href="../generation/material-generation.html" class="flex items-center px-4 py-3 text-primary bg-blue-50 border-r-4 border-primary">
+                <a href="#" class="flex items-center px-4 py-3 text-primary bg-blue-50 border-r-4 border-primary">
                     <i class="fa fa-cubes w-5 text-center"></i>
                     <span class="ml-3">物料管理</span>
                 </a>
-                <a href="../record/record-list.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
                     <i class="fa fa-microphone w-5 text-center"></i>
                     <span class="ml-3">录音分析</span>
                 </a>
-                <a href="../customer/customer-list.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
                     <i class="fa fa-users w-5 text-center"></i>
                     <span class="ml-3">客户管理</span>
                 </a>
-                <a href="../board/data-dashboard.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
                     <i class="fa fa-line-chart w-5 text-center"></i>
                     <span class="ml-3">数据看板</span>
                 </a>
@@ -86,7 +86,7 @@
         <main class="ml-64 flex-1 p-6">
             <!-- 面包屑 -->
             <div class="mb-4 text-sm">
-                <a href="material-manage.html" class="text-primary hover:underline">新盘管理</a>
+                <a href="新盘管理-列表-PC.html" class="text-primary hover:underline">新盘管理</a>
                 <span class="mx-2 text-gray-400">/</span>
                 <span class="text-gray-500">楼盘详情</span>
             </div>
@@ -804,7 +804,7 @@
 
         // 编辑
         function editMaterial() {
-            window.location.href = 'material-edit.html?id=1';
+            window.location.href = '新盘管理-编辑-PC.html?id=1';
         }
 
         // 删除弹窗
@@ -827,7 +827,7 @@
             }
             if (confirm('确定要通过该楼盘的审核吗？')) {
                 alert('审核已通过，楼盘将进入待上线状态');
-                window.location.href = 'material-manage.html';
+                window.location.href = '新盘管理-列表-PC.html';
             }
         }
 
@@ -840,12 +840,12 @@
             }
             if (confirm('确定要驳回该楼盘的审核吗？')) {
                 alert('审核已驳回，原因：' + opinion);
-                window.location.href = 'material-manage.html';
+                window.location.href = '新盘管理-列表-PC.html';
             }
         }
 
         function confirmDelete() {
-            window.location.href = 'material-manage.html';
+            window.location.href = '新盘管理-列表-PC.html';
         }
 
         // 预览图片

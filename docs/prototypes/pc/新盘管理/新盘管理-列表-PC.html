@@ -57,27 +57,27 @@
                 <aside class="w-64 bg-white h-[calc(100vh-56px)] fixed left-0 shadow-sm">
             <nav class="py-4">
                 <div class="px-4 py-2 text-xs text-gray-400 uppercase font-medium">功能菜单</div>
-                <a href="../material/new-house-list.html" class="flex items-center px-4 py-3 text-primary bg-blue-50 border-r-4 border-primary">
+                <a href="新盘管理-列表-PC.html" class="flex items-center px-4 py-3 text-primary bg-blue-50 border-r-4 border-primary">
                     <i class="fa fa-building-o w-5 text-center"></i>
                     <span class="ml-3">新盘管理</span>
                 </a>
-                <a href="../task/task-manage.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <a href="../探盘任务/探盘任务-原型-PC.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
                     <i class="fa fa-tasks w-5 text-center"></i>
                     <span class="ml-3">探盘任务</span>
                 </a>
-                <a href="../generation/material-generation.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
                     <i class="fa fa-cubes w-5 text-center"></i>
                     <span class="ml-3">物料管理</span>
                 </a>
-                <a href="../record/record-list.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
                     <i class="fa fa-microphone w-5 text-center"></i>
                     <span class="ml-3">录音分析</span>
                 </a>
-                <a href="../customer/customer-list.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
                     <i class="fa fa-users w-5 text-center"></i>
                     <span class="ml-3">客户管理</span>
                 </a>
-                <a href="../board/data-dashboard.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
                     <i class="fa fa-line-chart w-5 text-center"></i>
                     <span class="ml-3">数据看板</span>
                 </a>
@@ -93,13 +93,13 @@
                     <p class="text-gray-500 mt-1">管理所有新盘项目全生命周期信息，支持创建、审核、上线操作</p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button onclick="window.location.href='material-edit.html'" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 flex items-center">
+                    <button onclick="window.location.href='新盘管理-编辑-PC.html'" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 flex items-center">
                         <i class="fa fa-plus mr-2"></i> 新建楼盘
                     </button>
                     <button onclick="openImportModal()" class="px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 flex items-center">
                         <i class="fa fa-upload mr-2"></i> 批量导入
                     </button>
-                    <button onclick="window.location.href='material-recycle.html'" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 flex items-center">
+                    <button onclick="window.location.href='新盘管理-回收站-PC.html'" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 flex items-center">
                         <i class="fa fa-trash-o mr-2"></i> 回收站
                     </button>
                 </div>
@@ -750,17 +750,17 @@
 
         // 查看详情
         function viewDetail(id) {
-            window.location.href = `material-detail.html?id=${id}`;
+            window.location.href = `新盘管理-详情-PC.html?id=${id}`;
         }
 
         // 编辑楼盘
         function editMaterial(id) {
-            window.location.href = `material-edit.html?id=${id}`;
+            window.location.href = `新盘管理-编辑-PC.html?id=${id}`;
         }
 
         // 打开上线配置
         function openLaunch(id) {
-            window.location.href = `material-launch.html?id=${id}`;
+            window.location.href = `新盘管理-上线配置-PC.html?id=${id}`;
         }
 
         // 提交审核（草稿→待审核）
@@ -777,7 +777,7 @@
 
         // 打开审核页面（跳转到详情页）
         function openAudit(id) {
-            window.location.href = `material-detail.html?id=${id}`;
+            window.location.href = `新盘管理-详情-PC.html?id=${id}`;
         }
 
         // 上线楼盘（审核通过/已下线→已上线）
@@ -816,7 +816,7 @@
         }
 
         function createMaterial() {
-            window.location.href = 'material-edit.html';
+            window.location.href = '新盘管理-编辑-PC.html';
         }
 
         // 批量导入弹窗
