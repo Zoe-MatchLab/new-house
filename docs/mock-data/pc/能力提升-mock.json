@@ -1,0 +1,110 @@
+{
+  "statistics": {
+    "trainingCount": 1258,
+    "trainingCountChange": 12,
+    "averageScore": 85.6,
+    "averageScoreChange": 3.2,
+    "passRate": 78,
+    "passRateChange": 5,
+    "expertCount": 30,
+    "expertRate": 35
+  },
+  "radarData": {
+    "overall": 86,
+    "dimensions": [
+      { "name": "产品熟悉度", "score": 92 },
+      { "name": "话术逻辑", "score": 88 },
+      { "name": "应变能力", "score": 85 },
+      { "name": "情绪把控", "score": 82 },
+      { "name": "客户需求挖掘", "score": 80 }
+    ]
+  },
+  "expertDistribution": [
+    { "level": "单盘专家", "count": 12, "rate": 40, "color": "#ff7d00" },
+    { "level": "商圈专家", "count": 8, "rate": 27, "color": "#165dff" },
+    { "level": "行政区专家", "count": 6, "rate": 20, "color": "#722ed1" },
+    { "level": "全城专家", "count": 4, "rate": 13, "color": "#00b42a" }
+  ],
+  "teamRanking": [
+    {
+      "rank": 1,
+      "name": "张三",
+      "overallScore": 92,
+      "productKnowledge": 95,
+      "speechLogic": 92,
+      "adaptability": 88,
+      "emotionControl": 90,
+      "level": "全城专家"
+    },
+    {
+      "rank": 2,
+      "name": "李四",
+      "overallScore": 88,
+      "productKnowledge": 90,
+      "speechLogic": 88,
+      "adaptability": 85,
+      "emotionControl": 86,
+      "level": "行政区专家"
+    },
+    {
+      "rank": 3,
+      "name": "王五",
+      "overallScore": 85,
+      "productKnowledge": 88,
+      "speechLogic": 85,
+      "adaptability": 82,
+      "emotionControl": 80,
+      "level": "商圈专家"
+    },
+    {
+      "rank": 4,
+      "name": "赵六",
+      "overallScore": 82,
+      "productKnowledge": 85,
+      "speechLogic": 82,
+      "adaptability": 78,
+      "emotionControl": 80,
+      "level": "单盘专家"
+    }
+  ],
+  "scenarios": [
+    { "value": "product_intro", "label": "产品介绍" },
+    { "value": "invitation", "label": "邀约客户" },
+    { "value": "first_visit", "label": "首次带看" },
+    { "value": "closing", "label": "逼定" },
+    { "value": "objection", "label": "异议处理" },
+    { "value": "competition", "label": "竞品对比" }
+  ],
+  "properties": [
+    { "id": 1, "name": "龙湖·云景" },
+    { "id": 2, "name": "万科·翡翠公园" },
+    { "id": 3, "name": "中海·寰宇天下" },
+    { "id": 4, "name": "华润·橡树湾" }
+  ],
+  "questionBanks": [
+    {
+      "id": 1,
+      "propertyName": "龙湖·云景",
+      "scenario": "产品介绍",
+      "questionCount": 15,
+      "operator": "张三",
+      "updateTime": "2026-04-10"
+    },
+    {
+      "id": 2,
+      "propertyName": "龙湖·云景",
+      "scenario": "异议处理",
+      "questionCount": 12,
+      "operator": "张三",
+      "updateTime": "2026-04-10"
+    },
+    {
+      "id": 3,
+      "propertyName": "万科·翡翠公园",
+      "scenario": "邀约客户",
+      "questionCount": 10,
+      "operator": "李四",
+      "updateTime": "2026-04-12"
+    }
+  ]
+}
