@@ -402,6 +402,16 @@
         .metric-card .text-white\/70 {
             color: rgba(255, 255, 255, 0.85) !important;
         }
+        
+        /* 筛选器下拉箭头 */
+        .filter-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: none;
+        }
+        .filter-select:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -832,68 +842,144 @@
 
             <!-- C. 产品力训练 -->
             <div class="card p-6">
-                <div class="section-title">
-                    🏆 C. 产品力训练
-                </div>
-                <!-- 五维能力雷达图 -->
-                <div class="mb-4">
-                    <canvas id="radarChart" width="300" height="300"></canvas>
-                </div>
-                <!-- 专家等级分布 -->
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="ability-tag s4">S4</span>
-                            <span class="text-xs text-gray-500">全城专家</span>
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title mb-0">🏆 产品力成长体系</div>
+                    <div class="flex items-center gap-3">
+                        <!-- 部门筛选 -->
+                        <div class="relative">
+                            <select id="deptFilter" onchange="filterChanged()" class="appearance-none bg-white border border-gray-200 rounded-lg px-3 py-2 pr-8 text-sm cursor-pointer hover:border-primary focus:border-primary focus:outline-none transition-colors">
+                                <option value="all">全部部门</option>
+                                <option value="hd">华东区域</option>
+                                <option value="hn">华南区域</option>
+                                <option value="hb">华北区域</option>
+                                <option value="xz">华中区域</option>
+                                <option value="xy">西南区域</option>
+                            </select>
+                            <i class="fa fa-angle-down absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full" style="width: 8%"></div>
-                            </div>
-                            <span class="text-xs font-medium w-8">8%</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="ability-tag s3">S3</span>
-                            <span class="text-xs text-gray-500">行政区专家</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-green-400 to-emerald-400 rounded-full" style="width: 22%"></div>
-                            </div>
-                            <span class="text-xs font-medium w-8">22%</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="ability-tag s2">S2</span>
-                            <span class="text-xs text-gray-500">商圈专家</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full" style="width: 40%"></div>
-                            </div>
-                            <span class="text-xs font-medium w-8">40%</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="ability-tag s1">S1</span>
-                            <span class="text-xs text-gray-500">单盘专家</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-gray-400 rounded-full" style="width: 30%"></div>
-                            </div>
-                            <span class="text-xs font-medium w-8">30%</span>
+                        <!-- 时间筛选 -->
+                        <div class="relative">
+                            <select id="timeFilterCap" onchange="filterChanged()" class="appearance-none bg-white border border-gray-200 rounded-lg px-3 py-2 pr-8 text-sm cursor-pointer hover:border-primary focus:border-primary focus:outline-none transition-colors">
+                                <option value="month">本月</option>
+                                <option value="quarter">本季</option>
+                                <option value="year">本年</option>
+                            </select>
+                            <i class="fa fa-angle-down absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 pt-3 border-t border-gray-100 text-center">
+                
+                <!-- 合并后的内容区 -->
+                <div class="flex gap-6">
+                    <!-- 左侧：五维能力雷达图 -->
+                    <div class="w-1/3">
+                        <div class="text-xs text-gray-400 mb-2 text-center">团队五维能力</div>
+                        <canvas id="radarChart" width="200" height="200"></canvas>
+                    </div>
+                    <!-- 中间：专家等级分布（合并后更详细） -->
+                    <div class="flex-1">
+                        <div class="text-xs text-gray-400 mb-3">专家等级分布</div>
+                        <div class="space-y-3">
+                            <!-- S4 -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <div class="flex items-center gap-2">
+                                        <span class="ability-tag s4">S4</span>
+                                        <span class="text-sm font-medium">全城专家</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="font-bold text-orange-500" id="s4CountHeader">328</span>
+                                        <span class="text-xs text-gray-400">人</span>
+                                        <span class="text-xs text-orange-400 ml-2">8%</span>
+                                    </div>
+                                </div>
+                                <div class="progress-bar h-3 rounded-lg">
+                                    <div class="h-full rounded-lg bg-gradient-to-r from-orange-400 to-yellow-400" style="width: 8%"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-1">要求：全城90%以上楼盘得分≥80分</p>
+                            </div>
+                            <!-- S3 -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <div class="flex items-center gap-2">
+                                        <span class="ability-tag s3">S3</span>
+                                        <span class="text-sm font-medium">行政区专家</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="font-bold text-green-500" id="s3CountHeader">856</span>
+                                        <span class="text-xs text-gray-400">人</span>
+                                        <span class="text-xs text-green-400 ml-2">22%</span>
+                                    </div>
+                                </div>
+                                <div class="progress-bar h-3 rounded-lg">
+                                    <div class="h-full rounded-lg bg-gradient-to-r from-green-400 to-emerald-400" style="width: 22%"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-1">要求：所在行政区80%以上楼盘得分≥80分</p>
+                            </div>
+                            <!-- S2 -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <div class="flex items-center gap-2">
+                                        <span class="ability-tag s2">S2</span>
+                                        <span class="text-sm font-medium">商圈专家</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="font-bold text-primary" id="s2CountHeader">1,562</span>
+                                        <span class="text-xs text-gray-400">人</span>
+                                        <span class="text-xs text-blue-400 ml-2">40%</span>
+                                    </div>
+                                </div>
+                                <div class="progress-bar h-3 rounded-lg">
+                                    <div class="h-full rounded-lg bg-gradient-to-r from-blue-400 to-blue-500" style="width: 40%"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-1">要求：所在商圈80%以上楼盘得分≥80分</p>
+                            </div>
+                            <!-- S1 -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <div class="flex items-center gap-2">
+                                        <span class="ability-tag s1">S1</span>
+                                        <span class="text-sm font-medium">单盘专家</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="font-bold text-gray-500" id="s1CountHeader">2,153</span>
+                                        <span class="text-xs text-gray-400">人</span>
+                                        <span class="text-xs text-gray-400 ml-2">30%</span>
+                                    </div>
+                                </div>
+                                <div class="progress-bar h-3 rounded-lg">
+                                    <div class="h-full rounded-lg bg-gray-400" style="width: 55%"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-1">要求：负责楼盘得分≥90分</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 右侧：团队能力占比饼图 -->
+                    <div class="w-32">
+                        <div class="text-xs text-gray-400 mb-2 text-center">团队占比</div>
+                        <canvas id="abilityPieChart" height="160"></canvas>
+                    </div>
+                </div>
+                
+                <!-- 晋升统计 -->
+                <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+                    <div class="flex items-center gap-6">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-500">623</div>
+                            <div class="text-xs text-gray-400">本月晋升</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-primary">4,899</div>
+                            <div class="text-xs text-gray-400">专家总数</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-warning">82.5</div>
+                            <div class="text-xs text-gray-400">平均分</div>
+                        </div>
+                    </div>
                     <div class="text-xs text-green-500">
                         <i class="fa fa-arrow-up mr-1"></i>
-                        本月晋升 623 人，同比 +32%
+                        同比 +32%
                     </div>
                 </div>
             </div>
@@ -1011,100 +1097,6 @@
             </div>
         </div>
 
-        <!-- ==================== 产品力详情 ==================== -->
-        <div class="grid grid-cols-2 gap-5">
-            <!-- 个人能力阶梯 -->
-            <div class="card p-6">
-                <div class="section-title">
-                    🎯 个人能力阶梯分布
-                </div>
-                <div class="space-y-4">
-                    <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <div class="flex items-center gap-2">
-                                <span class="ability-tag s4">S4</span>
-                                <span class="text-sm">全城专家</span>
-                            </div>
-                            <span class="font-bold" id="s4Count">328 人</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-value bg-gradient-to-r from-orange-400 to-yellow-400" style="width: 8%"></div>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-1">要求：全城90%以上楼盘得分≥80分</p>
-                    </div>
-                    <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <div class="flex items-center gap-2">
-                                <span class="ability-tag s3">S3</span>
-                                <span class="text-sm">行政区专家</span>
-                            </div>
-                            <span class="font-bold" id="s3Count">856 人</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-value bg-gradient-to-r from-green-400 to-emerald-400" style="width: 22%"></div>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-1">要求：所在行政区80%以上楼盘得分≥80分</p>
-                    </div>
-                    <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <div class="flex items-center gap-2">
-                                <span class="ability-tag s2">S2</span>
-                                <span class="text-sm">商圈专家</span>
-                            </div>
-                            <span class="font-bold" id="s2Count">1,562 人</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-value" style="width: 40%; background: linear-gradient(90deg, #165DFF, #4080FF);"></div>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-1">要求：所在商圈80%以上楼盘得分≥80分</p>
-                    </div>
-                    <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <div class="flex items-center gap-2">
-                                <span class="ability-tag s1">S1</span>
-                                <span class="text-sm">单盘专家</span>
-                            </div>
-                            <span class="font-bold" id="s1Count">2,153 人</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-value bg-gray-400" style="width: 55%"></div>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-1">要求：负责楼盘得分≥90分</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 团队能力占比 -->
-            <div class="card p-6">
-                <div class="section-title">
-                    📊 团队能力占比
-                </div>
-                <div class="flex items-center">
-                    <div class="w-1/2">
-                        <canvas id="abilityPieChart" height="220"></canvas>
-                    </div>
-                    <div class="w-1/2 pl-6 space-y-3">
-                        <div class="text-center p-3 bg-red-50 rounded-xl">
-                            <div class="text-2xl font-bold text-danger" id="s1Percent">55.2%</div>
-                            <div class="text-xs text-gray-500">单盘专家</div>
-                        </div>
-                        <div class="text-center p-3 bg-blue-50 rounded-xl">
-                            <div class="text-2xl font-bold text-primary" id="s2Percent">39.8%</div>
-                            <div class="text-xs text-gray-500">商圈专家</div>
-                        </div>
-                        <div class="text-center p-3 bg-green-50 rounded-xl">
-                            <div class="text-2xl font-bold text-success" id="s3Percent">21.9%</div>
-                            <div class="text-xs text-gray-500">行政区专家</div>
-                        </div>
-                        <div class="text-center p-3 bg-orange-50 rounded-xl">
-                            <div class="text-2xl font-bold text-warning" id="s4Percent">8.4%</div>
-                            <div class="text-xs text-gray-500">全城专家</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- ==================== 空状态与骨架屏示例 ==================== -->
         <div class="mt-8 p-6 bg-gray-100 rounded-xl">
             <div class="text-sm font-bold text-gray-500 mb-4">组件示例（空状态 & 骨架屏）</div>
@@ -1184,6 +1176,58 @@
             toast.style.backgroundColor = type === 'success' ? '#00B42A' : type === 'error' ? '#F53F3F' : '#165DFF';
             toast.innerHTML = `<i class="fa fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'} mr-2"></i>${message}`;
             document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.remove('translate-x-full'), 10);
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // 筛选变更处理
+        function filterChanged() {
+            const dept = document.getElementById('deptFilter').value;
+            const time = document.getElementById('timeFilterCap').value;
+            const btn = document.getElementById('refreshBtn');
+            
+            // 显示loading
+            if (btn) {
+                btn.classList.add('loading');
+                btn.disabled = true;
+                btn.innerHTML = '<span class="relative">筛选中...</span>';
+            }
+            
+            // 模拟筛选数据加载
+            setTimeout(() => {
+                if (btn) {
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa fa-refresh"></i>刷新数据';
+                }
+                showToast(`已切换至：${getDeptName(dept)} / ${getTimeName(time)}`, 'success');
+            }, 1000);
+        }
+        
+        function getDeptName(value) {
+            const names = {
+                'all': '全部部门',
+                'hd': '华东区域',
+                'hn': '华南区域',
+                'hb': '华北区域',
+                'xz': '华中区域',
+                'xy': '西南区域'
+            };
+            return names[value] || value;
+        }
+        
+        function getTimeName(value) {
+            const names = {
+                'month': '本月',
+                'quarter': '本季',
+                'year': '本年'
+            };
+            return names[value] || value;
+        }
             
             setTimeout(() => toast.classList.remove('translate-x-full'), 10);
             setTimeout(() => {
