@@ -387,10 +387,10 @@
         function calculateStages() {
             const current = taskData.currentStage;
             return [
-                { id: 1, name: '打卡', status: current >= 1 ? 'completed' : (current === 0 ? 'pending' : 'active'), time: current >= 1 ? '10:30:00' : '' },
-                { id: 2, name: '上传', status: current >= 2 ? 'completed' : (current >= 1 ? 'active' : 'pending') },
-                { id: 3, name: '文案确认', status: current >= 3 ? 'completed' : (current >= 2 ? 'active' : 'pending') },
-                { id: 4, name: '成果生成', status: current >= 4 ? 'completed' : (current >= 3 ? 'active' : 'pending') }
+                { id: 1, name: '点位资料收集', status: current >= 1 ? 'completed' : (current === 0 ? 'pending' : 'active'), time: current >= 1 ? '10:30:00' : '' },
+                
+                { id: 2, name: '内容生成', status: current >= 2 ? 'completed' : (current >= 1 ? 'active' : 'pending') },
+                { id: 3, name: '完成', status: current >= 3 ? 'completed' : (current >= 2 ? 'active' : 'pending') }
             ];
         }
 
@@ -488,26 +488,26 @@
                 } else if (stage.status === 'active') {
                     // 进行中阶段
                     if (stage.id === 1) {
-                        actionHtml = `<div class="stage-action" onclick="event.stopPropagation(); goCheckin()">去打卡 <i class="fa fa-angle-right"></i></div>`;
+                        actionHtml = `<div class="stage-action" onclick="event.stopPropagation(); goCheckin()">进入任务 <i class="fa fa-angle-right"></i></div>`;
                     } else if (stage.id === 2) {
                         actionHtml = `<div class="stage-action" onclick="event.stopPropagation(); goUpload()">进入上传 <i class="fa fa-angle-right"></i></div>`;
                     } else if (stage.id === 3) {
-                        actionHtml = `<div class="stage-action" onclick="event.stopPropagation(); goConfirm()">去确认 <i class="fa fa-angle-right"></i></div>`;
+                        actionHtml = `<div class="stage-action" onclick="event.stopPropagation(); goConfirm()">话术训练 <i class="fa fa-angle-right"></i></div>`;
                     } else if (stage.id === 4) {
-                        actionHtml = `<div class="stage-action" onclick="event.stopPropagation(); goResult()">查看成果 <i class="fa fa-angle-right"></i></div>`;
+                        actionHtml = `<div class="stage-action" onclick="event.stopPropagation(); goResult()">生成内容 <i class="fa fa-angle-right"></i></div>`;
                     }
                 } else if (stage.id === 1) {
                     descHtml = `<span class="stage-desc">请到达楼盘现场进行定位打卡</span>`;
-                    actionHtml = `<div class="stage-action" onclick="event.stopPropagation(); goCheckin()">去打卡 <i class="fa fa-angle-right"></i></div>`;
+                    actionHtml = `<div class="stage-action" onclick="event.stopPropagation(); goCheckin()">进入任务 <i class="fa fa-angle-right"></i></div>`;
                 } else if (stage.id === 2) {
                     descHtml = `<span class="stage-desc">请先完成定位打卡</span>`;
-                    actionHtml = `<div class="stage-action gray"><i class="fa fa-lock"></i> 需完成阶段1</div>`;
+                    actionHtml = `<div class="stage-action gray"><i class="fa fa-lock"></i> 需完成前置条件</div>`;
                 } else if (stage.id === 3) {
                     descHtml = `<span class="stage-desc">请先完成素材上传</span>`;
-                    actionHtml = `<div class="stage-action gray"><i class="fa fa-lock"></i> 需完成阶段2</div>`;
+                    actionHtml = `<div class="stage-action gray"><i class="fa fa-lock"></i> 需完成点位收集</div>`;
                 } else if (stage.id === 4) {
                     descHtml = `<span class="stage-desc">请先确认文案脚本</span>`;
-                    actionHtml = `<div class="stage-action gray"><i class="fa fa-lock"></i> 需完成阶段3</div>`;
+                    actionHtml = `<div class="stage-action gray"><i class="fa fa-lock"></i> 需完成内容生成</div>`;
                 }
 
                 card.innerHTML = `
@@ -535,20 +535,44 @@
             window.location.href = '../内容日历/内容日历.html';
         }
 
+        // ===== 导航函数 =====
+        
+        // 进入任务 - 阶段1：定位获取（前置校验）
         function goCheckin() {
-            window.location.href = '探盘任务-定位打卡.html';
+            // 模拟：后台主动获取位置并判断是否在范围内
+            // 实际项目中这里会调用 wx.getLocation() 或 navigator.geolocation
+            const isInRange = checkLocationBeforeEntry();
+            
+            if (!isInRange) {
+                // 不在范围内，提示用户原因，阻止进入
+                showToast('您不在打卡范围内，请先到达指定地点', 'error');
+                return;
+            }
+            
+            // 在范围内，进入阶段2：点位资料收集
+            window.location.href = '探盘任务-点位打卡.html?task=' + taskData.taskId + '&step=1';
+        }
+        
+        // 后台获取位置并判断是否在指定范围内
+        function checkLocationBeforeEntry() {
+            // 模拟数据：假设在范围内（实际项目中需要调用定位API）
+            // 返回 true = 在范围内，false = 不在范围内
+            const houseLng = 121.5441;  // 楼盘经度
+            const houseLat = 31.2214;   // 楼盘纬度
+            const checkRange = 500;     // 打卡范围500米
+            
+            // 模拟：90%概率在范围内
+            return Math.random() > 0.1;
         }
 
-        function goUpload() {
-            window.location.href = '探盘任务-点位打卡.html';
+        // 阶段2完成后的操作 - 跳转到内容生成
+        function goResult() {
+            window.location.href = '探盘任务-内容生成.html?task=' + taskData.taskId + '&step=2';
         }
 
+        // 话术训练（可选子任务）- 跳转到话术确认页面
         function goConfirm() {
             window.location.href = '探盘任务-确认话术.html';
-        }
-
-        function goResult() {
-            window.location.href = '探盘任务-内容生成.html';
         }
 
         // 更多菜单
