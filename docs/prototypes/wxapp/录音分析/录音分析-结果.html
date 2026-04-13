@@ -174,6 +174,63 @@
         .audio-wave.playing span:nth-child(10) { animation-delay: 0.14s; }
 
         /* 综合评分 */
+        /* 录音转文本 */
+        .transcript-card {
+            margin: 0 var(--spacing-md) var(--spacing-md);
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .transcript-content {
+            padding: 0 var(--spacing-md) var(--spacing-md);
+        }
+
+        .transcript-text {
+            background: var(--color-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--color-text);
+        }
+
+        .transcript-text p {
+            margin-bottom: 8px;
+        }
+
+        .transcript-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .transcript-text .speaker {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .transcript-text .speaker:first-child {
+            color: var(--brand-primary);
+        }
+
+        .transcript-text .speaker:last-child {
+            color: #34D399;
+        }
+
+        .transcript-toggle {
+            background: none;
+            border: none;
+            padding: 4px 8px;
+            cursor: pointer;
+            color: var(--color-sub);
+            transition: transform 0.3s;
+        }
+
+        .transcript-toggle.expanded {
+            transform: rotate(180deg);
+        }
+
+        /* 综合评分 */
         .score-card {
             margin: 0 var(--spacing-md) var(--spacing-md);
             background: white;
