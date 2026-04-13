@@ -719,7 +719,7 @@
             <div class="card-header">
                 <div class="card-icon" style="background:#E6F7FF;color:#1890FF"><i class="fa fa-file-text-o"></i></div>
                 <div class="card-title">录音转文本</div>
-                <button class="transcript-toggle" id="transcriptToggle" onclick="toggleTranscript()">
+                <button class="transcript-toggle" id="transcriptToggleBtn">
                     <i class="fa fa-chevron-down" id="transcriptIcon"></i>
                 </button>
             </div>
@@ -856,20 +856,20 @@
                         <div class="relation-phone" id="customerPhone">138****8821</div>
                     </div>
                 </div>
-                <button class="relation-change-btn" onclick="changeCustomer()">更换客户</button>
+                <button class="relation-change-btn" id="changeCustomerBtn">更换客户</button>
             </div>
         </div>
 
         <!-- 更换客户二次确认弹窗 -->
         <div class="confirm-modal" id="confirmModal">
-            <div class="confirm-overlay" onclick="closeConfirmModal()"></div>
+            <div class="confirm-overlay" id="closeConfirmBtn"></div>
             <div class="confirm-dialog">
                 <div class="confirm-icon danger"><i class="fa fa-exclamation-triangle"></i></div>
                 <div class="confirm-title">确认更换客户？</div>
                 <div class="confirm-desc">更换客户后，原客户与该录音的关联将解除，请确认是否继续操作。</div>
                 <div class="confirm-actions">
-                    <button class="confirm-btn cancel" onclick="closeConfirmModal()">取消</button>
-                    <button class="confirm-btn danger" onclick="confirmChangeCustomer()">确认更换</button>
+                    <button class="confirm-btn cancel" id="closeConfirmBtn">取消</button>
+                    <button class="confirm-btn danger" id="confirmChangeBtn">确认更换</button>
                 </div>
             </div>
         </div>
@@ -1065,7 +1065,32 @@
             }, 2000);
         }
 
-        document.addEventListener('DOMContentLoaded', renderResult);
+        document.addEventListener('DOMContentLoaded', function() {
+            renderResult();
+            
+            // 绑定录音转文本按钮
+            var toggleBtn = document.getElementById('transcriptToggleBtn');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleTranscript);
+            }
+            
+            // 绑定更换客户按钮
+            var changeBtn = document.getElementById('changeCustomerBtn');
+            if (changeBtn) {
+                changeBtn.addEventListener('click', changeCustomer);
+            }
+            
+            // 绑定确认弹窗按钮
+            var closeBtn = document.getElementById('closeConfirmBtn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeConfirmModal);
+            }
+            
+            var confirmBtn = document.getElementById('confirmChangeBtn');
+            if (confirmBtn) {
+                confirmBtn.addEventListener('click', confirmChangeCustomer);
+            }
+        });
     </script>
 </body>
 </html>
