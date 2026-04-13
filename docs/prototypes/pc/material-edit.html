@@ -136,6 +136,10 @@
                             <label class="block text-sm text-gray-600 mb-1">物业公司</label>
                             <input type="text" placeholder="选填" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
                         </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm text-gray-600 mb-1">物业公司介绍</label>
+                            <input type="text" placeholder="物业服务介绍" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
                         <div>
                             <label class="block text-sm text-gray-600 mb-1">物业费</label>
                             <div class="flex">
@@ -168,11 +172,36 @@
                             <input type="number" placeholder="15" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
                         </div>
                         <div>
+                            <label class="block text-sm text-gray-600 mb-1">最大楼间距</label>
+                            <div class="flex">
+                                <input type="number" placeholder="80" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm rounded-r-none">
+                                <span class="px-3 py-2 border border-l-0 border-gray-200 rounded-r-lg bg-gray-50 text-sm text-gray-500">米</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">预售证号</label>
+                            <input type="text" placeholder="京房售字XXXX号" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
                             <label class="block text-sm text-gray-600 mb-1">车位数量</label>
                             <input type="number" placeholder="1500" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">装修情况</label>
+                            <label class="block text-sm text-gray-600 mb-1">停车位配比</label>
+                            <input type="text" placeholder="1:1.2" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">人车分流</label>
+                            <select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                                <option value="">请选择</option>
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm text-gray-600 mb-1">开发商品牌介绍</label>
+                            <textarea rows="2" placeholder="开发商背景介绍" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"></textarea>
+                        </div>
                             <select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
                                 <option value="精装" selected>精装交付</option>
                                 <option value="毛坯">毛坯交付</option>
@@ -214,6 +243,10 @@
                         <div>
                             <label class="block text-sm text-gray-600 mb-1">经度</label>
                             <input type="text" placeholder="116.312" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">最近地铁线路</label>
+                            <input type="text" placeholder="4号线" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
                         </div>
                         <div>
                             <label class="block text-sm text-gray-600 mb-1">距离地铁</label>
@@ -391,26 +424,306 @@
                         <i class="fa fa-hospital-o text-orange mr-2"></i>
                         周边配套
                     </h3>
+                    
+                    <!-- 教育配套 -->
+                    <div class="mb-6">
+                        <h4 class="text-sm font-medium text-gray-700 mb-3 flex items-center">
+                            <i class="fa fa-graduation-cap text-primary mr-2"></i>教育配套
+                        </h4>
+                        <div class="grid grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">教育配套描述</label>
+                                <input type="text" placeholder="海淀区优质教育资源" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">最近幼儿园</label>
+                                <input type="text" placeholder="中关村幼儿园" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">幼儿园距离</label>
+                                <div class="flex">
+                                    <input type="number" placeholder="500" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm rounded-r-none">
+                                    <span class="px-3 py-2 border border-l-0 border-gray-200 rounded-r-lg bg-gray-50 text-sm text-gray-500">米</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">最近小学</label>
+                                <input type="text" placeholder="中关村小学" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">小学距离</label>
+                                <div class="flex">
+                                    <input type="number" placeholder="800" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm rounded-r-none">
+                                    <span class="px-3 py-2 border border-l-0 border-gray-200 rounded-r-lg bg-gray-50 text-sm text-gray-500">米</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">最近中学</label>
+                                <input type="text" placeholder="人大附中" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">中学距离</label>
+                                <div class="flex">
+                                    <input type="number" placeholder="1000" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm rounded-r-none">
+                                    <span class="px-3 py-2 border border-l-0 border-gray-200 rounded-r-lg bg-gray-50 text-sm text-gray-500">米</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 医疗配套 -->
+                    <div class="mb-6">
+                        <h4 class="text-sm font-medium text-gray-700 mb-3 flex items-center">
+                            <i class="fa fa-plus-square text-danger mr-2"></i>医疗配套
+                        </h4>
+                        <div class="grid grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">医疗配套描述</label>
+                                <input type="text" placeholder="周边医疗资源丰富" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">最近医院</label>
+                                <input type="text" placeholder="海淀医院" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">医院距离</label>
+                                <div class="flex">
+                                    <input type="number" placeholder="1200" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm rounded-r-none">
+                                    <span class="px-3 py-2 border border-l-0 border-gray-200 rounded-r-lg bg-gray-50 text-sm text-gray-500">米</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">最近三甲医院</label>
+                                <input type="text" placeholder="北京大学第三医院" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 商业配套 -->
+                    <div class="mb-6">
+                        <h4 class="text-sm font-medium text-gray-700 mb-3 flex items-center">
+                            <i class="fa fa-shopping-cart text-warning mr-2"></i>商业配套
+                        </h4>
+                        <div class="grid grid-cols-4 gap-4">
+                            <div class="col-span-2">
+                                <label class="block text-sm text-gray-600 mb-1">商业配套描述</label>
+                                <input type="text" placeholder="中关村商圈核心" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">最近大型商场</label>
+                                <input type="text" placeholder="中关村购物中心" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">商场距离</label>
+                                <div class="flex">
+                                    <input type="number" placeholder="300" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm rounded-r-none">
+                                    <span class="px-3 py-2 border border-l-0 border-gray-200 rounded-r-lg bg-gray-50 text-sm text-gray-500">米</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 公园配套 -->
+                    <div class="mb-6">
+                        <h4 class="text-sm font-medium text-gray-700 mb-3 flex items-center">
+                            <i class="fa fa-tree text-success mr-2"></i>公园配套
+                        </h4>
+                        <div class="grid grid-cols-4 gap-4">
+                            <div class="col-span-2">
+                                <label class="block text-sm text-gray-600 mb-1">公园配套描述</label>
+                                <input type="text" placeholder="周边公园环绕" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">最近公园</label>
+                                <input type="text" placeholder="中关村公园" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">公园距离</label>
+                                <div class="flex">
+                                    <input type="number" placeholder="200" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm rounded-r-none">
+                                    <span class="px-3 py-2 border border-l-0 border-gray-200 rounded-r-lg bg-gray-50 text-sm text-gray-500">米</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">2公里最大公园</label>
+                                <input type="text" placeholder="海淀公园" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">公园距离</label>
+                                <div class="flex">
+                                    <input type="number" placeholder="1500" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm rounded-r-none">
+                                    <span class="px-3 py-2 border border-l-0 border-gray-200 rounded-r-lg bg-gray-50 text-sm text-gray-500">米</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 楼盘特色 -->
+                <div class="bg-white rounded-lg shadow-sm p-6 section-card">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fa fa-diamond text-teal mr-2"></i>
+                        楼盘特色
+                    </h3>
                     <div class="grid grid-cols-4 gap-4">
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">教育配套</label>
-                            <input type="text" placeholder="人大附中、北大附小" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            <label class="block text-sm text-gray-600 mb-1">建筑风格</label>
+                            <input type="text" placeholder="现代简约" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">医疗配套</label>
-                            <input type="text" placeholder="北京大学第三医院" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            <label class="block text-sm text-gray-600 mb-1">是否有水系</label>
+                            <select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                                <option value="">请选择</option>
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
                         </div>
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">商业配套</label>
-                            <input type="text" placeholder="中关村购物中心" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            <label class="block text-sm text-gray-600 mb-1">园林设计团队</label>
+                            <input type="text" placeholder="山水比德" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-sm text-gray-600 mb-1">公园配套</label>
-                            <input type="text" placeholder="中关村公园、海淀公园" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                            <label class="block text-sm text-gray-600 mb-1">建筑设计团队</label>
+                            <input type="text" placeholder="梁志天设计" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
                         </div>
-                        <div class="col-span-4">
-                            <label class="block text-sm text-gray-600 mb-1">其他配套</label>
-                            <textarea rows="2" placeholder="请输入其他配套信息" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"></textarea>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">智能科技</label>
+                            <input type="text" placeholder="智能家居系统" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">环线位置</label>
+                            <select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                                <option value="">请选择</option>
+                                <option value="inner">内环</option>
+                                <option value="middle">中环</option>
+                                <option value="outer">外环</option>
+                                <option value="s15">五环内</option>
+                                <option value="s56">六环内</option>
+                            </select>
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm text-gray-600 mb-1">板块利好</label>
+                            <input type="text" placeholder="中关村科学城核心区" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 会所配套 -->
+                <div class="bg-white rounded-lg shadow-sm p-6 section-card">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fa fa-glass text-purple mr-2"></i>
+                        会所配套
+                    </h3>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">是否含自建商街</label>
+                            <select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                                <option value="">请选择</option>
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">自建商业体量</label>
+                            <input type="text" placeholder="3000㎡" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">是否有业主会所</label>
+                            <select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                                <option value="">请选择</option>
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm text-gray-600 mb-1">会所设施/特色</label>
+                            <input type="text" placeholder="健身房、游泳池、瑜伽室" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 价格动态 -->
+                <div class="bg-white rounded-lg shadow-sm p-6 section-card">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fa fa-line-chart text-warning mr-2"></i>
+                        价格动态
+                    </h3>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">首付（动态）</label>
+                            <div class="flex">
+                                <input type="text" placeholder="180万起" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm rounded-r-none">
+                                <span class="px-3 py-2 border border-l-0 border-gray-200 rounded-r-lg bg-gray-50 text-sm text-gray-500">万起</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">特价房（动态）</label>
+                            <input type="text" placeholder="限量特价房立减20万" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">工程进展（动态）</label>
+                            <select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                                <option value="">请选择</option>
+                                <option value="foundation">地基施工</option>
+                                <option value="structure">主体结构</option>
+                                <option value="封顶">封顶</option>
+                                <option value="毛坯">毛坯交付</option>
+                                <option value="精装">精装交付</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">看房专车</label>
+                            <input type="text" placeholder="免费班车接送" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 竞品信息 -->
+                <div class="bg-white rounded-lg shadow-sm p-6 section-card">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fa fa-balance-scale text-indigo mr-2"></i>
+                        竞品信息
+                    </h3>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">竞品二手房及均价</label>
+                            <input type="text" placeholder="XX小区 8.5万/㎡" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">竞品新房及均价</label>
+                            <input type="text" placeholder="XX公馆 9.2万/㎡" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目定位 -->
+                <div class="bg-white rounded-lg shadow-sm p-6 section-card">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fa fa-map-marker text-cyan mr-2"></i>
+                        项目定位
+                    </h3>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">项目定位</label>
+                            <input type="text" placeholder="高端改善型住宅" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">客群类型</label>
+                            <select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                                <option value="">请选择</option>
+                                <option value="刚性">刚需</option>
+                                <option value="改善">改善</option>
+                                <option value="投资">投资</option>
+                                <option value="终极">终极改善</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">客群画像关键词</label>
+                            <input type="text" placeholder="海淀码农、教育优先" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm text-gray-600 mb-1">客群描述</label>
+                            <textarea rows="2" placeholder="高学历、高收入、注重子女教育" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"></textarea>
                         </div>
                     </div>
                 </div>
