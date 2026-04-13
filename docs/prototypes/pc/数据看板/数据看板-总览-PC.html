@@ -716,8 +716,21 @@
         <div class="grid grid-cols-3 gap-5 mb-6">
             <!-- A. 内容发布 -->
             <div class="card p-6">
-                <div class="section-title">
-                    📝 A. 内容发布
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title mb-0">📝 A. 内容发布</div>
+                    <div class="flex items-center gap-2">
+                        <select id="contentDeptFilter" onchange="moduleFilterChanged('content')" class="appearance-none bg-gray-50 border-0 rounded-lg px-2 py-1.5 pr-6 text-xs cursor-pointer hover:bg-gray-100 focus:outline-none">
+                            <option value="all">全部部门</option>
+                            <option value="hd">华东</option>
+                            <option value="hn">华南</option>
+                            <option value="hb">华北</option>
+                        </select>
+                        <select id="contentTimeFilter" onchange="moduleFilterChanged('content')" class="appearance-none bg-gray-50 border-0 rounded-lg px-2 py-1.5 pr-6 text-xs cursor-pointer hover:bg-gray-100 focus:outline-none">
+                            <option value="month">本月</option>
+                            <option value="lastMonth">上月</option>
+                            <option value="quarter">本季</option>
+                        </select>
+                    </div>
                 </div>
                 <!-- 三个小指标 -->
                 <div class="grid grid-cols-3 gap-3 mb-4">
@@ -785,8 +798,21 @@
 
             <!-- B. 获客转化 -->
             <div class="card p-6">
-                <div class="section-title">
-                    🎯 B. 获客转化
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title mb-0">🎯 B. 获客转化</div>
+                    <div class="flex items-center gap-2">
+                        <select id="acquireDeptFilter" onchange="moduleFilterChanged('acquire')" class="appearance-none bg-gray-50 border-0 rounded-lg px-2 py-1.5 pr-6 text-xs cursor-pointer hover:bg-gray-100 focus:outline-none">
+                            <option value="all">全部部门</option>
+                            <option value="hd">华东</option>
+                            <option value="hn">华南</option>
+                            <option value="hb">华北</option>
+                        </select>
+                        <select id="acquireTimeFilter" onchange="moduleFilterChanged('acquire')" class="appearance-none bg-gray-50 border-0 rounded-lg px-2 py-1.5 pr-6 text-xs cursor-pointer hover:bg-gray-100 focus:outline-none">
+                            <option value="month">本月</option>
+                            <option value="lastMonth">上月</option>
+                            <option value="quarter">本季</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="space-y-3">
                     <div class="flex items-center justify-between p-3 bg-blue-50 rounded-xl">
@@ -847,7 +873,7 @@
                     <div class="flex items-center gap-3">
                         <!-- 部门筛选 -->
                         <div class="relative">
-                            <select id="deptFilter" onchange="filterChanged()" class="appearance-none bg-white border border-gray-200 rounded-lg px-3 py-2 pr-8 text-sm cursor-pointer hover:border-primary focus:border-primary focus:outline-none transition-colors">
+                            <select id="capabilityDeptFilter" onchange="moduleFilterChanged('capability')" class="appearance-none bg-white border border-gray-200 rounded-lg px-3 py-2 pr-8 text-sm cursor-pointer hover:border-primary focus:border-primary focus:outline-none transition-colors">
                                 <option value="all">全部部门</option>
                                 <option value="hd">华东区域</option>
                                 <option value="hn">华南区域</option>
@@ -859,7 +885,7 @@
                         </div>
                         <!-- 时间筛选 -->
                         <div class="relative">
-                            <select id="timeFilterCap" onchange="filterChanged()" class="appearance-none bg-white border border-gray-200 rounded-lg px-3 py-2 pr-8 text-sm cursor-pointer hover:border-primary focus:border-primary focus:outline-none transition-colors">
+                            <select id="capabilityTimeFilter" onchange="moduleFilterChanged('capability')" class="appearance-none bg-white border border-gray-200 rounded-lg px-3 py-2 pr-8 text-sm cursor-pointer hover:border-primary focus:border-primary focus:outline-none transition-colors">
                                 <option value="month">本月</option>
                                 <option value="quarter">本季</option>
                                 <option value="year">本年</option>
@@ -1184,10 +1210,10 @@
             }, 3000);
         }
         
-        // 筛选变更处理
+        // 筛选变更处理（全局筛选器）
         function filterChanged() {
-            const dept = document.getElementById('deptFilter').value;
-            const time = document.getElementById('timeFilterCap').value;
+            const dept = document.getElementById('regionFilter')?.value;
+            const time = document.getElementById('timeFilterCap')?.value || document.getElementById('timeFilter')?.value;
             const btn = document.getElementById('refreshBtn');
             
             // 显示loading
@@ -1204,29 +1230,71 @@
                     btn.disabled = false;
                     btn.innerHTML = '<i class="fa fa-refresh"></i>刷新数据';
                 }
-                showToast(`已切换至：${getDeptName(dept)} / ${getTimeName(time)}`, 'success');
+                const deptName = getDeptName(dept);
+                const timeName = getTimeName(time);
+                showToast(`全局筛选：${deptName} / ${timeName}`, 'success');
             }, 1000);
+        }
+        
+        // 模块级筛选变更处理
+        function moduleFilterChanged(module) {
+            let dept, time, moduleName;
+            
+            switch(module) {
+                case 'content':
+                    dept = document.getElementById('contentDeptFilter')?.value;
+                    time = document.getElementById('contentTimeFilter')?.value;
+                    moduleName = '内容发布';
+                    break;
+                case 'acquire':
+                    dept = document.getElementById('acquireDeptFilter')?.value;
+                    time = document.getElementById('acquireTimeFilter')?.value;
+                    moduleName = '获客转化';
+                    break;
+                case 'capability':
+                    dept = document.getElementById('capabilityDeptFilter')?.value;
+                    time = document.getElementById('capabilityTimeFilter')?.value;
+                    moduleName = '产品力';
+                    break;
+            }
+            
+            const btn = document.getElementById('refreshBtn');
+            if (btn) {
+                btn.classList.add('loading');
+                btn.disabled = true;
+                btn.innerHTML = '<span class="relative">筛选中...</span>';
+            }
+            
+            setTimeout(() => {
+                if (btn) {
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa fa-refresh"></i>刷新数据';
+                }
+                showToast(`${moduleName}：${getDeptName(dept)} / ${getTimeName(time)}`, 'success');
+            }, 800);
         }
         
         function getDeptName(value) {
             const names = {
                 'all': '全部部门',
-                'hd': '华东区域',
-                'hn': '华南区域',
-                'hb': '华北区域',
-                'xz': '华中区域',
-                'xy': '西南区域'
+                'hd': '华东',
+                'hn': '华南',
+                'hb': '华北',
+                'xz': '华中',
+                'xy': '西南'
             };
-            return names[value] || value;
+            return names[value] || value || '全部';
         }
         
         function getTimeName(value) {
             const names = {
                 'month': '本月',
+                'lastMonth': '上月',
                 'quarter': '本季',
                 'year': '本年'
             };
-            return names[value] || value;
+            return names[value] || value || '本月';
         }
             
             setTimeout(() => toast.classList.remove('translate-x-full'), 10);
