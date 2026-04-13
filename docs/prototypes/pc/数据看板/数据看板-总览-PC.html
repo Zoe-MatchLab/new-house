@@ -189,8 +189,134 @@
         .funnel-arrow {
             color: #86909C;
             font-size: 12px;
+            font-weight: 600;
+            margin: 4px 0;
+            background: #F7F8FA;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        /* Button states */
+        .export-btn:hover {
+            border-color: #165DFF;
+            color: #165DFF;
+            background: #EEF2FF;
+        }
+        .export-btn:active {
+            transform: scale(0.98);
+        }
+        .export-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .export-btn.loading {
+            pointer-events: none;
+        }
+        .export-btn.loading i {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* Tab transitions */
+        .tab-content {
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Card hover effects */
+        .card {
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #C5CBFF;
+        }
+        /* Skeleton loading */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        /* Empty state */
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .empty-state-icon {
+            font-size: 48px;
+            color: #C5CBFF;
+            margin-bottom: 16px;
+        }
+        .empty-state-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1D2129;
+            margin-bottom: 8px;
+        }
+        .empty-state-desc {
+            font-size: 14px;
+            color: #86909C;
+            margin-bottom: 20px;
+        }
+        /* Error state */
+        .error-state {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .error-state-icon {
+            font-size: 48px;
+            color: #F53F3F;
+            margin-bottom: 16px;
+        }
+        .error-state-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1D2129;
+            margin-bottom: 8px;
+        }
+        .error-state-desc {
+            font-size: 14px;
+            color: #86909C;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background: #165DFF;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 500;
-            margin: 2px 0;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            background: #0E42D2;
+        }
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        .btn-secondary {
+            background: white;
+            color: #165DFF;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid #165DFF;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover {
+            background: #EEF2FF;
         }
     </style>
 </head>
@@ -825,25 +951,75 @@
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const targetContent = document.getElementById('tab-' + tabId);
+            targetContent.classList.remove('hidden');
+            // Re-init charts for the tab
+            initChartsForTab(tabId);
         }
 
-        // 刷新数据
-        function refreshData() {
-            alert('正在刷新数据...');
+        // 模拟加载状态
+        function showLoading() {
+            const btn = event.target.closest('button');
+            btn.classList.add('loading');
+            btn.innerHTML = '<i class="fa fa-spinner mr-1"></i>加载中...';
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.innerHTML = '<i class="fa fa-refresh mr-1"></i>刷新';
+            }, 2000);
         }
 
-        // 导出数据
-        function exportData(format) {
-            alert('正在导出' + format.toUpperCase() + '...');
+        // 空状态展示
+        function showEmptyState(containerId) {
+            return `
+                <div class="empty-state">
+                    <div class="empty-state-icon"><i class="fa fa-inbox"></i></div>
+                    <div class="empty-state-title">暂无数据</div>
+                    <div class="empty-state-desc">数据将在次日0点更新，请稍后查看</div>
+                    <button class="btn-secondary" onclick="retryLoad()">重新加载</button>
+                </div>
+            `;
         }
 
-        // 初始化图表
-        document.addEventListener('DOMContentLoaded', function() {
+        // 错误状态展示
+        function showErrorState(containerId) {
+            return `
+                <div class="error-state">
+                    <div class="error-state-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                    <div class="error-state-title">数据加载失败</div>
+                    <div class="error-state-desc">请检查网络连接后重试</div>
+                    <button class="btn-primary" onclick="retryLoad()">重新加载</button>
+                </div>
+            `;
+        }
+
+        // 重试加载
+        function retryLoad() {
+            alert('正在重新加载数据...');
+        }
+
+        // 图表初始化（按Tab）
+        let chartInstances = {};
+        function initChartsForTab(tabId) {
+            // 销毁旧图表实例
+            Object.values(chartInstances).forEach(chart => chart.destroy());
+            chartInstances = {};
+            
+            if (tabId === 'overview') {
+                initOverviewCharts();
+            } else if (tabId === 'content') {
+                initContentCharts();
+            } else if (tabId === 'conversion') {
+                initConversionCharts();
+            } else if (tabId === 'training') {
+                initTrainingCharts();
+            }
+        }
+
+        function initOverviewCharts() {
             // 业绩趋势图
             const revenueCtx = document.getElementById('revenueChart');
             if (revenueCtx) {
-                new Chart(revenueCtx, {
+                chartInstances.revenue = new Chart(revenueCtx, {
                     type: 'line',
                     data: {
                         labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
@@ -853,17 +1029,23 @@
                             borderColor: '#165DFF',
                             backgroundColor: 'rgba(22, 93, 255, 0.1)',
                             fill: true,
-                            tension: 0.4
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
                         }]
                     },
-                    options: { responsive: true, plugins: { legend: { display: false } } }
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: false } },
+                        interaction: { intersect: false, mode: 'index' }
+                    }
                 });
             }
 
             // 带看趋势图
             const visitCtx = document.getElementById('visitChart');
             if (visitCtx) {
-                new Chart(visitCtx, {
+                chartInstances.visit = new Chart(visitCtx, {
                     type: 'bar',
                     data: {
                         labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
@@ -872,11 +1054,12 @@
                     options: { responsive: true, plugins: { legend: { display: false } } }
                 });
             }
+        }
 
-            // 发布量趋势
+        function initContentCharts() {
             const contentTrendCtx = document.getElementById('contentTrendChart');
             if (contentTrendCtx) {
-                new Chart(contentTrendCtx, {
+                chartInstances.contentTrend = new Chart(contentTrendCtx, {
                     type: 'line',
                     data: {
                         labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
@@ -891,10 +1074,9 @@
                 });
             }
 
-            // 浏览量趋势
             const viewTrendCtx = document.getElementById('viewTrendChart');
             if (viewTrendCtx) {
-                new Chart(viewTrendCtx, {
+                chartInstances.viewTrend = new Chart(viewTrendCtx, {
                     type: 'bar',
                     data: {
                         labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
@@ -903,11 +1085,12 @@
                     options: { responsive: true, plugins: { legend: { display: false } } }
                 });
             }
+        }
 
-            // 转化率趋势
+        function initConversionCharts() {
             const conversionTrendCtx = document.getElementById('conversionTrendChart');
             if (conversionTrendCtx) {
-                new Chart(conversionTrendCtx, {
+                chartInstances.conversionTrend = new Chart(conversionTrendCtx, {
                     type: 'line',
                     data: {
                         labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
@@ -921,10 +1104,9 @@
                 });
             }
 
-            // 获客成本趋势
             const costTrendCtx = document.getElementById('costTrendChart');
             if (costTrendCtx) {
-                new Chart(costTrendCtx, {
+                chartInstances.costTrend = new Chart(costTrendCtx, {
                     type: 'line',
                     data: {
                         labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
@@ -934,17 +1116,39 @@
                             borderColor: '#F53F3F',
                             backgroundColor: 'rgba(245, 63, 63, 0.1)',
                             fill: true,
-                            tension: 0.4
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
                         }]
                     },
                     options: { responsive: true, plugins: { legend: { display: false } } }
                 });
             }
+        }
 
-            // 能力分步趋势
+        function initTrainingCharts() {
+            const abilityPieCtx = document.getElementById('abilityPieChart');
+            if (abilityPieCtx) {
+                chartInstances.abilityPie = new Chart(abilityPieCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['S1单盘专家', 'S2商圈专家', 'S3行政区专家', 'S4全城专家'],
+                        datasets: [{
+                            data: [55.2, 39.8, 21.9, 8.4],
+                            backgroundColor: ['#86909C', '#165DFF', '#00B42A', '#FF7D00']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' } }
+                    }
+                });
+            }
+
             const abilityTrendCtx = document.getElementById('abilityTrendChart');
             if (abilityTrendCtx) {
-                new Chart(abilityTrendCtx, {
+                chartInstances.abilityTrend = new Chart(abilityTrendCtx, {
                     type: 'line',
                     data: {
                         labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
@@ -956,6 +1160,21 @@
                     options: { responsive: true }
                 });
             }
+        }
+
+        // 刷新数据
+        function refreshData() {
+            alert('正在刷新数据...');
+        }
+
+        // 导出数据
+        function exportData(format) {
+            alert('正在导出' + format.toUpperCase() + '...');
+        }
+
+        // 初始化图表
+        document.addEventListener('DOMContentLoaded', function() {
+            initOverviewCharts();
         });
     </script>
 </body>
