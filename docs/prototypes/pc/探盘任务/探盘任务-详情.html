@@ -157,9 +157,9 @@
                     <div class="flex items-center text-sm text-gray-500 mb-2">
                         <a href="material-list.html" class="hover:text-primary">探盘任务</a>
                         <i class="fa fa-angle-right mx-2 text-xs"></i>
-                        <span>探盘任务配置</span>
+                        <span>任务详情</span>
                     </div>
-                    <h1 class="text-2xl font-bold mb-1">📦 中海汇德里 - 探盘任务配置</h1>
+                    <h1 class="text-2xl font-bold mb-1">📦 中海汇德里 - 任务详情</h1>
                     <div class="flex items-center gap-3 mt-2">
                         <span class="tag tag-success">已上线</span>
                         <span class="text-sm text-gray-500">楼盘ID：PROP-20260326-001</span>
@@ -282,7 +282,7 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="text-sm text-gray-500">总开关</span>
-                            <label class="switch"><input type="checkbox" id="routebook-master" checked onchange="toggleRoutebookMaster(this)"><span class="slider"></span></label>
+                            <label class="switch" style="opacity:0.5;pointer-events:none"><input type="checkbox" disabled id="routebook-master" checked onchange="toggleRoutebookMaster(this)"><span class="slider"></span></label>
                         </div>
                     </div>
                     <div id="routebook-detail-container" class="section-body space-y-5">
@@ -298,7 +298,7 @@
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">打卡范围</label>
                                         <div class="flex items-center">
-                                            <input type="number" class="w-24 border border-gray-300 rounded-lg px-3 py-2 text-sm text-center" value="200" min="50">
+                                            <input type="number" readonly class="w-24 border border-gray-300 rounded-lg px-3 py-2 text-sm text-center" value="200" min="50">
                                             <span class="ml-2 text-sm text-gray-500">米</span>
                                         </div>
                                     </div>
@@ -332,16 +332,16 @@
                                 <!-- 补卡配置 -->
                                 <div class="flex items-center justify-between">
                                     <span class="text-sm font-medium">允许补卡</span>
-                                    <label class="switch"><input type="checkbox" id="allow-makeup" onchange="toggleMakeup(this)"><span class="slider"></span></label>
+                                    <label class="switch" style="opacity:0.5;pointer-events:none"><input type="checkbox" disabled id="allow-makeup" onchange="toggleMakeup(this)"><span class="slider"></span></label>
                                 </div>
                                 <div id="makeup-config" class="hidden grid grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-xs text-gray-500 mb-1">补卡时限（小时）</label>
-                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" value="24" min="1">
+                                        <input type="number" readonly class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" value="24" min="1">
                                     </div>
                                     <div>
                                         <label class="block text-xs text-gray-500 mb-1">补卡次数上限</label>
-                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" value="1" min="1">
+                                        <input type="number" readonly class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" value="1" min="1">
                                     </div>
                                 </div>
                                 <!-- 打卡要求 -->
@@ -361,7 +361,7 @@
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <span class="text-sm font-medium">打卡话术要求</span>
-                                    <label class="switch"><input type="checkbox" id="voice-req"><span class="slider"></span></label>
+                                    <label class="switch" style="opacity:0.5;pointer-events:none"><input type="checkbox" disabled id="voice-req"><span class="slider"></span></label>
                                 </div>
                             </div>
                         </div>
@@ -378,7 +378,7 @@
                                         <span class="text-xs text-gray-500">已配置 <span class="text-primary font-medium" id="point-count">2</span> 个点位</span>
                                         <div class="flex items-center gap-2">
                                             <span class="text-xs text-gray-500">最少需配置</span>
-                                            <input type="number" class="w-16 border border-gray-300 rounded px-2 py-1 text-sm text-center" value="2" min="1">
+                                            <input type="number" readonly class="w-16 border border-gray-300 rounded px-2 py-1 text-sm text-center" value="2" min="1">
                                             <span class="text-xs text-gray-400">个</span>
                                         </div>
                                     </div>
@@ -392,7 +392,7 @@
                                         <div class="text-sm font-medium">AI自动审核</div>
                                         <div class="text-xs text-gray-400 mt-0.5">开启后，上传的物料（图片、视频等）会自动进行AI质量检测</div>
                                     </div>
-                                    <label class="switch"><input type="checkbox" id="ai-audit-switch"><span class="slider"></span></label>
+                                    <label class="switch" style="opacity:0.5;pointer-events:none"><input type="checkbox" disabled id="ai-audit-switch"><span class="slider"></span></label>
                                 </div>
                                 <div id="point-list">
                                     <!-- 点位1 -->
@@ -408,38 +408,38 @@
                                         <div class="grid grid-cols-2 gap-3 mb-3">
                                             <div>
                                                 <label class="text-xs text-gray-500 mb-1 block">点位名称</label>
-                                                <input type="text" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" value="接待处">
+                                                <input type="text" readonly class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" value="接待处">
                                             </div>
                                             <div>
                                                 <label class="text-xs text-gray-500 mb-1 block">点位类型</label>
-                                                <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm">
+                                                <select disabled class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm">
                                                     <option selected>必打卡点</option>
                                                     <option>选打卡点</option>
                                                 </select>
                                             </div>
                                             <div>
                                                 <label class="text-xs text-gray-500 mb-1 block">打卡顺序</label>
-                                                <input type="number" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" value="1" min="1">
+                                                <input type="number" readonly class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" value="1" min="1">
                                             </div>
                                             <div>
                                                 <label class="text-xs text-gray-500 mb-1 block">建议停留时长（分钟）</label>
-                                                <input type="number" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" placeholder="选填" min="0">
+                                                <input type="number" readonly class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" placeholder="选填" min="0">
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="text-xs text-gray-500 mb-1 block">采集内容要求</label>
                                             <div class="flex flex-wrap gap-2 mb-2">
                                                 <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                                    <input type="checkbox" checked class="accent-primary"> 拍照
+                                                    <input type="checkbox" disabled checked class="accent-primary"> 拍照
                                                 </label>
                                                 <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                                    <input type="checkbox" class="accent-primary"> 录制视频
+                                                    <input type="checkbox" disabled class="accent-primary"> 录制视频
                                                 </label>
                                                 <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                                    <input type="checkbox" checked class="accent-primary"> 填写内容
+                                                    <input type="checkbox" disabled checked class="accent-primary"> 填写内容
                                                 </label>
                                                 <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                                    <input type="checkbox" class="accent-primary"> 无需采集
+                                                    <input type="checkbox" disabled class="accent-primary"> 无需采集
                                                 </label>
                                             </div>
                                         </div>
@@ -459,45 +459,45 @@
                                         <div class="grid grid-cols-2 gap-3 mb-3">
                                             <div>
                                                 <label class="text-xs text-gray-500 mb-1 block">点位名称</label>
-                                                <input type="text" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" value="沙盘区">
+                                                <input type="text" readonly class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" value="沙盘区">
                                             </div>
                                             <div>
                                                 <label class="text-xs text-gray-500 mb-1 block">点位类型</label>
-                                                <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm">
+                                                <select disabled class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm">
                                                     <option selected>必打卡点</option>
                                                     <option>选打卡点</option>
                                                 </select>
                                             </div>
                                             <div>
                                                 <label class="text-xs text-gray-500 mb-1 block">打卡顺序</label>
-                                                <input type="number" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" value="2" min="1">
+                                                <input type="number" readonly class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" value="2" min="1">
                                             </div>
                                             <div>
                                                 <label class="text-xs text-gray-500 mb-1 block">建议停留时长（分钟）</label>
-                                                <input type="number" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" placeholder="选填" min="0" value="10">
+                                                <input type="number" readonly class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" placeholder="选填" min="0" value="10">
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="text-xs text-gray-500 mb-1 block">采集内容要求</label>
                                             <div class="flex flex-wrap gap-2 mb-2">
                                                 <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                                    <input type="checkbox" checked class="accent-primary"> 拍照
+                                                    <input type="checkbox" disabled checked class="accent-primary"> 拍照
                                                 </label>
                                                 <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                                    <input type="checkbox" checked class="accent-primary"> 录制视频
+                                                    <input type="checkbox" disabled checked class="accent-primary"> 录制视频
                                                 </label>
                                                 <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                                    <input type="checkbox" class="accent-primary"> 填写内容
+                                                    <input type="checkbox" disabled class="accent-primary"> 填写内容
                                                 </label>
                                                 <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                                    <input type="checkbox" class="accent-primary"> 无需采集
+                                                    <input type="checkbox" disabled class="accent-primary"> 无需采集
                                                 </label>
                                             </div>
                                         </div>
                                         
                                     </div>
                                 </div>
-                                <button class="w-full border border-dashed border-gray-300 rounded py-2 text-sm text-gray-500 hover:border-primary hover:text-primary mt-2" onclick="addPoint()">
+                                <button class="w-full border border-dashed border-gray-300 rounded py-2 text-sm text-gray-500 hover:border-primary hover:text-primary mt-2">
                                     <i class="fa fa-plus mr-1"></i>新增点位
                                 </button>
                             </div>
@@ -515,14 +515,14 @@
                                         <div class="text-sm font-medium">文案内容生成</div>
                                         <div class="text-xs text-gray-400 mt-0.5">开启后，物料收集完成后将自动解锁文案内容生成</div>
                                     </div>
-                                    <label class="switch"><input type="checkbox" id="copywriting-gen-switch" checked><span class="slider"></span></label>
+                                    <label class="switch" style="opacity:0.5;pointer-events:none"><input type="checkbox" disabled id="copywriting-gen-switch" checked><span class="slider"></span></label>
                                 </div>
                                 <div class="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-3 border border-gray-200">
                                     <div>
                                         <div class="text-sm font-medium">图片/视频生成</div>
                                         <div class="text-xs text-gray-400 mt-0.5">开启后，文案内容确认后将解锁多模态内容生成（图片/视频/音频）</div>
                                     </div>
-                                    <label class="switch"><input type="checkbox" id="multimodal-gen-switch" checked><span class="slider"></span></label>
+                                    <label class="switch" style="opacity:0.5;pointer-events:none"><input type="checkbox" disabled id="multimodal-gen-switch" checked><span class="slider"></span></label>
                                 </div>
                             </div>
                         </div>
@@ -541,29 +541,29 @@
                     <div class="section-body space-y-4">
                         <div class="flex items-center justify-between bg-gray-50 rounded-lg p-4">
                             <span class="text-sm font-medium">启用话术训练</span>
-                            <label class="switch"><input type="checkbox" id="training-switch" onchange="toggleTrainingConfig(this)"><span class="slider"></span></label>
+                            <label class="switch" style="opacity:0.5;pointer-events:none"><input type="checkbox" disabled id="training-switch" onchange="toggleTrainingConfig(this)"><span class="slider"></span></label>
                         </div>
                         <div id="training-detail" class="hidden space-y-4 pt-4 border-t border-gray-200">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">训练项目选择 <span class="text-danger">*</span></label>
                                 <div class="grid grid-cols-3 gap-2">
                                     <label class="flex items-center gap-2 bg-white border border-gray-200 rounded px-3 py-2 cursor-pointer hover:border-primary text-sm">
-                                        <input type="checkbox" class="train-proj"> 产品知识
+                                        <input type="checkbox" disabled class="train-proj"> 产品知识
                                     </label>
                                     <label class="flex items-center gap-2 bg-white border border-gray-200 rounded px-3 py-2 cursor-pointer hover:border-primary text-sm">
-                                        <input type="checkbox" class="train-proj"> 竞品对比
+                                        <input type="checkbox" disabled class="train-proj"> 竞品对比
                                     </label>
                                     <label class="flex items-center gap-2 bg-white border border-gray-200 rounded px-3 py-2 cursor-pointer hover:border-primary text-sm">
-                                        <input type="checkbox" class="train-proj"> 话术技巧
+                                        <input type="checkbox" disabled class="train-proj"> 话术技巧
                                     </label>
                                     <label class="flex items-center gap-2 bg-white border border-gray-200 rounded px-3 py-2 cursor-pointer hover:border-primary text-sm">
-                                        <input type="checkbox" class="train-proj"> 户型解读
+                                        <input type="checkbox" disabled class="train-proj"> 户型解读
                                     </label>
                                     <label class="flex items-center gap-2 bg-white border border-gray-200 rounded px-3 py-2 cursor-pointer hover:border-primary text-sm">
-                                        <input type="checkbox" class="train-proj"> 政策解读
+                                        <input type="checkbox" disabled class="train-proj"> 政策解读
                                     </label>
                                     <label class="flex items-center gap-2 bg-white border border-gray-200 rounded px-3 py-2 cursor-pointer hover:border-primary text-sm">
-                                        <input type="checkbox" class="train-proj"> 销售礼仪
+                                        <input type="checkbox" disabled class="train-proj"> 销售礼仪
                                     </label>
                                 </div>
                             </div>
@@ -574,13 +574,13 @@
                                 </div>
                                 <div class="bg-white border border-gray-200 rounded max-h-40 overflow-y-auto p-2">
                                     <label class="flex items-center gap-2 text-sm py-1 cursor-pointer hover:bg-blue-50 rounded px-2">
-                                        <input type="checkbox" class="train-bank"> <i class="fa fa-database text-gray-400 mr-1"></i>产品知识题库-A卷 <span class="text-xs text-gray-400">(120题)</span>
+                                        <input type="checkbox" disabled class="train-bank"> <i class="fa fa-database text-gray-400 mr-1"></i>产品知识题库-A卷 <span class="text-xs text-gray-400">(120题)</span>
                                     </label>
                                     <label class="flex items-center gap-2 text-sm py-1 cursor-pointer hover:bg-blue-50 rounded px-2">
-                                        <input type="checkbox" class="train-bank"> <i class="fa fa-database text-gray-400 mr-1"></i>竞品对比题库 <span class="text-xs text-gray-400">(80题)</span>
+                                        <input type="checkbox" disabled class="train-bank"> <i class="fa fa-database text-gray-400 mr-1"></i>竞品对比题库 <span class="text-xs text-gray-400">(80题)</span>
                                     </label>
                                     <label class="flex items-center gap-2 text-sm py-1 cursor-pointer hover:bg-blue-50 rounded px-2">
-                                        <input type="checkbox" class="train-bank"> <i class="fa fa-database text-gray-400 mr-1"></i>话术技巧题库 <span class="text-xs text-gray-400">(60题)</span>
+                                        <input type="checkbox" disabled class="train-bank"> <i class="fa fa-database text-gray-400 mr-1"></i>话术技巧题库 <span class="text-xs text-gray-400">(60题)</span>
                                     </label>
                                 </div>
                                 <p class="text-xs text-gray-400 mt-1">已选择 <span class="text-primary font-medium">0</span> 个题库</p>
@@ -600,22 +600,22 @@
                     <div class="section-body space-y-4">
                         <div class="flex items-center justify-between bg-gray-50 rounded-lg p-4">
                             <span class="text-sm font-medium">启用录音分析</span>
-                            <label class="switch"><input type="checkbox" id="record-switch" onchange="toggleRecordConfig(this)"><span class="slider"></span></label>
+                            <label class="switch" style="opacity:0.5;pointer-events:none"><input type="checkbox" disabled id="record-switch" onchange="toggleRecordConfig(this)"><span class="slider"></span></label>
                         </div>
                         <div id="record-detail" class="hidden space-y-4 pt-4 border-t border-gray-200">
                             <label class="block text-sm font-medium text-gray-700 mb-2">分析维度 <span class="text-danger">*</span></label>
                             <div class="grid grid-cols-2 gap-2">
                                 <label class="flex items-center gap-2 bg-white border border-gray-200 rounded px-3 py-2 cursor-pointer hover:border-primary text-sm">
-                                    <input type="checkbox" checked class="record-dim"> 话术规范
+                                    <input type="checkbox" disabled checked class="record-dim"> 话术规范
                                 </label>
                                 <label class="flex items-center gap-2 bg-white border border-gray-200 rounded px-3 py-2 cursor-pointer hover:border-primary text-sm">
-                                    <input type="checkbox" checked class="record-dim"> 情绪识别
+                                    <input type="checkbox" disabled checked class="record-dim"> 情绪识别
                                 </label>
                                 <label class="flex items-center gap-2 bg-white border border-gray-200 rounded px-3 py-2 cursor-pointer hover:border-primary text-sm">
-                                    <input type="checkbox" checked class="record-dim"> 关键词覆盖
+                                    <input type="checkbox" disabled checked class="record-dim"> 关键词覆盖
                                 </label>
                                 <label class="flex items-center gap-2 bg-white border border-gray-200 rounded px-3 py-2 cursor-pointer hover:border-primary text-sm">
-                                    <input type="checkbox" checked class="record-dim"> 邀约意向
+                                    <input type="checkbox" disabled checked class="record-dim"> 邀约意向
                                 </label>
                             </div>
                         </div>
@@ -651,9 +651,9 @@
                                     </div>
                                     <div class="flex items-center flex-1">
                                         <span class="text-sm mr-2">截止前</span>
-                                        <input type="number" class="w-20 border border-gray-300 rounded px-2 py-1 text-center text-sm" value="24">
+                                        <input type="number" readonly class="w-20 border border-gray-300 rounded px-2 py-1 text-center text-sm" value="24">
                                         <span class="text-sm mx-2">小时</span>
-                                        <input type="checkbox" class="ml-4 mr-1" checked>
+                                        <input type="checkbox" disabled class="ml-4 mr-1" checked>
                                         <span class="text-sm">开启</span>
                                     </div>
                                     <div class="text-xs text-gray-500">
@@ -668,9 +668,9 @@
                                     </div>
                                     <div class="flex items-center flex-1">
                                         <span class="text-sm mr-2">截止前</span>
-                                        <input type="number" class="w-20 border border-gray-300 rounded px-2 py-1 text-center text-sm" value="12">
+                                        <input type="number" readonly class="w-20 border border-gray-300 rounded px-2 py-1 text-center text-sm" value="12">
                                         <span class="text-sm mx-2">小时</span>
-                                        <input type="checkbox" class="ml-4 mr-1" checked>
+                                        <input type="checkbox" disabled class="ml-4 mr-1" checked>
                                         <span class="text-sm">开启</span>
                                     </div>
                                     <div class="text-xs text-gray-500">
@@ -685,9 +685,9 @@
                                     </div>
                                     <div class="flex items-center flex-1">
                                         <span class="text-sm mr-2">截止前</span>
-                                        <input type="number" class="w-20 border border-gray-300 rounded px-2 py-1 text-center text-sm" value="2">
+                                        <input type="number" readonly class="w-20 border border-gray-300 rounded px-2 py-1 text-center text-sm" value="2">
                                         <span class="text-sm mx-2">小时</span>
-                                        <input type="checkbox" class="ml-4 mr-1" checked>
+                                        <input type="checkbox" disabled class="ml-4 mr-1" checked>
                                         <span class="text-sm">开启</span>
                                     </div>
                                     <div class="text-xs text-gray-500">
@@ -771,7 +771,7 @@
                     <div class="tree-node">
                         <div class="flex items-center gap-2 py-1 cursor-pointer" onclick="toggleTreeNode(this)">
                             <i class="fa fa-angle-right collapse-icon text-gray-400 text-xs"></i>
-                            <input type="checkbox" class="dept-check" onchange="checkDept(this)">
+                            <input type="checkbox" disabled class="dept-check" onchange="checkDept(this)">
                             <i class="fa fa-building text-primary text-sm"></i>
                             <span class="text-sm">华东区</span>
                             <span class="text-xs text-gray-400">(128人)</span>
@@ -780,26 +780,26 @@
                             <div class="tree-node">
                                 <div class="flex items-center gap-2 py-1 cursor-pointer" onclick="toggleTreeNode(this)">
                                     <i class="fa fa-angle-right collapse-icon text-gray-400 text-xs"></i>
-                                    <input type="checkbox" class="dept-check" onchange="checkDept(this)">
+                                    <input type="checkbox" disabled class="dept-check" onchange="checkDept(this)">
                                     <i class="fa fa-building text-success text-sm"></i>
                                     <span class="text-sm">上海区域</span>
                                     <span class="text-xs text-gray-400">(56人)</span>
                                 </div>
                                 <div class="tree-children collapse-content">
                                     <label class="flex items-center gap-2 py-1 px-2 cursor-pointer hover:bg-blue-50 rounded">
-                                        <input type="checkbox" class="person-check" data-name="张店东" onchange="selectPerson(this)">
+                                        <input type="checkbox" disabled class="person-check" data-name="张店东" onchange="selectPerson(this)">
                                         <div class="w-5 h-5 bg-primary text-white rounded-full flex items-center justify-center text-xs">张</div>
                                         <span class="text-sm">张店东</span>
                                         <span class="text-xs text-gray-400">店长</span>
                                     </label>
                                     <label class="flex items-center gap-2 py-1 px-2 cursor-pointer hover:bg-blue-50 rounded">
-                                        <input type="checkbox" class="person-check" data-name="李店西" onchange="selectPerson(this)">
+                                        <input type="checkbox" disabled class="person-check" data-name="李店西" onchange="selectPerson(this)">
                                         <div class="w-5 h-5 bg-success text-white rounded-full flex items-center justify-center text-xs">李</div>
                                         <span class="text-sm">李店西</span>
                                         <span class="text-xs text-gray-400">店长</span>
                                     </label>
                                     <label class="flex items-center gap-2 py-1 px-2 cursor-pointer hover:bg-blue-50 rounded">
-                                        <input type="checkbox" class="person-check" data-name="王店南" onchange="selectPerson(this)">
+                                        <input type="checkbox" disabled class="person-check" data-name="王店南" onchange="selectPerson(this)">
                                         <div class="w-5 h-5 bg-warning text-white rounded-full flex items-center justify-center text-xs">王</div>
                                         <span class="text-sm">王店南</span>
                                         <span class="text-xs text-gray-400">经纪人</span>
@@ -809,14 +809,14 @@
                             <div class="tree-node">
                                 <div class="flex items-center gap-2 py-1 cursor-pointer" onclick="toggleTreeNode(this)">
                                     <i class="fa fa-angle-right collapse-icon text-gray-400 text-xs"></i>
-                                    <input type="checkbox" class="dept-check" onchange="checkDept(this)">
+                                    <input type="checkbox" disabled class="dept-check" onchange="checkDept(this)">
                                     <i class="fa fa-building text-success text-sm"></i>
                                     <span class="text-sm">杭州区域</span>
                                     <span class="text-xs text-gray-400">(42人)</span>
                                 </div>
                                 <div class="tree-children collapse-content">
                                     <label class="flex items-center gap-2 py-1 px-2 cursor-pointer hover:bg-blue-50 rounded">
-                                        <input type="checkbox" class="person-check" data-name="刘店北" onchange="selectPerson(this)">
+                                        <input type="checkbox" disabled class="person-check" data-name="刘店北" onchange="selectPerson(this)">
                                         <div class="w-5 h-5 bg-danger text-white rounded-full flex items-center justify-center text-xs">刘</div>
                                         <span class="text-sm">刘店北</span>
                                         <span class="text-xs text-gray-400">店长</span>
@@ -890,15 +890,7 @@
             });
         });
 
-        // 删除点位
-        function removePoint(btn) {
-            const card = btn.closest('.point-card');
-            if (confirm('确定删除该点位？')) {
-                card.remove();
-                reindexPoints();
-                updatePointCount();
-            }
-        }
+        
 
         // 更新点位计数
         function updatePointCount() {
@@ -906,63 +898,7 @@
             document.getElementById('point-count').textContent = count;
         }
 
-        // 新增点位
-        function addPoint() {
-            const list = document.getElementById('point-list');
-            const count = list.children.length + 1;
-            const html = `
-                <div class="point-card" draggable="true">
-                    <div class="flex justify-between items-start mb-3">
-                        <div class="flex items-center gap-2">
-                            <i class="fa fa-bars text-gray-400 cursor-move text-sm"></i>
-                            <span class="font-medium text-sm">${count}. 新点位</span>
-                            <span class="tag tag-info text-xs">必打卡点</span>
-                        </div>
-                        <button class="text-xs text-danger hover:underline" onclick="removePoint(this)"><i class="fa fa-trash mr-1"></i>删除</button>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 mb-3">
-                        <div>
-                            <label class="text-xs text-gray-500 mb-1 block">点位名称</label>
-                            <input type="text" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" placeholder="请输入点位名称">
-                        </div>
-                        <div>
-                            <label class="text-xs text-gray-500 mb-1 block">点位类型</label>
-                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm">
-                                <option selected>必打卡点</option>
-                                <option>选打卡点</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-xs text-gray-500 mb-1 block">打卡顺序</label>
-                            <input type="number" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" value="${count}" min="1">
-                        </div>
-                        <div>
-                            <label class="text-xs text-gray-500 mb-1 block">建议停留时长（分钟）</label>
-                            <input type="number" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" placeholder="选填" min="0">
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="text-xs text-gray-500 mb-1 block">采集内容要求</label>
-                        <div class="flex flex-wrap gap-2 mb-2">
-                            <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                <input type="checkbox" class="accent-primary"> 拍照
-                            </label>
-                            <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                <input type="checkbox" class="accent-primary"> 录制视频
-                            </label>
-                            <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                <input type="checkbox" class="accent-primary"> 填写内容
-                            </label>
-                            <label class="flex items-center gap-1 text-xs bg-white border border-gray-300 rounded px-2 py-1 cursor-pointer hover:border-primary">
-                                <input type="checkbox" class="accent-primary"> 无需采集
-                            </label>
-                        </div>
-                    </div>
-                    
-                </div>`;
-            list.insertAdjacentHTML('beforeend', html);
-            updatePointCount();
-        }
+        
 
         // 重新编号点位
         function reindexPoints() {
@@ -994,20 +930,20 @@
             const list = document.getElementById('reminder-list');
             list.insertAdjacentHTML('beforeend', `
                 <div class="reminder-row">
-                    <select class="border border-gray-300 rounded px-2 py-1 text-xs w-20">
+                    <select disabled class="border border-gray-300 rounded px-2 py-1 text-xs w-20">
                         <option value="light">轻度</option>
                         <option value="mid">中度</option>
                         <option value="severe">严重</option>
                     </select>
                     <span class="text-xs text-gray-400">触发于</span>
-                    <select class="border border-gray-300 rounded px-2 py-1 text-xs flex-1">
+                    <select disabled class="border border-gray-300 rounded px-2 py-1 text-xs flex-1">
                         <option selected>执行进度过半</option>
                         <option>任务开始后1天</option>
                         <option>任务开始后2天</option>
                         <option>截止前1天</option>
                         <option>截止前3天</option>
                     </select>
-                    <button class="text-gray-400 hover:text-danger text-xs" onclick="removeReminder(this)"><i class="fa fa-times"></i></button>
+                    <button class="text-gray-400 hover:text-danger text-xs"><i class="fa fa-times"></i></button>
                 </div>
             `);
         }
