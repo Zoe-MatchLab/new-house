@@ -407,42 +407,6 @@
             margin-bottom: var(--spacing-lg);
         }
 
-        /* 底部TabBar */
-        .tab-bar {
-            position: fixed;
-            bottom: calc(16px + env(safe-area-inset-bottom));
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(29, 33, 41, 0.96);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 28px;
-            padding: 8px 16px;
-            z-index: 9999;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.24);
-            display: flex;
-            gap: 4px;
-        }
-
-        .tab-item {
-            width: 44px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 18px;
-            color: rgba(255,255,255,0.5);
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .tab-item i { font-size: 20px; }
-
-        .tab-item.active {
-            background: rgba(22, 93, 255, 0.2);
-            color: var(--brand-primary);
-        }
-
         /* Toast */
         .toast {
             position: fixed;
@@ -618,25 +582,6 @@
             </div>
         </div>
     </div>
-
-    <!-- 底部TabBar -->
-    <nav class="tab-bar">
-        <a href="../home/tools.html" class="tab-item" aria-label="服务工具">
-            <i class="fa fa-rocket"></i>
-        </a>
-        <a href="../other/ai-design.html" class="tab-item" aria-label="AI设计">
-            <i class="fa fa-paint-brush"></i>
-        </a>
-        <a href="claw.html" class="tab-item" aria-label="智能助手">
-            <i class="fa fa-commenting"></i>
-        </a>
-        <a href="../home/calendar.html" class="tab-item" aria-label="任务日历">
-            <i class="fa fa-calendar"></i>
-        </a>
-        <a href="../home/my.html" class="tab-item" aria-label="个人中心">
-            <i class="fa fa-user"></i>
-        </a>
-    </nav>
 
     <script>
         // 模拟数据
