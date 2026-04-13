@@ -999,6 +999,11 @@
                 // 模拟波形动画
                 animateWave(wave);
                 showToast('正在播放录音');
+            } else {
+                btn.classList.remove('playing');
+                btn.innerHTML = '<i class="fa fa-play"></i>';
+                wave.classList.remove('playing');
+                clearInterval(waveInterval);
             }
         }
 
@@ -1035,13 +1040,6 @@
             // 获取当前录音ID，跳转到客户选择页
             const recordId = getQueryParam('id') || 'RECORD_001';
             window.location.href = '录音分析-客户选择.html?recordId=' + recordId + '&action=change';
-        }
-            } else {
-                btn.classList.remove('playing');
-                btn.innerHTML = '<i class="fa fa-play"></i>';
-                wave.classList.remove('playing');
-                clearInterval(waveInterval);
-            }
         }
 
         function animateWave(wave) {
@@ -1093,7 +1091,7 @@
             if (confirmBtn) {
                 confirmBtn.onclick = confirmChangeCustomer;
             }
-        };
+        }
     </script>
 </body>
 </html>
