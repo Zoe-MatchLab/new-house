@@ -110,20 +110,40 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex gap-2">
-                                <button class="flex-1 text-xs border border-gray-300 rounded py-1.5 text-gray-600 hover:bg-gray-100">
+                            <div class="flex gap-2 mb-3">
+                                <button class="flex-1 text-xs border border-gray-300 rounded py-1.5 text-gray-600 hover:bg-gray-100" id="rawAudioBtn">
                                     <i class="fa fa-volume-up mr-1"></i>原音
                                 </button>
-                                <button class="flex-1 text-xs border border-gray-300 rounded py-1.5 text-gray-600 hover:bg-gray-100">
+                                <button class="flex-1 text-xs border border-gray-300 rounded py-1.5 text-gray-600 hover:bg-gray-100" id="transcriptBtn" onclick="toggleTranscript()">
                                     <i class="fa fa-file-text mr-1"></i>转写
                                 </button>
                             </div>
                         </div>
 
+                        <!-- 录音转文本 -->
+                        <div class="transcript-section" id="transcriptSection" style="display:none;">
+                            <div class="border-t border-gray-200 pt-3 mt-3">
+                                <div class="text-xs text-gray-500 mb-2">录音转写文本</div>
+                                <div class="transcript-content bg-gray-50 rounded-lg p-3 text-sm text-gray-700 leading-relaxed max-h-60 overflow-y-auto">
+                                    <p class="mb-2"><span class="text-primary font-medium">经纪人：</span>喂您好张先生，我是咱们中海汇德里的置业顾问小李，您之前有咨询过我们项目不知道您还有印象吗？</p>
+                                    <p class="mb-2"><span class="text-blue-600 font-medium">客户：</span>哦有的有的，你们那个项目在哪个位置来着？</p>
+                                    <p class="mb-2"><span class="text-primary font-medium">经纪人：</span>我们在浦东新区张江高科技园区这边，地铁13号线XXX站下来500米就到了。</p>
+                                    <p class="mb-2"><span class="text-blue-600 font-medium">客户：</span>哦800-1000万啊，那你们周边有什么学校吗？</p>
+                                    <p class="mb-2"><span class="text-primary font-medium">经纪人：</span>张先生您问得太好了！我们项目旁边就是XX小学和XX中学，都是区重点的。</p>
+                                    <p class="mb-2"><span class="text-blue-600 font-medium">客户：</span>那挺好的，那个户型能看看吗？</p>
+                                    <p class="mb-2"><span class="text-primary font-medium">经纪人：</span>当然可以，那我帮您约一个专属带看时间，您看明天下午3点方便吗？</p>
+                                    <p class="mb-0"><span class="text-blue-600 font-medium">客户：</span>行啊，那明天下午3点我过去看看。</p>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="space-y-2 text-sm">
-                            <div class="flex justify-between">
+                            <div class="flex justify-between items-center">
                                 <span class="text-gray-500">关联客户</span>
-                                <span class="text-dark font-medium">张三</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-dark font-medium">张三</span>
+                                    <button onclick="changeCustomer()" class="text-xs text-primary hover:text-primary/80">更换</button>
+                                </div>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-500">关联楼盘</span>

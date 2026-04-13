@@ -98,7 +98,14 @@
                     <!-- 导出按钮 + 下拉菜单 -->
                     <div class="relative" id="exportDropdownWrapper">
                         <button id="exportBtn" class="text-sm text-gray-500 hover:text-primary border border-gray-300 rounded-lg px-3 py-2 flex items-center gap-1">
-                            <i class="fa fa-download mr-1"></i>导出报告
+                            <button onclick="location.href='录音分析-数据统计.html'" class="px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
+                                <i class="fa fa-bar-chart mr-1"></i>数据统计
+                            </button>
+                            <button onclick="location.href='录音分析-提示词配置.html'" class="px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
+                                <i class="fa fa-gear mr-1"></i>提示词配置
+                            </button>
+                            <button class="px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
+                                <i class="fa fa-download mr-1"></i>导出报告
                             <i class="fa fa-angle-down text-xs ml-1"></i>
                         </button>
                         <div class="dropdown-menu" id="exportDropdown">
