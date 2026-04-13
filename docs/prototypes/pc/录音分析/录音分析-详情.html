@@ -373,7 +373,59 @@
             }
             isPlaying = !isPlaying;
         }
+
+        // 录音转文本展开/收起
+        function toggleTranscript() {
+            const section = document.getElementById('transcriptSection');
+            const btn = document.getElementById('transcriptBtn');
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+                btn.classList.add('bg-primary', 'text-white', 'border-primary');
+                btn.classList.remove('text-gray-600');
+            } else {
+                section.style.display = 'none';
+                btn.classList.remove('bg-primary', 'text-white', 'border-primary');
+                btn.classList.add('text-gray-600');
+            }
+        }
+
+        // 更换客户 - 弹出确认框
+        function changeCustomer() {
+            document.getElementById('changeCustomerModal').classList.remove('hidden');
+        }
+
+        // 关闭确认弹窗
+        function closeChangeCustomerModal() {
+            document.getElementById('changeCustomerModal').classList.add('hidden');
+        }
+
+        // 确认更换客户 - 跳转至客户选择页
+        function confirmChangeCustomer() {
+            closeChangeCustomerModal();
+            alert('跳转至客户选择页面，选择新客户后返回');
+            // 实际跳转：window.location.href = '录音分析-客户选择.html?id=xxx';
+        }
     </script>
+
+    <!-- 更换客户二次确认弹窗 -->
+    <div id="changeCustomerModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-96 shadow-xl">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center">
+                    <i class="fa fa-exclamation-triangle text-red-500 text-xl"></i>
+                </div>
+                <div>
+                    <div class="text-lg font-bold text-dark">确认更换客户？</div>
+                    <div class="text-sm text-gray-500">更换客户后，原客户与该录音的关联将解除</div>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="closeChangeCustomerModal()" class="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">取消</button>
+                <button onclick="confirmChangeCustomer()" class="flex-1 px-4 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600">确认更换</button>
+            </div>
+        </div>
+    </div>
+
 <script src="components/message-nav.js"></script>
 </body>
 </html>
