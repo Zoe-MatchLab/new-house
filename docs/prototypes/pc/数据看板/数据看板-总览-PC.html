@@ -703,18 +703,54 @@
         <div class="grid grid-cols-3 gap-5 mb-6">
             <!-- 业绩趋势 -->
             <div class="card p-6">
-                <div class="section-title">
-                    📊 业绩趋势
+                <div class="flex justify-between items-start mb-4">
+                    <div class="section-title mb-0">📊 业绩趋势</div>
+                    <div class="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded">近6个月</div>
                 </div>
-                <canvas id="revenueChart" height="200"></canvas>
+                <!-- 图例 -->
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-primary"></div>
+                            <span class="text-xs text-gray-500">GMV（万元）</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-xs">
+                        <span class="text-gray-400">最高：<span class="font-semibold text-primary">35,680</span></span>
+                    </div>
+                </div>
+                <!-- 图表 -->
+                <div class="relative">
+                    <canvas id="revenueChart" height="180"></canvas>
+                </div>
             </div>
 
             <!-- 能力趋势 -->
             <div class="card p-6">
-                <div class="section-title">
-                    📈 能力提升趋势
+                <div class="flex justify-between items-start mb-4">
+                    <div class="section-title mb-0">📈 能力提升趋势</div>
+                    <div class="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded">近6个月</div>
                 </div>
-                <canvas id="abilityTrendChart" height="200"></canvas>
+                <!-- 图例 -->
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-primary"></div>
+                            <span class="text-xs text-gray-500">团队平均分</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-warning"></div>
+                            <span class="text-xs text-gray-500">S4专家平均分</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-xs">
+                        <span class="text-gray-400">最高：<span class="font-semibold text-warning">95.2</span></span>
+                    </div>
+                </div>
+                <!-- 图表 -->
+                <div class="relative">
+                    <canvas id="abilityTrendChart" height="180"></canvas>
+                </div>
             </div>
 
             <!-- 经纪人排名 -->
@@ -914,15 +950,54 @@
                             fill: true,
                             tension: 0.4,
                             pointRadius: 4,
-                            pointHoverRadius: 6
+                            pointHoverRadius: 6,
+                            pointBackgroundColor: '#165DFF',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
                         }]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(29, 33, 41, 0.9)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                padding: 12,
+                                cornerRadius: 8,
+                                displayColors: false,
+                                callbacks: {
+                                    title: function(context) {
+                                        return context[0].label + '月';
+                                    },
+                                    label: function(context) {
+                                        return 'GMV：' + context.parsed.y.toLocaleString() + ' 万元';
+                                    }
+                                }
+                            }
+                        },
                         scales: {
-                            y: { beginAtZero: false }
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: '#86909C', font: { size: 11 } }
+                            },
+                            y: {
+                                beginAtZero: false,
+                                grid: { color: '#F2F3F5' },
+                                ticks: {
+                                    color: '#86909C',
+                                    font: { size: 11 },
+                                    callback: function(value) {
+                                        return value.toLocaleString();
+                                    }
+                                }
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
                         }
                     }
                 });
@@ -940,22 +1015,72 @@
                                 label: '团队平均分',
                                 data: [72.3, 74.5, 76.2, 78.5, 80.2, 82.5],
                                 borderColor: '#165DFF',
+                                backgroundColor: 'rgba(22, 93, 255, 0.1)',
+                                fill: true,
                                 tension: 0.4,
-                                pointRadius: 4
+                                pointRadius: 4,
+                                pointHoverRadius: 6,
+                                pointBackgroundColor: '#165DFF',
+                                pointBorderColor: '#fff',
+                                pointBorderWidth: 2
                             },
                             {
                                 label: 'S4专家平均分',
                                 data: [88.5, 89.2, 90.5, 92.0, 93.5, 95.2],
                                 borderColor: '#FF7D00',
+                                backgroundColor: 'rgba(255, 124, 0, 0.1)',
+                                fill: true,
                                 tension: 0.4,
-                                pointRadius: 4
+                                pointRadius: 4,
+                                pointHoverRadius: 6,
+                                pointBackgroundColor: '#FF7D00',
+                                pointBorderColor: '#fff',
+                                pointBorderWidth: 2
                             }
                         ]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { legend: { display: false } }
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(29, 33, 41, 0.9)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                padding: 12,
+                                cornerRadius: 8,
+                                callbacks: {
+                                    title: function(context) {
+                                        return context[0].label + '月';
+                                    },
+                                    label: function(context) {
+                                        return context.dataset.label + '：' + context.parsed.y + ' 分';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: '#86909C', font: { size: 11 } }
+                            },
+                            y: {
+                                beginAtZero: false,
+                                min: 60,
+                                max: 100,
+                                grid: { color: '#F2F3F5' },
+                                ticks: {
+                                    color: '#86909C',
+                                    font: { size: 11 },
+                                    stepSize: 10
+                                }
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        }
                     }
                 });
             }
