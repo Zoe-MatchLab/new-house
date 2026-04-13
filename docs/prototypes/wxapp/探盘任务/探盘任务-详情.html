@@ -539,30 +539,49 @@
         
         // 进入任务 - 阶段1：定位获取（前置校验）
         function goCheckin() {
-            // 模拟：后台主动获取位置并判断是否在范围内
-            // 实际项目中这里会调用 wx.getLocation() 或 navigator.geolocation
-            const isInRange = checkLocationBeforeEntry();
+            // 显示定位中状态
+            showToast('正在获取位置...', 'loading');
             
-            if (!isInRange) {
-                // 不在范围内，提示用户原因，阻止进入
-                showToast('您不在打卡范围内，请先到达指定地点', 'error');
-                return;
-            }
-            
-            // 在范围内，进入阶段2：点位资料收集
-            window.location.href = '探盘任务-点位打卡.html?task=' + taskData.taskId + '&step=1';
+            // 模拟：后台主动获取位置并判断是否在范围内（实际项目中使用 wx.getLocation 或 navigator.geolocation）
+            setTimeout(() => {
+                const result = checkLocationBeforeEntry();
+                
+                if (!result.isInRange) {
+                    // 不在范围内，提示用户具体偏离距离，阻止进入
+                    showToast(`不在范围内，偏离点位${result.offset}米，请先进入指定区域`, 'error');
+                    return;
+                }
+                
+                if (result.offset > 200 && result.offset <= 500) {
+                    // 偏移200-500米，弹出警告，用户确认后可继续
+                    const confirmed = confirm(`您当前偏离点位${result.offset}米，是否继续？`);
+                    if (!confirmed) return;
+                }
+                
+                // 在范围内（或用户确认继续），进入阶段2：点位资料收集
+                showToast('定位校验通过，正在进入...');
+                setTimeout(() => {
+                    window.location.href = '探盘任务-点位打卡.html?task=' + taskData.taskId + '&step=1';
+                }, 500);
+            }, 1000);
         }
         
         // 后台获取位置并判断是否在指定范围内
+        // 返回 { isInRange: boolean, offset: number }
         function checkLocationBeforeEntry() {
-            // 模拟数据：假设在范围内（实际项目中需要调用定位API）
-            // 返回 true = 在范围内，false = 不在范围内
+            // 模拟数据（实际项目中需要调用定位API获取真实坐标）
             const houseLng = 121.5441;  // 楼盘经度
             const houseLat = 31.2214;   // 楼盘纬度
             const checkRange = 500;     // 打卡范围500米
             
-            // 模拟：90%概率在范围内
-            return Math.random() > 0.1;
+            // 模拟随机位置（30%概率不在范围内）
+            // 实际项目中这里会计算用户真实位置与楼盘位置的距离
+            const randomOffset = Math.floor(Math.random() * 800);  // 0-800米的随机偏移
+            
+            return {
+                isInRange: randomOffset <= checkRange,
+                offset: randomOffset
+            };
         }
 
         // 阶段2完成后的操作 - 跳转到内容生成
