@@ -584,6 +584,100 @@
         .delay-2 { animation-delay: 0.1s; opacity: 0; }
         .delay-3 { animation-delay: 0.15s; opacity: 0; }
         .delay-4 { animation-delay: 0.2s; opacity: 0; }
+
+        /* 更换客户确认弹窗 */
+        .confirm-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirm-modal.show {
+            display: flex;
+        }
+
+        .confirm-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .confirm-dialog {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            width: 300px;
+            text-align: center;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .confirm-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .confirm-icon.danger {
+            background: #FFF1F0;
+            color: #FF4D4F;
+        }
+
+        .confirm-icon i {
+            font-size: 24px;
+        }
+
+        .confirm-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1F1F1F;
+            margin-bottom: 8px;
+        }
+
+        .confirm-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .confirm-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .confirm-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .confirm-btn.cancel {
+            background: #F5F5F5;
+            color: #666;
+        }
+
+        .confirm-btn.danger {
+            background: #FF4D4F;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
