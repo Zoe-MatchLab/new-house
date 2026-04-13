@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新盘管理 - 新建房项目</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #f7f8fa; color: #1d2129; }
+        
+        /* 布局 */
+        .layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 200px; background: #fff; border-right: 1px solid #e5e6eb; padding: 16px 0; }
+        .main { flex: 1; display: flex; flex-direction: column; }
+        .header { height: 56px; background: #fff; border-bottom: 1px solid #e5e6eb; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+        .content { flex: 1; padding: 24px; }
+        
+        /* 侧边栏 */
+        .logo { padding: 0 16px 16px; border-bottom: 1px solid #e5e6eb; margin-bottom: 16px; font-size: 16px; font-weight: 600; color: #165dff; }
+        .nav-item { padding: 12px 16px; color: #4e5969; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-item:hover { background: #f7f8fa; color: #1d2129; }
+        .nav-item.active { background: #e6f0ff; color: #165dff; font-weight: 500; }
+        .nav-item .icon { width: 20px; height: 20px; }
+        
+        /* 头部 */
+        .header-title { font-size: 16px; font-weight: 500; }
+        .header-actions { display: flex; gap: 12px; align-items: center; }
+        
+        /* 按钮 */
+        .btn { padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+        .btn-primary { background: #165dff; color: #fff; }
+        .btn-primary:hover { background: #4080ff; }
+        .btn-default { background: #fff; border: 1px solid #e5e6eb; color: #4e5969; }
+        .btn-default:hover { border-color: #165dff; color: #165dff; }
+        
+        /* 搜索栏 */
+        .search-bar { display: flex; gap: 12px; margin-bottom: 16px; align-items: center; }
+        .search-input { flex: 1; max-width: 300px; padding: 8px 12px; border: 1px solid #e5e6eb; border-radius: 6px; font-size: 14px; }
+        .search-input:focus { outline: none; border-color: #165dff; }
+        .filter-select { padding: 8px 12px; border: 1px solid #e5e6eb; border-radius: 6px; font-size: 14px; background: #fff; min-width: 120px; }
+        
+        /* 表格 */
+        .table-container { background: #fff; border-radius: 8px; overflow: hidden; }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th { background: #f7f8fa; padding: 12px 16px; text-align: left; font-size: 14px; font-weight: 500; color: #4e5969; border-bottom: 1px solid #e5e6eb; }
+        .table td { padding: 16px; border-bottom: 1px solid #e5e6eb; font-size: 14px; }
+        .table tr:hover { background: #f7f8fa; }
+        .table tr:last-child td { border-bottom: none; }
+        
+        /* 状态标签 */
+        .status { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .status-draft { background: #f2f3f5; color: #4e5969; }
+        .status-pending { background: #fff7e6; color: #ff7d00; }
+        .status-approved { background: #e6fff1; color: #00b42a; }
+        .status-rejected { background: #fff1f0; color: #cf1322; }
+        .status-online { background: #e6f0ff; color: #165dff; }
+        .status-offline { background: #f2f3f5; color: #86909c; }
+        
+        /* 操作链接 */
+        .action-link { color: #165dff; margin-right: 16px; cursor: pointer; text-decoration: none; }
+        .action-link:hover { text-decoration: underline; }
+        
+        /* 分页 */
+        .pagination { display: flex; justify-content: space-between; align-items: center; padding: 16px; }
+        .pagination-info { font-size: 14px; color: #86909c; }
+        .pagination-controls { display: flex; gap: 8px; }
+        .pagination-btn { padding: 6px 12px; border: 1px solid #e5e6eb; background: #fff; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .pagination-btn:hover { border-color: #165dff; color: #165dff; }
+        .pagination-btn.active { background: #165dff; color: #fff; border-color: #165dff; }
+        
+        /* 弹窗 */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal { background: #fff; border-radius: 8px; width: 600px; max-height: 80vh; overflow: auto; }
+        .modal-header { padding: 16px 24px; border-bottom: 1px solid #e5e6eb; display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 16px; font-weight: 500; }
+        .modal-close { width: 24px; height: 24px; cursor: pointer; color: #86909c; }
+        .modal-body { padding: 24px; }
+        .modal-footer { padding: 16px 24px; border-top: 1px solid #e5e6eb; display: flex; justify-content: flex-end; gap: 12px; }
+        
+        /* 表单 */
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500; }
+        .form-label .required { color: #cf1322; margin-left: 4px; }
+        .form-input { width: 100%; padding: 10px 12px; border: 1px solid #e5e6eb; border-radius: 6px; font-size: 14px; }
+        .form-input:focus { outline: none; border-color: #165dff; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        
+        /* 标签页 */
+        .tabs { display: flex; gap: 24px; border-bottom: 1px solid #e5e6eb; margin-bottom: 24px; }
+        .tab { padding: 12px 0; font-size: 14px; color: #4e5969; cursor: pointer; border-bottom: 2px solid transparent; }
+        .tab.active { color: #165dff; border-bottom-color: #165dff; font-weight: 500; }
+        
+        /* 图片上传 */
+        .upload-area { border: 2px dashed #e5e6eb; border-radius: 8px; padding: 40px; text-align: center; cursor: pointer; }
+        .upload-area:hover { border-color: #165dff; }
+        .upload-icon { font-size: 48px; color: #86909c; margin-bottom: 16px; }
+        .upload-text { font-size: 14px; color: #4e5969; }
+        .upload-hint { font-size: 12px; color: #86909c; margin-top: 8px; }
+        
+        /* 图片预览网格 */
+        .image-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
+        .image-item { position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: #f7f8fa; }
+        .image-item img { width: 100%; height: 100%; object-fit: cover; }
+        .image-item .delete { position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; background: rgba(0,0,0,0.5); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        
+        /* 空状态 */
+        .empty-state { text-align: center; padding: 60px 20px; color: #86909c; }
+        .empty-icon { font-size: 64px; margin-bottom: 16px; }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="logo">🏠 新房项目</div>
+            <div class="nav-item active">
+                <span>📦</span>
+                <span>新盘管理</span>
+            </div>
+            <div class="nav-item">
+                <span>📋</span>
+                <span>探盘任务</span>
+            </div>
+            <div class="nav-item">
+                <span>🎓</span>
+                <span>话术训练</span>
+            </div>
+            <div class="nav-item">
+                <span>🎙️</span>
+                <span>录音分析</span>
+            </div>
+            <div class="nav-item">
+                <span>📁</span>
+                <span>物料管理</span>
+            </div>
+            <div class="nav-item">
+                <span>📊</span>
+                <span>数据看板</span>
+            </div>
+        </div>
+        
+        <!-- 主内容 -->
+        <div class="main">
+            <div class="header">
+                <div class="header-title">新盘管理</div>
+                <div class="header-actions">
+                    <button class="btn btn-default">批量导入</button>
+                    <button class="btn btn-primary" onclick="showAddModal()">新建楼盘</button>
+                </div>
+            </div>
+            
+            <div class="content">
+                <!-- 搜索筛选 -->
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="搜索楼盘名称...">
+                    <select class="filter-select">
+                        <option value="">全部状态</option>
+                        <option value="draft">草稿</option>
+                        <option value="pending">待审核</option>
+                        <option value="approved">审核通过</option>
+                        <option value="rejected">已驳回</option>
+                        <option value="online">已上线</option>
+                        <option value="offline">已下线</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="">全部区域</option>
+                        <option value="chaoyang">朝阳区</option>
+                        <option value="haidian">海淀区</option>
+                        <option value="shijingshan">石景山区</option>
+                    </select>
+                    <button class="btn btn-default">重置</button>
+                    <button class="btn btn-primary">搜索</button>
+                </div>
+                
+                <!-- 数据表格 -->
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>楼盘名称</th>
+                                <th>区域</th>
+                                <th>均价(万/平)</th>
+                                <th>状态</th>
+                                <th>录入时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>龙湖·云景</td>
+                                <td>朝阳区</td>
+                                <td>8.5</td>
+                                <td><span class="status status-online">已上线</span></td>
+                                <td>2026-04-10</td>
+                                <td>
+                                    <a class="action-link">查看</a>
+                                    <a class="action-link">编辑</a>
+                                    <a class="action-link">下线</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>万科·翡翠公园</td>
+                                <td>海淀区</td>
+                                <td>12.0</td>
+                                <td><span class="status status-pending">待审核</span></td>
+                                <td>2026-04-12</td>
+                                <td>
+                                    <a class="action-link">查看</a>
+                                    <a class="action-link">审核</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>中海·寰宇天下</td>
+                                <td>石景山区</td>
+                                <td>7.2</td>
+                                <td><span class="status status-rejected">已驳回</span></td>
+                                <td>2026-04-11</td>
+                                <td>
+                                    <a class="action-link">查看</a>
+                                    <a class="action-link">编辑</a>
+                                    <a class="action-link">重新提交</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>华润·橡树湾</td>
+                                <td>朝阳区</td>
+                                <td>9.8</td>
+                                <td><span class="status status-draft">草稿</span></td>
+                                <td>2026-04-13</td>
+                                <td>
+                                    <a class="action-link">编辑</a>
+                                    <a class="action-link">提交审核</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>金地·格林小镇</td>
+                                <td>海淀区</td>
+                                <td>6.5</td>
+                                <td><span class="status status-offline">已下线</span></td>
+                                <td>2026-04-08</td>
+                                <td>
+                                    <a class="action-link">查看</a>
+                                    <a class="action-link">上线</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- 分页 -->
+                    <div class="pagination">
+                        <div class="pagination-info">共 5 条记录，第 1/1 页</div>
+                        <div class="pagination-controls">
+                            <button class="pagination-btn active">1</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 新建/编辑楼盘弹窗 -->
+    <div class="modal-overlay" id="addModal">
+        <div class="modal" style="width: 800px;">
+            <div class="modal-header">
+                <div class="modal-title">新建楼盘</div>
+                <div class="modal-close" onclick="closeModal()">✕</div>
+            </div>
+            <div class="modal-body">
+                <!-- 标签页 -->
+                <div class="tabs">
+                    <div class="tab active">基本信息</div>
+                    <div class="tab">项目规格</div>
+                    <div class="tab">配套信息</div>
+                    <div class="tab">价格动态</div>
+                    <div class="tab">图片资料</div>
+                </div>
+                
+                <!-- 基本信息表单 -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">楼盘名称<span class="required">*</span></label>
+                        <input type="text" class="form-input" placeholder="请输入楼盘名称">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">物业总称</label>
+                        <input type="text" class="form-input" placeholder="请输入物业总称">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">行政区<span class="required">*</span></label>
+                        <select class="form-input">
+                            <option value="">请选择</option>
+                            <option value="chaoyang">朝阳区</option>
+                            <option value="haidian">海淀区</option>
+                            <option value="shijingshan">石景山区</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">商圈/板块</label>
+                        <input type="text" class="form-input" placeholder="请输入商圈/板块">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">物业类别</label>
+                        <select class="form-input">
+                            <option value="">请选择</option>
+                            <option value="flat">平层</option>
+                            <option value="duplex">叠拼</option>
+                            <option value="townhouse">联排</option>
+                            <option value="villa">别墅</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">装修情况</label>
+                        <select class="form-input">
+                            <option value="">请选择</option>
+                            <option value="rough">毛坯</option>
+                            <option value="hard">精装</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">占地面积(㎡)</label>
+                        <input type="text" class="form-input" placeholder="请输入">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">建筑面积(㎡)</label>
+                        <input type="text" class="form-input" placeholder="请输入">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">均价(万/平)<span class="required">*</span></label>
+                        <input type="text" class="form-input" placeholder="请输入">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">总价区间(万)</label>
+                        <input type="text" class="form-input" placeholder="如：500-800">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">开发商名称</label>
+                    <input type="text" class="form-input" placeholder="请输入开发商名称">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">项目地址<span class="required">*</span></label>
+                    <input type="text" class="form-input" placeholder="请输入详细地址">
+                </div>
+                
+                <!-- 图片上传 -->
+                <div class="form-group">
+                    <label class="form-label">图片资料</label>
+                    <div class="upload-area">
+                        <div class="upload-icon">📷</div>
+                        <div class="upload-text">点击或拖拽上传图片</div>
+                        <div class="upload-hint">支持 jpg/png/webp，单张≤10MB，最多20张</div>
+                    </div>
+                    <div class="image-grid">
+                        <div class="image-item">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23f0f0f0' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' fill='%23999' font-size='14' text-anchor='middle' dy='.3em'%3E区位图%3C/text%3E%3C/svg%3E" alt="区位图">
+                            <div class="delete">✕</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" onclick="closeModal()">取消</button>
+                <button class="btn btn-default">保存草稿</button>
+                <button class="btn btn-primary">提交审核</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showAddModal() {
+            document.getElementById('addModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('addModal').style.display = 'none';
+        }
+        
+        // 点击弹窗背景关闭
+        document.getElementById('addModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
