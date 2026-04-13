@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据看板 - 新房AI作业平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        success: '#00B42A',
+                        warning: '#FF7D00',
+                        danger: '#F53F3F',
+                        dark: '#1D2129',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.2s ease;
+        }
+        .card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #165DFF 0%, #4080FF 100%);
+            border-radius: 16px;
+            padding: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+        }
+        .metric-card.success {
+            background: linear-gradient(135deg, #00B42A 0%, #23C343 100%);
+        }
+        .metric-card.warning {
+            background: linear-gradient(135deg, #FF7D00 0%, #FFAA4C 100%);
+        }
+        .metric-card.danger {
+            background: linear-gradient(135deg, #F53F3F 0%, #F76565 100%);
+        }
+        .metric-label {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .metric-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            margin-top: 8px;
+            padding: 4px 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+        }
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1D2129;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .mini-stat {
+            background: #F7F8FA;
+            border-radius: 10px;
+            padding: 12px 16px;
+            text-align: center;
+        }
+        .mini-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1D2129;
+        }
+        .mini-stat-label {
+            font-size: 11px;
+            color: #86909C;
+            margin-top: 2px;
+        }
+        .progress-bar {
+            height: 6px;
+            background: #F2F3F5;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-value {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        .ability-tag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 20px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+        }
+        .ability-tag.s1 { background: #86909C; }
+        .ability-tag.s2 { background: #165DFF; }
+        .ability-tag.s3 { background: #00B42A; }
+        .ability-tag.s4 { background: #FF7D00; }
+        .rank-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            background: #F7F8FA;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+        .rank-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .rank-num.top1 { background: #FFD426; color: #925300; }
+        .rank-num.top2 { background: #C9CDD4; color: #4E5969; }
+        .rank-num.top3 { background: #E5875C; color: white; }
+        .rank-num.normal { background: #E5E6EB; color: #86909C; }
+        .platform-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .platform-badge.platform-xhs { background: #FEE1D8; color: #FF2442; }
+        .platform-badge.platform-gzh { background: #D8E8FF; color: #165DFF; }
+        .platform-badge.platform-sph { background: #FFD6E8; color: #EB3C78; }
+        .platform-badge.platform-pyq { background: #D1E9D1; color: #00B42A; }
+        /* 漏斗图 */
+        .funnel-step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .funnel-step:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        /* 按钮样式 */
+        .btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+        }
+        .btn-primary {
+            background: #165DFF;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #0E42D2;
+        }
+        .btn-secondary {
+            background: white;
+            color: #4E5969;
+            border: 1px solid #E5E6EB;
+        }
+        .btn-secondary:hover {
+            border-color: #165DFF;
+            color: #165DFF;
+        }
+        .btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        /* 骨架屏 */
+        .skeleton {
+            background: linear-gradient(90deg, #F2F3F5 25%, #E5E6EB 50%, #F2F3F5 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 6px;
+        }
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        /* Toast提示 */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            color: white;
+            font-size: 13px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        .toast.success { background: #00B42A; }
+        .toast.error { background: #F53F3F; }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        /* 圆角徽章 */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .badge-green { background: #DCFCE7; color: #16A34A; }
+        .badge-yellow { background: #FEF3C7; color: #D97706; }
+        .badge-red { background: #FEE2E2; color: #DC2626; }
+        /* 下拉箭头 */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2386909C' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- 顶部导航 -->
+    <nav class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50 h-16">
+        <div class="flex justify-between items-center px-6 h-full">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+                    <i class="fa fa-building-o text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-dark">新房AI作业平台</h1>
+                    <p class="text-xs text-gray-400">管理后台</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="text-gray-500 hover:text-primary relative">
+                    <i class="fa fa-bell-o text-xl"></i>
+                    <span class="absolute -top-1 -right-1 w-5 h-5 bg-danger text-white text-xs rounded-full flex items-center justify-center">3</span>
+                </button>
+                <div class="flex items-center gap-2 pl-4 border-l border-gray-200">
+                    <div class="w-9 h-9 bg-primary text-white rounded-full flex items-center justify-center font-bold">管</div>
+                    <div>
+                        <div class="text-sm font-medium">管理员</div>
+                        <div class="text-xs text-gray-400">区域经理</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 侧边栏 -->
+    <aside class="w-64 bg-white h-[calc(100vh-64px)] fixed left-0 top-16 shadow-sm z-40">
+        <nav class="py-4">
+            <div class="px-4 py-2 text-xs text-gray-400 uppercase font-medium tracking-wider">功能菜单</div>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <i class="fa fa-building-o w-5 text-center text-gray-400"></i>
+                <span class="ml-3">新盘管理</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <i class="fa fa-tasks w-5 text-center text-gray-400"></i>
+                <span class="ml-3">探盘任务</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50">
+                <i class="fa fa-cubes w-5 text-center text-gray-400"></i>
+                <span class="ml-3">物料管理</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-primary bg-blue-50 border-r-4 border-primary">
+                <i class="fa fa-line-chart w-5 text-center"></i>
+                <span class="ml-3 font-medium">数据看板</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="ml-64 p-6 pt-20">
+        <!-- 页面标题栏 -->
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-dark">📊 数据看板</h1>
+                <p class="text-sm text-gray-400 mt-1">
+                    <span id="currentDept">全公司</span> · <span id="currentPeriod">2026年4月</span>
+                    <span class="ml-2 text-gray-300">|</span>
+                    <span class="ml-2 text-gray-500">更新于 <span id="updateTime">17:40</span></span>
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <select id="regionFilter" onchange="filterChanged()" class="bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-sm cursor-pointer hover:border-primary focus:border-primary">
+                    <option value="all">全公司</option>
+                    <option value="hd">华东区域</option>
+                    <option value="hn">华南区域</option>
+                    <option value="hb">华北区域</option>
+                </select>
+                <select id="timeFilter" onchange="filterChanged()" class="bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-sm cursor-pointer hover:border-primary focus:border-primary">
+                    <option value="month">本月</option>
+                    <option value="lastMonth">上月</option>
+                    <option value="quarter">本季度</option>
+                    <option value="year">本年</option>
+                </select>
+                <button class="btn btn-secondary" onclick="exportData('excel')">
+                    <i class="fa fa-file-excel-o"></i>Excel
+                </button>
+                <button class="btn btn-secondary" onclick="exportData('pdf')">
+                    <i class="fa fa-file-pdf-o"></i>PDF
+                </button>
+                <button id="refreshBtn" class="btn btn-primary" onclick="refreshData()">
+                    <i class="fa fa-refresh"></i>刷新
+                </button>
+            </div>
+        </div>
+
+        <!-- 1. 核心指标 -->
+        <div class="grid grid-cols-4 gap-5 mb-6">
+            <div class="metric-card">
+                <div class="metric-label">本月带看组数</div>
+                <div class="metric-value">1,286</div>
+                <div class="metric-trend">
+                    <i class="fa fa-arrow-up"></i> 12.5% 较上月
+                </div>
+            </div>
+            <div class="metric-card success">
+                <div class="metric-label">本月成交单量</div>
+                <div class="metric-value">128</div>
+                <div class="metric-trend">
+                    <i class="fa fa-arrow-up"></i> 8.3% 较上月
+                </div>
+            </div>
+            <div class="metric-card warning">
+                <div class="metric-label">本月GMV</div>
+                <div class="metric-value">3.57<span style="font-size: 20px">亿</span></div>
+                <div class="metric-trend">
+                    <i class="fa fa-arrow-up"></i> 15.2% 较上月
+                </div>
+            </div>
+            <div class="metric-card danger">
+                <div class="metric-label">整体转化率</div>
+                <div class="metric-value">9.9%</div>
+                <div class="metric-trend">
+                    <i class="fa fa-arrow-down"></i> 0.3% 较上月
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 业务漏斗 -->
+        <div class="grid grid-cols-2 gap-5 mb-6">
+            <!-- 核心业务漏斗 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-blue-100 text-blue-600">🔄</div>
+                        核心业务漏斗
+                    </div>
+                    <span class="badge badge-green">本月</span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="flex-1">
+                        <div class="space-y-2">
+                            <div class="funnel-step bg-gradient-to-r from-blue-500 to-blue-600" style="padding: 14px 16px;">
+                                <div class="flex-1">
+                                    <div class="text-xs text-white/80">报备数</div>
+                                    <strong class="text-xl">3,856</strong>
+                                </div>
+                                <span class="text-xs text-white/70">100%</span>
+                            </div>
+                            <div class="flex justify-center">
+                                <div class="bg-gray-100 px-3 py-1 rounded-full text-xs">
+                                    <span class="text-blue-500 font-bold">33.3%</span>
+                                    <span class="text-gray-400 ml-1">转化</span>
+                                </div>
+                            </div>
+                            <div class="funnel-step bg-gradient-to-r from-blue-400 to-blue-500" style="padding: 12px 16px; width: 80%; margin-left: auto;">
+                                <div class="flex-1">
+                                    <div class="text-xs text-white/80">带看组数</div>
+                                    <strong class="text-lg">1,286</strong>
+                                </div>
+                                <span class="text-xs text-white/70">33.3%</span>
+                            </div>
+                            <div class="flex justify-center">
+                                <div class="bg-gray-100 px-3 py-1 rounded-full text-xs">
+                                    <span class="text-green-500 font-bold">9.9%</span>
+                                    <span class="text-gray-400 ml-1">转化</span>
+                                </div>
+                            </div>
+                            <div class="funnel-step bg-gradient-to-r from-green-500 to-green-600" style="padding: 12px 16px; width: 60%; margin-left: auto;">
+                                <div class="flex-1">
+                                    <div class="text-xs text-white/80">成交单量</div>
+                                    <strong class="text-lg">128</strong>
+                                </div>
+                                <span class="text-xs text-white/70">9.9%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-32 space-y-2">
+                        <div class="mini-stat">
+                            <div class="mini-stat-value text-blue-500">33.3%</div>
+                            <div class="mini-stat-label">报备转带看</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-value text-green-500">9.9%</div>
+                            <div class="mini-stat-label">带看转成交</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-value text-orange-500">22.5%</div>
+                            <div class="mini-stat-label">复访率</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 获客转化漏斗 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-green-100 text-green-600">📈</div>
+                        获客转化漏斗
+                    </div>
+                    <span class="badge badge-green">本月</span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="flex-1">
+                        <div class="space-y-2">
+                            <div class="funnel-step bg-gradient-to-r from-blue-500 to-blue-600" style="padding: 12px 16px;">
+                                <div class="flex-1">
+                                    <div class="text-xs text-white/80">咨询量</div>
+                                    <strong class="text-lg">386</strong>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div class="bg-gray-100 px-3 py-1 rounded-full text-xs text-blue-500 font-bold">33.2%</div>
+                            </div>
+                            <div class="funnel-step bg-gradient-to-r from-green-500 to-green-600" style="padding: 12px 16px; width: 85%; margin-left: auto;">
+                                <div class="flex-1">
+                                    <div class="text-xs text-white/80">线索量</div>
+                                    <strong class="text-lg">128</strong>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div class="bg-gray-100 px-3 py-1 rounded-full text-xs text-green-500 font-bold">75%</div>
+                            </div>
+                            <div class="funnel-step bg-gradient-to-r from-orange-500 to-orange-600" style="padding: 12px 16px; width: 70%; margin-left: auto;">
+                                <div class="flex-1">
+                                    <div class="text-xs text-white/80">报备量</div>
+                                    <strong class="text-lg">96</strong>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div class="bg-gray-100 px-3 py-1 rounded-full text-xs text-orange-500 font-bold">60.4%</div>
+                            </div>
+                            <div class="funnel-step bg-gradient-to-r from-purple-500 to-purple-600" style="padding: 12px 16px; width: 55%; margin-left: auto;">
+                                <div class="flex-1">
+                                    <div class="text-xs text-white/80">带看量</div>
+                                    <strong class="text-lg">58</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-28 space-y-2">
+                        <div class="mini-stat">
+                            <div class="mini-stat-value text-danger">¥128</div>
+                            <div class="mini-stat-label">获客成本/人</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-value text-success">↓5.2%</div>
+                            <div class="mini-stat-label">较上月</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 内容与运营 -->
+        <div class="grid grid-cols-4 gap-5 mb-6">
+            <!-- 内容发布 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-purple-100 text-purple-600">📝</div>
+                        内容发布
+                    </div>
+                    <select class="bg-gray-50 border-0 rounded-lg px-2 py-1 text-xs">
+                        <option>本月</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-primary">1,286</div>
+                        <div class="mini-stat-label">发布量</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-success">52.3<span class="text-xs">万</span></div>
+                        <div class="mini-stat-label">浏览量</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-warning">¥8,520</div>
+                        <div class="mini-stat-label">投流费用</div>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+                        <span class="platform-badge platform-xhs">小红书</span>
+                        <span class="text-sm"><strong>486</strong> <span class="text-gray-400">/ 18.6万</span></span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+                        <span class="platform-badge platform-gzh">公众号</span>
+                        <span class="text-sm"><strong>320</strong> <span class="text-gray-400">/ 15.2万</span></span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+                        <span class="platform-badge platform-sph">视频号</span>
+                        <span class="text-sm"><strong>280</strong> <span class="text-gray-400">/ 12.5万</span></span>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-gray-100 text-center">
+                    <span class="text-gray-400 text-sm">ROI:</span>
+                    <span class="font-bold text-success ml-1">1:4.2</span>
+                </div>
+            </div>
+
+            <!-- 老客盘活 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-orange-100 text-orange-600">📞</div>
+                        老客盘活
+                    </div>
+                    <select class="bg-gray-50 border-0 rounded-lg px-2 py-1 text-xs">
+                        <option>本月</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-blue-500">28,653</div>
+                        <div class="mini-stat-label">电话/私信</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-green-500">1,263</div>
+                        <div class="mini-stat-label">报备量</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-purple-500">4.4%</div>
+                        <div class="mini-stat-label">转化率</div>
+                    </div>
+                </div>
+                <div class="h-24">
+                    <canvas id="oldCustomerChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 探盘任务 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-cyan-100 text-cyan-600">🎯</div>
+                        探盘任务
+                    </div>
+                    <select class="bg-gray-50 border-0 rounded-lg px-2 py-1 text-xs">
+                        <option>本月</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-primary">856</div>
+                        <div class="mini-stat-label">任务总数</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-success">782</div>
+                        <div class="mini-stat-label">已完成</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-warning">68</div>
+                        <div class="mini-stat-label">超时</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-value text-gray-400">6</div>
+                        <div class="mini-stat-label">待审核</div>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-gray-500">完成率</span>
+                        <span class="font-bold text-success">91.4%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value bg-success" style="width: 91.4%"></div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm mt-2">
+                        <span class="text-gray-500">超时率</span>
+                        <span class="font-bold text-warning">7.9%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value bg-warning" style="width: 7.9%"></div>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-gray-100 text-center">
+                    <span class="text-xs text-gray-400">超时预警：</span>
+                    <span class="text-xs text-danger">华东区域超时较多(18%)</span>
+                </div>
+            </div>
+
+            <!-- 产品力成长 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-yellow-100 text-yellow-600">🏆</div>
+                        产品力成长
+                    </div>
+                    <select class="bg-gray-50 border-0 rounded-lg px-2 py-1 text-xs">
+                        <option>本月</option>
+                    </select>
+                </div>
+                <div class="flex gap-3">
+                    <div class="w-20">
+                        <canvas id="radarChart" width="80" height="80"></canvas>
+                    </div>
+                    <div class="flex-1 space-y-1.5">
+                        <div class="flex items-center justify-between p-1.5 bg-orange-50 rounded">
+                            <div class="flex items-center gap-2">
+                                <span class="ability-tag s4">S4</span>
+                                <span class="text-xs">全城专家</span>
+                            </div>
+                            <span class="text-sm font-bold text-orange-500">328人</span>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-green-50 rounded">
+                            <div class="flex items-center gap-2">
+                                <span class="ability-tag s3">S3</span>
+                                <span class="text-xs">行政区</span>
+                            </div>
+                            <span class="text-sm font-bold text-green-500">856人</span>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-blue-50 rounded">
+                            <div class="flex items-center gap-2">
+                                <span class="ability-tag s2">S2</span>
+                                <span class="text-xs">商圈专家</span>
+                            </div>
+                            <span class="text-sm font-bold text-primary">1,562人</span>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-gray-100 rounded">
+                            <div class="flex items-center gap-2">
+                                <span class="ability-tag s1">S1</span>
+                                <span class="text-xs">单盘专家</span>
+                            </div>
+                            <span class="text-sm font-bold text-gray-500">2,153人</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-gray-100 flex justify-around text-center">
+                    <div>
+                        <div class="text-lg font-bold text-green-500">623</div>
+                        <div class="text-xs text-gray-400">本月晋升</div>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-primary">4,899</div>
+                        <div class="text-xs text-gray-400">专家总数</div>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-warning">82.5</div>
+                        <div class="text-xs text-gray-400">平均分</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 渠道与趋势 -->
+        <div class="grid grid-cols-3 gap-5 mb-6">
+            <!-- 获客渠道 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-pink-100 text-pink-600">📱</div>
+                        获客渠道
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="w-24">
+                        <canvas id="channelChart" width="96" height="96"></canvas>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+                                <span class="text-xs">抖音</span>
+                            </div>
+                            <span class="text-xs font-bold">32%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                                <span class="text-xs">小红书</span>
+                            </div>
+                            <span class="text-xs font-bold">24%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                                <span class="text-xs">朋友圈</span>
+                            </div>
+                            <span class="text-xs font-bold">18%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-orange-500"></div>
+                                <span class="text-xs">转介绍</span>
+                            </div>
+                            <span class="text-xs font-bold">15%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 业绩趋势 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-blue-100 text-blue-600">📊</div>
+                        业绩趋势
+                    </div>
+                    <span class="text-xs text-gray-400">近6个月</span>
+                </div>
+                <div class="h-36">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 能力趋势 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-green-100 text-green-600">📈</div>
+                        能力趋势
+                    </div>
+                    <span class="text-xs text-gray-400">近6个月</span>
+                </div>
+                <div class="h-36">
+                    <canvas id="abilityTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 排名 -->
+        <div class="grid grid-cols-2 gap-5 mb-6">
+            <!-- 团队业绩TOP5 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-yellow-100 text-yellow-600">🏅</div>
+                        团队业绩TOP5
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="rank-item">
+                        <div class="rank-num top1">1</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">浦东一区</div>
+                            <div class="text-xs text-gray-400">128组带看 · 15套成交</div>
+                        </div>
+                        <div class="font-bold text-success">¥5,680万</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num top2">2</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">徐汇大区</div>
+                            <div class="text-xs text-gray-400">105组带看 · 12套成交</div>
+                        </div>
+                        <div class="font-medium text-gray-600">¥4,850万</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num top3">3</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">松江区域</div>
+                            <div class="text-xs text-gray-400">96组带看 · 11套成交</div>
+                        </div>
+                        <div class="font-medium text-gray-600">¥4,230万</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num normal">4</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">嘉定区域</div>
+                            <div class="text-xs text-gray-400">88组带看 · 9套成交</div>
+                        </div>
+                        <div class="font-medium text-gray-500">¥3,890万</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num normal">5</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">青浦区域</div>
+                            <div class="text-xs text-gray-400">78组带看 · 8套成交</div>
+                        </div>
+                        <div class="font-medium text-gray-500">¥3,210万</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 经纪人TOP5 -->
+            <div class="card p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="section-title">
+                        <div class="section-icon bg-green-100 text-green-600">👑</div>
+                        经纪人TOP5
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="rank-item">
+                        <div class="rank-num top1">1</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">张伟</div>
+                            <div class="text-xs text-gray-400">华东区域</div>
+                        </div>
+                        <div class="font-bold text-success">¥128万</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num top2">2</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">李娜</div>
+                            <div class="text-xs text-gray-400">华南区域</div>
+                        </div>
+                        <div class="font-bold text-success">¥98万</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num top3">3</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">王强</div>
+                            <div class="text-xs text-gray-400">华北区域</div>
+                        </div>
+                        <div class="font-bold text-success">¥86万</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num normal">4</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">刘洋</div>
+                            <div class="text-xs text-gray-400">华东区域</div>
+                        </div>
+                        <div class="font-medium text-gray-600">¥75万</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num normal">5</div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">陈静</div>
+                            <div class="text-xs text-gray-400">华南区域</div>
+                        </div>
+                        <div class="font-medium text-gray-600">¥68万</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 业绩趋势图
+            const revenueCtx = document.getElementById('revenueChart');
+            if (revenueCtx) {
+                new Chart(revenueCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                        datasets: [{
+                            data: [28000, 29500, 31200, 32600, 33800, 35680],
+                            borderColor: '#165DFF',
+                            backgroundColor: 'rgba(22, 93, 255, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 3,
+                            pointHoverRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                            y: { grid: { color: '#F2F3F5' }, ticks: { font: { size: 10 }, callback: v => v/10000 + '亿' } }
+                        }
+                    }
+                });
+            }
+
+            // 能力趋势图
+            const abilityCtx = document.getElementById('abilityTrendChart');
+            if (abilityCtx) {
+                new Chart(abilityCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                        datasets: [
+                            { label: '团队平均', data: [72, 74, 76, 78, 80, 82], borderColor: '#165DFF', tension: 0.4, pointRadius: 3 },
+                            { label: 'S4专家', data: [88, 89, 90, 92, 93, 95], borderColor: '#FF7D00', tension: 0.4, pointRadius: 3 }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                            y: { grid: { color: '#F2F3F5' }, ticks: { font: { size: 10 }, min: 60, max: 100 } }
+                        }
+                    }
+                });
+            }
+
+            // 老客盘活趋势
+            const oldCustomerCtx = document.getElementById('oldCustomerChart');
+            if (oldCustomerCtx) {
+                new Chart(oldCustomerCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['1月', '2月', '3月'],
+                        datasets: [
+                            { data: [21000, 23500, 24800], borderColor: '#165DFF', tension: 0.4, pointRadius: 2 },
+                            { data: [980, 1050, 1120], borderColor: '#00B42A', tension: 0.4, pointRadius: 2 }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { display: false },
+                            y: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // 获客渠道饼图
+            const channelCtx = document.getElementById('channelChart');
+            if (channelCtx) {
+                new Chart(channelCtx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: [32, 24, 18, 15, 11],
+                            backgroundColor: ['#165DFF', '#F53F3F', '#00B42A', '#FF7D00', '#86909C']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        cutout: '60%',
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+
+            // 雷达图
+            const radarCtx = document.getElementById('radarChart');
+            if (radarCtx) {
+                new Chart(radarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['产品力', '抗压', '沟通', '业务', '销冠'],
+                        datasets: [{ data: [85, 78, 82, 88, 75], borderColor: '#165DFF', backgroundColor: 'rgba(22,93,255,0.2)', pointRadius: 2 }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: false } },
+                        scales: { r: { ticks: { display: false }, pointLabels: { font: { size: 8 } } } }
+                    }
+                });
+            }
+        });
+
+        function filterChanged() {
+            const dept = document.getElementById('regionFilter').value;
+            const deptNames = { all: '全公司', hd: '华东区域', hn: '华南区域', hb: '华北区域' };
+            document.getElementById('currentDept').textContent = deptNames[dept] || '全公司';
+            showToast('筛选已更新', 'success');
+        }
+
+        function refreshData() {
+            const btn = document.getElementById('refreshBtn');
+            btn.classList.add('loading');
+            btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>刷新中...';
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.innerHTML = '<i class="fa fa-refresh"></i>刷新';
+                document.getElementById('updateTime').textContent = new Date().toTimeString().slice(0, 5);
+                showToast('数据已刷新', 'success');
+            }, 1500);
+        }
+
+        function exportData(type) {
+            showToast('导出' + type.toUpperCase() + '中...', 'success');
+        }
+
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            toast.innerHTML = '<i class="fa fa-' + (type === 'success' ? 'check-circle' : 'times-circle') + ' mr-2"></i>' + message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
