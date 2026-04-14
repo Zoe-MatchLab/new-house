@@ -269,6 +269,27 @@
         }
 
         .animate-in { animation: fadeInUp 0.3s ease forwards; }
+    
+        /* 新增客户入口 */
+        .add-customer-section {
+            padding: 0 var(--spacing-md) var(--spacing-sm);
+        }
+        .add-customer-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: var(--brand-primary-light, #FFF7E6);
+            border-radius: var(--radius-md);
+            color: var(--brand-primary, #FA8C16);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .add-customer-btn:active {
+            background: #FFE4CC;
+        }
+
     </style>
 </head>
 <body>
@@ -285,6 +306,14 @@
                 <i class="fa fa-search"></i>
                 <input type="text" class="search-input" id="searchInput" placeholder="搜索客户姓名/手机号" />
             </div>
+        </div>
+
+        <!-- 新增客户入口 -->
+        <div class="add-customer-section">
+            <a href="../customer/add.html" class="add-customer-btn">
+                <i class="fa fa-plus-circle"></i>
+                <span>新增客户</span>
+            </a>
         </div>
 
         <!-- 客户列表 -->

@@ -17,10 +17,10 @@
 
 ### 用户角色
 
-| 角色         | 说明               | 使用端       |
-| ---------- | ---------------- | --------- |
-| 管理员/新房维护人员 | 负责上线新盘、配置任务、管理团队 | PC端 + 小程序 |
-| 经纪人（包含区经理） | 执行探盘任务、录音分析、AI训练 | 小程序       |
+| 角色         | 说明                    | 使用端       |
+| ---------- | --------------------- | --------- |
+| 管理员/新房维护人员 | 负责上线新盘、配置任务、管理团队      | PC端 + 小程序 |
+| 经纪人（包含区经理） | 执行探盘任务、录音分析、AI训练、内容生成 | 小程序       |
 
 ***
 
@@ -92,7 +92,7 @@
 - 关键词覆盖 ✅
 - 邀约意向 ✅
 
-**原型地址**：`/pc/recording/list.html`
+**原型地址**：<https://prototypes-ivory-nine.vercel.app/pc/recording/list.html>
 
 ***
 
@@ -108,7 +108,7 @@
 | 物料审核 | 审核生成的物料内容   |
 | 物料分发 | 将物料分发给经纪人使用 |
 
-**原型地址**：`/pc/material/list.html`
+**原型地址**：<https://prototypes-ivory-nine.vercel.app/pc/material/list.html>
 
 ***
 
@@ -124,11 +124,11 @@
 | 客户详情 | 查看客户信息和跟进记录 |
 | 新增客户 | 录入新客户信息     |
 
-**原型地址**：`/pc/customer/list.html`
+**原型地址**：<https://prototypes-ivory-nine.vercel.app/pc/customer/list.html>
 
 ***
 
-### 6. 数据看板
+### 6. 数据看板-需要重新设计
 
 **功能描述**：可视化展示各项业务数据，辅助管理层决策。
 
@@ -141,7 +141,7 @@
 | 物料统计  | 各类型物料生成数量       |
 | 经纪人表现 | 经纪人任务完成排名       |
 
-**原型地址**：`/pc/dashboard/overview.html`
+**原型地址**：<https://prototypes-ivory-nine.vercel.app/pc/dashboard/overview.html>
 
 ***
 
@@ -158,7 +158,7 @@
 | 快捷入口   | 录音上传、内容日历等           |
 | 底部胶囊导航 | 服务工具/AI设计/claw/日历/我的 |
 
-**原型地址**：`/wxapp/home/tools.html`
+**原型地址**：<https://prototypes-ivory-nine.vercel.app/wxapp/home/tools.html>
 
 ***
 
@@ -178,7 +178,7 @@
 
 - 待下发 → 跳转配置页进行下发
 
-**原型地址**：`/wxapp/home/calendar.html`
+**原型地址**：<https://prototypes-ivory-nine.vercel.app/wxapp/home/calendar.html>
 
 ***
 
@@ -201,7 +201,7 @@
 | 执行人员   | 选择执行经纪人        |
 | 通知人员   | 任务通知给谁         |
 
-**原型地址**：`/wxapp/task/checkin-config.html`
+**原型地址**：<https://prototypes-ivory-nine.vercel.app/wxapp/task/checkin-config.html>
 
 ***
 
@@ -235,7 +235,7 @@
                   日历      location   point      content
 ```
 
-**原型地址**：`/wxapp/task/detail.html`
+**原型地址**：<https://prototypes-ivory-nine.vercel.app/wxapp/task/detail.html>
 
 ***
 
@@ -251,7 +251,7 @@
 | 录音上传 | 录制或上传邀约录音 |
 | 录音结果 | 查看AI分析结果  |
 
-**原型地址**：`/wxapp/recording/list.html`
+**原型地址**：<https://prototypes-ivory-nine.vercel.app/wxapp/recording/upload.html>
 
 ***
 
@@ -267,7 +267,7 @@
 | 客户详情 | 查看客户详细信息 |
 | 新增客户 | 快速录入新客户  |
 
-**原型地址**：`/wxapp/customer/list.html`
+**原型地址**：<https://prototypes-ivory-nine.vercel.app/wxapp/customer/list.html>
 
 ***
 
