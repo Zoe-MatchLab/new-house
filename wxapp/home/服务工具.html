@@ -679,7 +679,7 @@
             </div>
             
             <!-- AI话术训练 -->
-            <div class="tool-card tool-card-medium animate-in delay-3" onclick="window.location.href='ai-training.html'">
+            <div class="tool-card tool-card-medium animate-in delay-3" onclick="window.location.href='AI设计.html'">
                 <img class="tool-card-img" src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=336&h=326&fit=crop" alt="">
                 <div class="tool-card-overlay" style="background: linear-gradient(135deg, rgba(0,200,200,0.6) 0%, rgba(0,150,150,0.85) 100%);"></div>
                 <div class="tool-card-content">
@@ -692,7 +692,7 @@
             </div>
             
             <!-- 智能客服助手 -->
-            <div class="tool-card tool-card-short animate-in delay-3" onclick="window.location.href='home.html'">
+            <div class="tool-card tool-card-short animate-in delay-3" onclick="window.location.href='首页-AI助手.html'">
                 <img class="tool-card-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=336&h=204&fit=crop" alt="">
                 <div class="tool-card-overlay" style="background: linear-gradient(135deg, rgba(0,184,148,0.6) 0%, rgba(0,150,136,0.85) 100%);"></div>
                 <div class="tool-card-content">
@@ -715,19 +715,19 @@
     
     <!-- 底部TabBar -->
     <nav class="tab-bar" role="tablist" aria-label="页面导航">
-        <a href="tools.html" role="tab" aria-label="首页" aria-selected="false">
+        <a href="服务工具.html" role="tab" aria-label="首页" aria-selected="false">
             <i class="fa fa-rocket" aria-hidden="true"></i>
         </a>
-        <a href="ai-training.html" class="tab-item" role="tab" aria-label="AI设计" aria-selected="true">
+        <a href="AI设计.html" class="tab-item" role="tab" aria-label="AI设计" aria-selected="true">
             <i class="fa fa-paint-brush" aria-hidden="true"></i>
         </a>
-        <a href="profile.html" class="tab-item" role="tab" aria-label="智能助手" aria-selected="false">
+        <a href="个人中心.html" class="tab-item" role="tab" aria-label="智能助手" aria-selected="false">
             <i class="fa fa-commenting" aria-hidden="true"></i>
         </a>
         <a href="../calendar/calendar.html" class="tab-item" role="tab" aria-label="任务日历" aria-selected="false">
             <i class="fa fa-calendar" aria-hidden="true"></i>
         </a>
-        <a href="profile.html" class="tab-item" role="tab" aria-label="个人中心" aria-selected="false">
+        <a href="个人中心.html" class="tab-item" role="tab" aria-label="个人中心" aria-selected="false">
             <i class="fa fa-user" aria-hidden="true"></i>
         </a>
     </nav>
@@ -897,7 +897,7 @@
             if (type === 'exploration') {
                 window.location.href = '../task/detail.html';
             } else if (type === 'speech') {
-                window.location.href = 'ai-training.html';
+                window.location.href = 'AI设计.html';
             } else if (type === 'content') {
                 window.location.href = '../calendar/calendar.html';
             }
@@ -931,5 +931,18 @@
             updateBadge();
         });
     </script>
+<nav class="tab-bar-bottom">
+  <a href="服务工具.html" class="tab-item-bottom active">
+    <i class="fa fa-rocket"></i>
+  </a><a href="AI设计.html" class="tab-item-bottom">
+    <i class="fa fa-paint-brush"></i>
+  </a><a href="claw.html" class="tab-item-bottom">
+    <i class="fa fa-commenting"></i>
+  </a><a href="../calendar/calendar.html" class="tab-item-bottom">
+    <i class="fa fa-calendar"></i>
+  </a><a href="个人中心.html" class="tab-item-bottom">
+    <i class="fa fa-user"></i>
+  </a>
+</nav>
 </body>
 </html>
