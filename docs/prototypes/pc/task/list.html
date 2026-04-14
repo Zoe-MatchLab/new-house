@@ -679,7 +679,7 @@ document.getElementById('taskStatusFilter').addEventListener('change', function(
             const row = btn.closest('tr');
             const taskName = row.querySelector('td:nth-child(2)').textContent.trim();
             // 跳转到任务详情页
-            window.location.href = 'task-detail.html?task=' + encodeURIComponent(taskName);
+            window.location.href = 'detail.html?task=' + encodeURIComponent(taskName);
         }
 
         // ========== 下发任务 ==========
@@ -687,8 +687,8 @@ document.getElementById('taskStatusFilter').addEventListener('change', function(
             const row = btn.closest('tr');
             const taskName = row.querySelector('td:nth-child(2)').textContent.trim();
             if (confirm(`确定要下发任务「${taskName}」吗？\n\n下发后将通知相关执行人。`)) {
-                // 跳转到task-create.html（预填充数据）
-                window.location.href = 'task-create.html?action=distribute&task=' + encodeURIComponent(taskName);
+                // 跳转到create.html（预填充数据）
+                window.location.href = 'create.html?action=distribute&task=' + encodeURIComponent(taskName);
             }
         }
 
@@ -735,8 +735,8 @@ document.getElementById('taskStatusFilter').addEventListener('change', function(
         function editTask(btn) {
             const row = btn.closest('tr');
             const taskName = row.querySelector('td:nth-child(2)').textContent.trim();
-            // 跳转到task-create.html编辑
-            window.location.href = 'task-create.html?action=edit&task=' + encodeURIComponent(taskName);
+            // 跳转到create.html编辑
+            window.location.href = 'create.html?action=edit&task=' + encodeURIComponent(taskName);
         }
 
         // ========== 删除任务 ==========
