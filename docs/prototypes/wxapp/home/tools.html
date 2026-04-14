@@ -582,6 +582,32 @@
         .delay-2 { animation-delay: 0.1s; opacity: 0; }
         .delay-3 { animation-delay: 0.15s; opacity: 0; }
         .delay-4 { animation-delay: 0.2s; opacity: 0; }
+    
+        /* ========== PC端适配 ========== */
+        @media screen and (min-width: 768px) {
+            body {
+                background: #f0f0f0 !important;
+                padding: 20px 0;
+            }
+            .page {
+                max-width: 435px;
+                margin: 0 auto;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                border-radius: 40px;
+                overflow: hidden;
+                min-height: calc(100vh - 40px);
+            }
+            .tab-bar-bottom {
+                max-width: 435px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .header {
+                max-width: 435px;
+                margin: 0 auto;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -944,24 +970,6 @@
             updateBadge();
         });
     </script>
-
-<nav class="tab-bar-bottom">
-  <a href="tools.html" class="tab-item-bottom active">
-    <i class="fa fa-rocket"></i>
-  </a>
-  <a href="javascript:void(0)" onclick="showToast('跳转到AI设计')" class="tab-item-bottom">
-    <i class="fa fa-paint-brush"></i>
-  </a>
-  <a href="claw.html" class="tab-item-bottom">
-    <i class="fa fa-commenting"></i>
-  </a>
-  <a href="calendar.html" class="tab-item-bottom">
-    <i class="fa fa-calendar"></i>
-  </a>
-  <a href="my.html" class="tab-item-bottom">
-    <i class="fa fa-user"></i>
-  </a>
-</nav>
 
 </body>
 </html>
