@@ -715,10 +715,10 @@
     
     <!-- 底部TabBar -->
     <nav class="tab-bar" role="tablist" aria-label="页面导航">
-        <a href="tools.html" class="tab-item active" role="tab" aria-label="服务工具" aria-selected="true">
+        <a href="tools.html" role="tab" aria-label="首页" aria-selected="false">
             <i class="fa fa-rocket" aria-hidden="true"></i>
         </a>
-        <a href="../other/ai-design.html" class="tab-item" role="tab" aria-label="AI设计" aria-selected="false">
+        <a href="ai-training.html" class="tab-item" role="tab" aria-label="AI设计" aria-selected="true">
             <i class="fa fa-paint-brush" aria-hidden="true"></i>
         </a>
         <a href="profile.html" class="tab-item" role="tab" aria-label="智能助手" aria-selected="false">
@@ -899,7 +899,7 @@
             } else if (type === 'speech') {
                 window.location.href = 'ai-training.html';
             } else if (type === 'content') {
-                window.location.href = '../calendar/../calendar/calendar.html';
+                window.location.href = '../calendar/calendar.html';
             }
         }
         
