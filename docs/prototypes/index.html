@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新房AI作业平台 - 原型展示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl font-bold mb-4">🏠 新房AI作业平台</h1>
+            <p class="text-xl text-white/80">原型展示中心</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <!-- PC端 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span class="w-10 h-10 bg-blue-500 text-white rounded-lg flex items-center justify-center mr-3">
+                    <i class="fa fa-desktop"></i>
+                </span>
+                PC管理端
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 新盘管理 -->
+                <a href="pc/新盘管理/新盘管理-列表-PC.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-building text-orange-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">新盘管理</h3>
+                            <p class="text-sm text-gray-500">楼盘信息维护</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">列表</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">编辑</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">详情</span>
+                    </div>
+                </a>
+
+                <!-- 探盘任务 -->
+                <a href="pc/探盘任务/探盘任务-列表.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-tasks text-green-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">探盘任务</h3>
+                            <p class="text-sm text-gray-500">任务下发与追踪</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">列表</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">新建</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">详情</span>
+                    </div>
+                </a>
+
+                <!-- 录音分析 -->
+                <a href="pc/录音分析/录音分析-列表.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-microphone text-purple-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">录音分析</h3>
+                            <p class="text-sm text-gray-500">AI录音分析</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">列表</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">详情</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">统计</span>
+                    </div>
+                </a>
+
+                <!-- 物料生成 -->
+                <a href="pc/物料生成管理/物料生成管理-列表-PC.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-cubes text-blue-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">物料生成</h3>
+                            <p class="text-sm text-gray-500">推广物料管理</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">列表</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">详情</span>
+                    </div>
+                </a>
+
+                <!-- 数据看板 -->
+                <a href="pc/数据看板/数据看板-总览-PC.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-line-chart text-red-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">数据看板</h3>
+                            <p class="text-sm text-gray-500">业务数据统计</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">总览</span>
+                    </div>
+                </a>
+
+                <!-- 客户管理 -->
+                <a href="pc/客户管理/客户管理-列表.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-users text-indigo-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">客户管理</h3>
+                            <p class="text-sm text-gray-500">客户信息维护</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">列表</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 小程序端 -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span class="w-10 h-10 bg-green-500 text-white rounded-lg flex items-center justify-center mr-3">
+                    <i class="fa fa-mobile"></i>
+                </span>
+                小程序端
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 首页 -->
+                <a href="wxapp/home/首页-AI助手.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-home text-orange-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">首页</h3>
+                            <p class="text-sm text-gray-500">AI助手入口</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">首页</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">服务工具</span>
+                    </div>
+                </a>
+
+                <!-- 探盘任务 -->
+                <a href="wxapp/探盘任务/探盘任务-详情.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-tasks text-green-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">探盘任务</h3>
+                            <p class="text-sm text-gray-500">任务执行</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">详情</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">打卡</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">生成</span>
+                    </div>
+                </a>
+
+                <!-- 录音分析 -->
+                <a href="wxapp/录音分析/录音分析-列表.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-microphone text-purple-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">录音分析</h3>
+                            <p class="text-sm text-gray-500">上传与分析</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">列表</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">上传</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">结果</span>
+                    </div>
+                </a>
+
+                <!-- 客户管理 -->
+                <a href="wxapp/客户/客户列表.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-users text-indigo-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">客户管理</h3>
+                            <p class="text-sm text-gray-500">客户信息</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">列表</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">详情</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">新增</span>
+                    </div>
+                </a>
+
+                <!-- AI话术训练 -->
+                <a href="wxapp/home/AI话术训练.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-comments text-yellow-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">AI话术训练</h3>
+                            <p class="text-sm text-gray-500">智能对话练习</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">训练</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">对话</span>
+                    </div>
+                </a>
+
+                <!-- 内容日历 -->
+                <a href="wxapp/内容日历/内容日历.html" class="card-hover bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fa fa-calendar text-teal-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">内容日历</h3>
+                            <p class="text-sm text-gray-500">任务日程</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">日历</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">新房AI作业平台 · 原型展示中心</p>
+            <p class="text-sm text-gray-500 mt-2">技术支持：MatchLab</p>
+        </div>
+    </footer>
+
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</body>
+</html>
