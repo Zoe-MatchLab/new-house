@@ -679,7 +679,7 @@
             </div>
             
             <!-- AI话术训练 -->
-            <div class="tool-card tool-card-medium animate-in delay-3" onclick="window.location.href='speech-train.html'">
+            <div class="tool-card tool-card-medium animate-in delay-3" onclick="showToast('功能即将上线')">
                 <img class="tool-card-img" src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=336&h=326&fit=crop" alt="">
                 <div class="tool-card-overlay" style="background: linear-gradient(135deg, rgba(0,200,200,0.6) 0%, rgba(0,150,150,0.85) 100%);"></div>
                 <div class="tool-card-content">
@@ -705,7 +705,7 @@
             </div>
 
             <!-- 约看录音分析 -->
-            <div class="tool-card tool-card-medium animate-in delay-4" onclick="window.location.href='../record/record-list.html'">
+            <div class="tool-card tool-card-medium animate-in delay-4" onclick="window.location.href='../recording/list.html'">
                 <img class="tool-card-img" src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=336&h=326&fit=crop" alt="">
                 <div class="tool-card-overlay" style="background: linear-gradient(135deg, rgba(22,93,255,0.6) 0%, rgba(22,93,255,0.85) 100%);"></div>
                 <div class="tool-card-content">
@@ -908,9 +908,9 @@
             hideNotificationPanel();
             
             if (type === 'exploration') {
-                window.location.href = 'task-detail.html';
+                window.location.href = '../task/detail.html';
             } else if (type === 'speech') {
-                window.location.href = 'speech-train.html';
+                showToast('功能即将上线');
             } else if (type === 'content') {
                 window.location.href = 'calendar.html';
             }
@@ -958,7 +958,7 @@
   <a href="calendar.html" class="tab-item-bottom">
     <i class="fa fa-calendar"></i>
   </a>
-  <a href="profile.html" class="tab-item-bottom">
+  <a href="my.html" class="tab-item-bottom">
     <i class="fa fa-user"></i>
   </a>
 </nav>
