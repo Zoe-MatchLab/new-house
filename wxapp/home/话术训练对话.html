@@ -560,11 +560,11 @@
         // 结束训练
         function endTraining() {
             if (trainingEnded) {
-                window.location.href = 'speech-train.html';
+                window.location.href = 'ai-training.html';
             } else if (confirm('确定要结束训练吗？')) {
                 showToast('训练已结束');
                 setTimeout(() => {
-                    window.location.href = 'speech-train.html';
+                    window.location.href = 'ai-training.html';
                 }, 1000);
             }
         }

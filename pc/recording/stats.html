@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据统计 - 录音分析 - 房产AI作业平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #165DFF;
+            --primary-light: #f0f5ff;
+            --success: #00B42A;
+            --success-light: #f0f9f0;
+            --warning: #FF9D00;
+            --warning-light: #fff8e6;
+            --danger: #FF4D4F;
+            --danger-light: #fff1f0;
+        }
+        .sidebar-link {
+            transition: all 0.2s;
+        }
+        .sidebar-link:hover {
+            background: #f5f5f5;
+        }
+        .sidebar-link.active {
+            background: #e6f0ff;
+            color: var(--primary);
+            border-right: 3px solid var(--primary);
+        }
+        .stat-card {
+            transition: all 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="flex">
+        <!-- 左侧导航 -->
+        <aside class="w-56 bg-white border-r border-gray-200 min-h-screen fixed left-0 top-0">
+            <div class="p-4 border-b border-gray-200">
+                <div class="text-lg font-bold text-dark">房产AI作业平台</div>
+                <div class="text-xs text-gray-500 mt-1">V3.0</div>
+            </div>
+            <nav class="py-2">
+                <div class="px-4 py-2 text-xs text-gray-500 uppercase tracking-wider">营销工具</div>
+                <a href="../new-building/list.html" class="sidebar-link flex items-center px-4 py-3 text-gray-600">
+                    <i class="fa fa-building w-5 text-center"></i>
+                    <span class="ml-3">新盘管理</span>
+                </a>
+                <a href="../task/list.html" class="sidebar-link flex items-center px-4 py-3 text-gray-600">
+                    <i class="fa fa-tasks w-5 text-center"></i>
+                    <span class="ml-3">任务管理</span>
+                </a>
+                <a href="../material/list.html" class="sidebar-link flex items-center px-4 py-3 text-gray-600">
+                    <i class="fa fa-cubes w-5 text-center"></i>
+                    <span class="ml-3">物料生成</span>
+                </a>
+                <a href="../dashboard/overview.html" class="sidebar-link flex items-center px-4 py-3 text-gray-600">
+                    <i class="fa fa-calendar w-5 text-center"></i>
+                    <span class="ml-3">内容日历</span>
+                </a>
+                <div class="px-4 py-2 text-xs text-gray-500 uppercase tracking-wider mt-4">能力提升</div>
+                <a href="list.html" class="sidebar-link flex items-center px-4 py-3 text-gray-600">
+                    <i class="fa fa-microphone w-5 text-center"></i>
+                    <span class="ml-3">话术训练</span>
+                </a>
+                <a href="list.html" class="sidebar-link active flex items-center px-4 py-3 text-gray-600">
+                    <i class="fa fa-pie-chart w-5 text-center"></i>
+                    <span class="ml-3">录音分析</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 ml-56 p-6">
+            <!-- 面包屑 -->
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+                <a href="list.html" class="hover:text-primary">录音分析列表</a>
+                <i class="fa fa-chevron-right mx-2 text-xs"></i>
+                <span class="text-dark font-medium">数据统计</span>
+            </div>
+
+            <!-- 页面标题 -->
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-dark">录音分析数据统计</h1>
+                    <p class="text-gray-500 mt-1">统计录音分析的使用情况和效果评估</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <select class="px-4 py-2 border border-gray-300 rounded-lg text-sm">
+                        <option>近7天</option>
+                        <option selected>近30天</option>
+                        <option>近3个月</option>
+                        <option>近1年</option>
+                    </select>
+                    <button onclick="exportReport()" class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+                        <i class="fa fa-download mr-2"></i>导出报告
+                    </button>
+                </div>
+            </div>
+
+            <!-- 概览卡片 -->
+            <div class="grid grid-cols-4 gap-4 mb-6">
+                <div class="stat-card bg-white rounded-lg shadow-sm p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-xs text-gray-500">录音上传量</div>
+                            <div class="text-2xl font-bold text-dark mt-1">1,286</div>
+                            <div class="text-xs text-green-500 mt-1">
+                                <i class="fa fa-arrow-up mr-1"></i>12.5%
+                            </div>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
+                            <i class="fa fa-upload text-blue-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card bg-white rounded-lg shadow-sm p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-xs text-gray-500">分析完成量</div>
+                            <div class="text-2xl font-bold text-dark mt-1">1,198</div>
+                            <div class="text-xs text-green-500 mt-1">
+                                <i class="fa fa-arrow-up mr-1"></i>15.3%
+                            </div>
+                        </div>
+                        <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center">
+                            <i class="fa fa-check-circle text-green-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card bg-white rounded-lg shadow-sm p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-xs text-gray-500">平均评分</div>
+                            <div class="text-2xl font-bold text-dark mt-1">78.5</div>
+                            <div class="text-xs text-yellow-500 mt-1">
+                                <i class="fa fa-arrow-up mr-1"></i>2.1
+                            </div>
+                        </div>
+                        <div class="w-12 h-12 bg-yellow-50 rounded-lg flex items-center justify-center">
+                            <i class="fa fa-star text-yellow-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card bg-white rounded-lg shadow-sm p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-xs text-gray-500">高意向占比</div>
+                            <div class="text-2xl font-bold text-dark mt-1">68.2%</div>
+                            <div class="text-xs text-green-500 mt-1">
+                                <i class="fa fa-arrow-up mr-1"></i>5.8%
+                            </div>
+                        </div>
+                        <div class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center">
+                            <i class="fa fa-users text-purple-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图表区域 -->
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <!-- 趋势图 -->
+                <div class="bg-white rounded-lg shadow-sm p-5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-dark">录音分析趋势</h3>
+                        <div class="flex gap-2">
+                            <button class="px-3 py-1 text-xs bg-primary text-white rounded-full">日</button>
+                            <button class="px-3 py-1 text-xs bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200">周</button>
+                            <button class="px-3 py-1 text-xs bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200">月</button>
+                        </div>
+                    </div>
+                    <canvas id="trendChart" height="200"></canvas>
+                </div>
+
+                <!-- 评分分布 -->
+                <div class="bg-white rounded-lg shadow-sm p-5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-dark">评分分布</h3>
+                    </div>
+                    <canvas id="scoreChart" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- 底部图表 -->
+            <div class="grid grid-cols-2 gap-6">
+                <!-- 经纪人排名 -->
+                <div class="bg-white rounded-lg shadow-sm p-5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-dark">经纪人评分TOP10</h3>
+                        <a href="#" class="text-sm text-primary hover:underline">查看全部</a>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 bg-yellow-100 rounded-full flex items-center justify-center text-xs font-bold text-yellow-600">1</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm font-medium text-dark">陈佳佳</span>
+                                    <span class="text-sm font-bold text-green-600">92分</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-1.5 mt-1">
+                                    <div class="bg-green-500 rounded-full h-1.5" style="width:92%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold text-gray-600">2</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm font-medium text-dark">李明</span>
+                                    <span class="text-sm font-bold text-green-600">88分</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-1.5 mt-1">
+                                    <div class="bg-green-500 rounded-full h-1.5" style="width:88%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center text-xs font-bold text-orange-600">3</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm font-medium text-dark">王芳</span>
+                                    <span class="text-sm font-bold text-yellow-600">85分</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-1.5 mt-1">
+                                    <div class="bg-yellow-500 rounded-full h-1.5" style="width:85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs text-gray-500">4</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm font-medium text-dark">张伟</span>
+                                    <span class="text-sm font-bold text-yellow-600">82分</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-1.5 mt-1">
+                                    <div class="bg-yellow-500 rounded-full h-1.5" style="width:82%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs text-gray-500">5</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm font-medium text-dark">刘洋</span>
+                                    <span class="text-sm font-bold text-yellow-600">80分</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-1.5 mt-1">
+                                    <div class="bg-yellow-500 rounded-full h-1.5" style="width:80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 客户意向分布 -->
+                <div class="bg-white rounded-lg shadow-sm p-5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-dark">客户意向分布</h3>
+                    </div>
+                    <canvas id="intentChart" height="200"></canvas>
+                    <div class="grid grid-cols-3 gap-4 mt-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">68%</div>
+                            <div class="text-xs text-gray-500">高意向</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-yellow-600">24%</div>
+                            <div class="text-xs text-gray-500">中意向</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-red-600">8%</div>
+                            <div class="text-xs text-gray-500">低意向</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 趋势图
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['1日', '5日', '10日', '15日', '20日', '25日', '30日'],
+                datasets: [{
+                    label: '上传量',
+                    data: [32, 45, 38, 52, 48, 55, 62],
+                    borderColor: '#165DFF',
+                    backgroundColor: 'rgba(22, 93, 255, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: '分析完成量',
+                    data: [28, 42, 36, 48, 45, 52, 58],
+                    borderColor: '#00B42A',
+                    backgroundColor: 'rgba(0, 180, 42, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 评分分布图
+        const scoreCtx = document.getElementById('scoreChart').getContext('2d');
+        new Chart(scoreCtx, {
+            type: 'bar',
+            data: {
+                labels: ['60以下', '60-69', '70-79', '80-89', '90-100'],
+                datasets: [{
+                    label: '人数',
+                    data: [45, 120, 380, 520, 133],
+                    backgroundColor: [
+                        '#FF4D4F',
+                        '#FF9D00',
+                        '#165DFF',
+                        '#00B42A',
+                        '#722ED1'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 客户意向分布图
+        const intentCtx = document.getElementById('intentChart').getContext('2d');
+        new Chart(intentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['高意向', '中意向', '低意向'],
+                datasets: [{
+                    data: [68, 24, 8],
+                    backgroundColor: ['#00B42A', '#FF9D00', '#FF4D4F']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        function exportReport() {
+            alert('导出数据统计报告');
+        }
+    </script>
+</body>
+</html>
