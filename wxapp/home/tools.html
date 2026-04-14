@@ -679,7 +679,7 @@
             </div>
             
             <!-- AI话术训练 -->
-            <div class="tool-card tool-card-medium animate-in delay-3" onclick="window.location.href='ai-design.html'">
+            <div class="tool-card tool-card-medium animate-in delay-3" onclick="showToast('跳转到AI设计')">
                 <img class="tool-card-img" src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=336&h=326&fit=crop" alt="">
                 <div class="tool-card-overlay" style="background: linear-gradient(135deg, rgba(0,200,200,0.6) 0%, rgba(0,150,150,0.85) 100%);"></div>
                 <div class="tool-card-content">
@@ -718,7 +718,7 @@
         <a href="tools.html" role="tab" aria-label="首页" aria-selected="false">
             <i class="fa fa-rocket" aria-hidden="true"></i>
         </a>
-        <a href="ai-design.html" class="tab-item" role="tab" aria-label="AI设计" aria-selected="true">
+        <a href="javascript:void(0)" onclick="showToast(\'跳转到AI设计\')" class="tab-item" role="tab" aria-label="AI设计" aria-selected="true">
             <i class="fa fa-paint-brush" aria-hidden="true"></i>
         </a>
         <a href="profile.html" class="tab-item" role="tab" aria-label="智能助手" aria-selected="false">
@@ -897,7 +897,7 @@
             if (type === 'exploration') {
                 window.location.href = '../task/detail.html';
             } else if (type === 'speech') {
-                window.location.href = 'ai-design.html';
+                showToast('跳转到AI设计');
             } else if (type === 'content') {
                 window.location.href = 'calendar.html';
             }
@@ -934,7 +934,7 @@
 <nav class="tab-bar-bottom">
   <a href="tools.html" class="tab-item-bottom active">
     <i class="fa fa-rocket"></i>
-  </a><a href="ai-design.html" class="tab-item-bottom">
+  </a><a href="javascript:void(0)" onclick="showToast('跳转到AI设计')" class="tab-item-bottom">
     <i class="fa fa-paint-brush"></i>
   </a><a href="claw.html" class="tab-item-bottom">
     <i class="fa fa-commenting"></i>
