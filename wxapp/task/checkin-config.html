@@ -274,55 +274,7 @@
                     </div>
                 </div>
                 
-                <!-- 允许补卡 -->
-                <div class="config-item">
-                    <div class="info">
-                        <div class="label">允许补卡</div>
-                        <div class="desc">开启后，可在规定时间内补打卡</div>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox" id="allow-makeup" onchange="toggleMakeup(this)">
-                        <span class="slider"></span>
-                    </label>
                 </div>
-                
-                <!-- 补卡配置（隐藏） -->
-                <div class="sub-config" id="makeup-config">
-                    <div class="input-row">
-                        <span class="label">补卡时限</span>
-                        <input type="number" class="field" value="24" min="1" style="width:60px;text-align:center;">
-                        <span style="color:var(--color-sub);font-size:13px;">小时</span>
-                    </div>
-                    <div class="input-row">
-                        <span class="label">补卡次数</span>
-                        <input type="number" class="field" value="1" min="1" style="width:60px;text-align:center;">
-                        <span style="color:var(--color-sub);font-size:13px;">次</span>
-                    </div>
-                </div>
-                
-                <!-- 打卡照片要求 -->
-                <div class="config-item" style="flex-direction:column;gap:10px;">
-                    <span class="label">打卡照片要求</span>
-                    <div class="radio-group">
-                        <label class="radio-item"><input type="radio" name="photo_req" value="required" checked> 必填</label>
-                        <label class="radio-item"><input type="radio" name="photo_req" value="optional"> 选填</label>
-                        <label class="radio-item"><input type="radio" name="photo_req" value="none"> 无需拍照</label>
-                    </div>
-                </div>
-                
-                <!-- 打卡话术要求 -->
-                <div class="config-item">
-                    <div class="info">
-                        <div class="label">打卡话术要求</div>
-                        <div class="desc">开启后，打卡时需录制话术</div>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox" id="voice-req">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-        </div>
 
         <!-- ========== 采集点位配置 ========== -->
         <div class="accordion">
@@ -664,11 +616,7 @@
             body.classList.toggle('open');
         }
 
-        // 补卡开关
-        function toggleMakeup(checkbox) {
-            const config = document.getElementById('makeup-config');
-            config.classList.toggle('show', checkbox.checked);
-        }
+        
 
         // 话术训练开关
         function toggleTraining(checkbox) {

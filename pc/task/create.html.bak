@@ -339,6 +339,41 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- 补卡配置 -->
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-medium">允许补卡</span>
+                                    <label class="switch"><input type="checkbox" id="allow-makeup" onchange="toggleMakeup(this)"><span class="slider"></span></label>
+                                </div>
+                                <div id="makeup-config" class="hidden grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs text-gray-500 mb-1">补卡时限（小时）</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" value="24" min="1">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-gray-500 mb-1">补卡次数上限</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" value="1" min="1">
+                                    </div>
+                                </div>
+                                <!-- 打卡要求 -->
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">打卡照片要求</label>
+                                    <div class="flex gap-4">
+                                        <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                            <input type="radio" name="photo_req" value="required" checked class="text-primary"> 必填
+                                        </label>
+                                        <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                            <input type="radio" name="photo_req" value="optional" class="text-primary"> 选填
+                                        </label>
+                                        <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                            <input type="radio" name="photo_req" value="none" class="text-primary"> 无需拍照
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-medium">打卡话术要求</span>
+                                    <label class="switch"><input type="checkbox" id="voice-req"><span class="slider"></span></label>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- 3.1 采集点位配置 -->
