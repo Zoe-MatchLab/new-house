@@ -28,119 +28,135 @@
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--color-bg); color: var(--color-text); }
         
         /* 顶部导航 */
-        .header { position: fixed; top: 0; left: 0; right: 0; height: 56px; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .header { position: fixed; top: 0; left: 0; right: 0; height: 56px; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
         .header-back { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--color-title); }
         .header-title { font-size: 17px; font-weight: 600; color: var(--color-title); }
-        .header-action { padding: 8px 16px; background: var(--brand-primary); color: #fff; border: none; border-radius: var(--radius-sm); font-size: 14px; }
+        .header-action { padding: 8px 16px; background: var(--brand-primary); color: #fff; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; }
         
         /* 内容区域 */
         .content { padding: 72px 16px 100px; }
         
-        /* 楼盘信息卡片 */
-        .house-info { background: #fff; border-radius: var(--radius-md); margin-bottom: 12px; overflow: hidden; }
-        .house-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--color-border); }
-        .house-title { display: flex; align-items: center; gap: 8px; }
-        .house-title .name { font-size: 16px; font-weight: 600; color: var(--color-title); }
-        .house-title .tag { font-size: 11px; padding: 2px 6px; border-radius: 4px; }
-        .house-title .tag-readonly { background: var(--color-bg); color: var(--color-sub); }
-        .house-title .tag-status { background: #E8FFEA; color: var(--color-success); }
-        .house-body { padding: 12px 16px; }
-        .house-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+        /* 楼盘信息 - 折叠面板 */
+        .house-card { background: #fff; border-radius: var(--radius-md); margin-bottom: 12px; overflow: hidden; }
+        .house-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; cursor: pointer; }
+        .house-header:active { background: var(--color-bg); }
+        .house-title { display: flex; align-items: center; gap: 10px; }
+        .house-title .icon { width: 36px; height: 36px; background: var(--brand-primary-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--brand-primary); }
+        .house-title .info .name { font-size: 15px; font-weight: 600; color: var(--color-title); }
+        .house-title .info .sub { font-size: 12px; color: var(--color-sub); margin-top: 2px; }
+        .house-header .arrow { color: var(--color-sub); transition: transform 0.3s; }
+        .house-header.open .arrow { transform: rotate(180deg); }
+        .house-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--color-border); }
+        .house-body.open { display: block; }
+        .house-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; padding-top: 12px; }
         .house-item { display: flex; flex-direction: column; gap: 2px; }
         .house-item .label { font-size: 12px; color: var(--color-sub); }
         .house-item .value { font-size: 13px; color: var(--color-title); font-weight: 500; }
-        .house-item .value.primary { color: var(--brand-primary); }
+        .house-item .value.primary { color: var(--brand-primary); font-size: 15px; }
         .house-item.wide { grid-column: span 2; }
         
-        /* 配置卡片 */
-        .card { background: #fff; border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px; }
-        .card-title { font-size: 15px; font-weight: 600; color: var(--color-title); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-        .card-title i { color: var(--brand-primary); }
+        /* 手风琴配置卡片 */
+        .accordion { background: #fff; border-radius: var(--radius-md); margin-bottom: 8px; overflow: hidden; }
+        .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; cursor: pointer; border-bottom: 1px solid transparent; }
+        .accordion-header:active { background: var(--color-bg); }
+        .accordion-header.open { border-bottom-color: var(--color-border); }
+        .accordion-title { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--color-title); }
+        .accordion-title i { color: var(--brand-primary); font-size: 16px; }
+        .accordion-header .arrow { color: var(--color-sub); transition: transform 0.3s; }
+        .accordion-header.open .arrow { transform: rotate(180deg); }
+        .accordion-body { display: none; padding: 16px; }
+        .accordion-body.open { display: block; }
         
-        /* 配置项 */
-        .config-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--color-border); }
-        .config-row:last-child { border-bottom: none; }
-        .config-label { font-size: 14px; color: var(--color-title); }
-        .config-desc { font-size: 12px; color: var(--color-sub); margin-top: 2px; }
+        /* 配置行 */
+        .config-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--color-border); }
+        .config-item:last-child { border-bottom: none; }
+        .config-item .info { flex: 1; }
+        .config-item .label { font-size: 14px; color: var(--color-title); }
+        .config-item .desc { font-size: 12px; color: var(--color-sub); margin-top: 2px; }
         
-        /* 开关 */
-        .toggle-switch { width: 44px; height: 26px; background: #ccc; border-radius: 13px; position: relative; cursor: pointer; transition: background 0.3s; }
-        .toggle-switch.active { background: var(--brand-primary); }
-        .toggle-switch::after { content: ''; position: absolute; width: 22px; height: 22px; background: #fff; border-radius: 50%; top: 2px; left: 2px; transition: left 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-        .toggle-switch.active::after { left: 20px; }
+        /* 原生Switch */
+        .switch { position: relative; width: 44px; height: 26px; flex-shrink: 0; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; inset: 0; background-color: #ccc; transition: 0.3s; border-radius: 26px; }
+        .slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 2px; bottom: 2px; background-color: white; transition: 0.3s; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        input:checked + .slider { background-color: var(--brand-primary); }
+        input:checked + .slider:before { transform: translateX(18px); }
         
         /* 输入框 */
-        .input-row { display: flex; align-items: center; padding: 12px 0; }
-        .input-label { font-size: 14px; color: var(--color-title); width: 80px; flex-shrink: 0; }
-        .input-field { flex: 1; height: 40px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 0 12px; font-size: 14px; }
-        .input-field:focus { outline: none; border-color: var(--brand-primary); }
-        
-        /* 选择按钮 */
-        .selector-row { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--color-bg); border-radius: var(--radius-sm); }
-        .selector-info { flex: 1; }
-        .selector-label { font-size: 14px; color: var(--color-title); }
-        .selector-count { font-size: 12px; color: var(--color-sub); margin-top: 2px; }
-        .selector-btn { padding: 8px 16px; background: var(--brand-primary-light); color: var(--brand-primary); border: none; border-radius: var(--radius-sm); font-size: 13px; }
+        .input-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; }
+        .input-row .label { font-size: 13px; color: var(--color-sub); width: 70px; flex-shrink: 0; }
+        .input-row .field { flex: 1; height: 36px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 0 10px; font-size: 14px; }
+        .input-row .field:focus { outline: none; border-color: var(--brand-primary); }
         
         /* Radio组 */
         .radio-group { display: flex; gap: 16px; flex-wrap: wrap; }
-        .radio-item { display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; }
+        .radio-item { display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; color: var(--color-text); }
         .radio-item input { width: 18px; height: 18px; accent-color: var(--brand-primary); }
         
-        /* 阈值说明 */
-        .threshold-info { background: var(--color-bg); border-radius: var(--radius-sm); padding: 12px; margin-top: 12px; }
-        .threshold-info .title { font-size: 12px; color: var(--color-sub); margin-bottom: 8px; }
-        .threshold-info .items { display: flex; gap: 8px; }
-        .threshold-info .item { flex: 1; text-align: center; padding: 8px; border-radius: var(--radius-sm); font-size: 12px; }
-        .threshold-info .item.green { background: #E8FFEA; color: var(--color-success); }
-        .threshold-info .item.yellow { background: #FFF7E6; color: var(--color-warning); }
-        .threshold-info .item.red { background: #FFECE8; color: var(--color-danger); }
-        
-        /* 人员标签 */
-        .person-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-        .person-tag { display: flex; align-items: center; gap: 4px; padding: 6px 12px; background: var(--brand-primary-light); color: var(--brand-primary); border-radius: 16px; font-size: 13px; }
-        .person-tag .remove { width: 16px; height: 16px; background: var(--brand-primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; }
+        /* 阈值说明 - 横向布局 */
+        .threshold-bar { display: flex; gap: 8px; margin-top: 12px; padding: 12px; background: var(--color-bg); border-radius: var(--radius-sm); }
+        .threshold-item { flex: 1; text-align: center; padding: 8px; border-radius: 6px; font-size: 12px; }
+        .threshold-item.green { background: #E8FFEA; color: var(--color-success); }
+        .threshold-item.yellow { background: #FFF7E6; color: var(--color-warning); }
+        .threshold-item.red { background: #FFECE8; color: var(--color-danger); }
+        .threshold-item strong { font-size: 14px; font-weight: 600; display: block; }
         
         /* 滑块 */
         .slider-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
-        .slider { flex: 1; height: 4px; -webkit-appearance: none; background: var(--color-border); border-radius: 2px; outline: none; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: var(--brand-primary); border-radius: 50%; cursor: pointer; }
-        .slider-value { min-width: 50px; text-align: center; font-size: 14px; font-weight: 500; }
+        .slider-row input[type="range"] { flex: 1; height: 4px; -webkit-appearance: none; background: var(--color-border); border-radius: 2px; }
+        .slider-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: var(--brand-primary); border-radius: 50%; cursor: pointer; }
+        .slider-row .value { min-width: 50px; text-align: center; font-size: 14px; font-weight: 500; color: var(--color-title); }
+        
+        /* 隐藏配置 */
+        .sub-config { display: none; padding-left: 0; margin-top: 12px; }
+        .sub-config.show { display: block; }
         
         /* 点位卡片 */
         .point-card { background: var(--color-bg); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 10px; }
         .point-card:last-child { margin-bottom: 0; }
         .point-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .point-title { display: flex; align-items: center; gap: 8px; }
-        .point-title .num { width: 20px; height: 20px; background: var(--brand-primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; }
-        .point-title .name { font-size: 14px; font-weight: 500; color: var(--color-title); }
-        .point-title .tag { font-size: 11px; padding: 2px 6px; border-radius: 4px; background: var(--brand-primary-light); color: var(--brand-primary); }
-        .point-title .tag.disabled { background: var(--color-bg); color: var(--color-sub); }
-        .point-delete { font-size: 12px; color: var(--color-sub); display: flex; align-items: center; gap: 4px; }
-        .point-delete.disabled { color: var(--color-sub); cursor: not-allowed; }
-        .point-delete.active { color: var(--color-danger); cursor: pointer; }
-        .point-content { display: flex; gap: 8px; flex-wrap: wrap; }
-        .point-tag { font-size: 12px; padding: 4px 8px; background: #fff; border: 1px solid var(--color-border); border-radius: 4px; color: var(--color-text); }
-        .point-tag.required { background: var(--brand-primary-light); border-color: var(--brand-primary); color: var(--brand-primary); }
+        .point-num { width: 22px; height: 22px; background: var(--brand-primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+        .point-name { font-size: 14px; font-weight: 500; color: var(--color-title); }
+        .point-tag { font-size: 11px; padding: 2px 6px; border-radius: 4px; background: var(--brand-primary-light); color: var(--brand-primary); }
+        .point-tag.disabled { background: var(--color-bg); color: var(--color-sub); }
+        .point-action { font-size: 12px; color: var(--color-sub); display: flex; align-items: center; gap: 4px; }
+        .point-action.disabled { cursor: not-allowed; opacity: 0.6; }
+        .point-action.active { color: var(--color-danger); cursor: pointer; }
+        .point-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        .point-tag-item { font-size: 12px; padding: 4px 8px; background: #fff; border: 1px solid var(--color-border); border-radius: 4px; color: var(--color-text); display: flex; align-items: center; gap: 4px; }
+        .point-tag-item.required { background: var(--brand-primary-light); border-color: var(--brand-primary); color: var(--brand-primary); }
+        .point-tag-item i { font-size: 10px; }
         
-        /* 添加点位按钮 */
-        .add-point-btn { width: 100%; padding: 12px; border: 1px dashed var(--color-border); border-radius: var(--radius-sm); background: transparent; color: var(--color-sub); font-size: 14px; margin-top: 12px; cursor: pointer; }
-        .add-point-btn:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+        /* 添加按钮 */
+        .add-btn { width: 100%; padding: 12px; border: 1px dashed var(--color-border); border-radius: var(--radius-sm); background: transparent; color: var(--color-sub); font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; cursor: pointer; }
+        .add-btn:active { background: var(--color-bg); border-color: var(--brand-primary); color: var(--brand-primary); }
         
-        /* 配置分组 */
-        .config-group { margin-bottom: 16px; }
-        .config-group-title { font-size: 13px; color: var(--color-sub); padding: 8px 0; display: flex; align-items: center; gap: 8px; }
+        /* 提醒项 */
+        .reminder-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border); }
+        .reminder-item:last-child { border-bottom: none; }
+        .reminder-left { display: flex; align-items: center; gap: 8px; }
+        .reminder-badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+        .reminder-badge.light { background: #E8FFEA; color: var(--color-success); }
+        .reminder-badge.mid { background: #FFF7E6; color: var(--color-warning); }
+        .reminder-badge.high { background: #FFECE8; color: var(--color-danger); }
+        .reminder-right { display: flex; align-items: center; gap: 8px; }
+        .reminder-input { width: 50px; height: 32px; border: 1px solid var(--color-border); border-radius: 6px; text-align: center; font-size: 13px; }
+        .reminder-input:focus { outline: none; border-color: var(--brand-primary); }
         
-        /* 隐藏配置项 */
-        .config-detail { display: none; padding-left: 16px; }
-        .config-detail.show { display: block; }
+        /* 人员标签 */
+        .person-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .person-tag { display: flex; align-items: center; gap: 4px; padding: 6px 10px; background: var(--brand-primary-light); color: var(--brand-primary); border-radius: 16px; font-size: 13px; }
+        .person-tag .remove { width: 16px; height: 16px; background: var(--brand-primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; }
         
         /* 底部按钮 */
-        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background: #fff; box-shadow: 0 -1px 3px rgba(0,0,0,0.1); padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
-        .submit-btn { width: 100%; height: 48px; background: var(--brand-primary); color: #fff; border: none; border-radius: var(--radius-md); font-size: 16px; font-weight: 500; }
+        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background: #fff; box-shadow: 0 -2px 10px rgba(0,0,0,0.08); padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+        .submit-btn { width: 100%; height: 48px; background: var(--brand-primary); color: #fff; border: none; border-radius: var(--radius-md); font-size: 16px; font-weight: 600; letter-spacing: 1px; }
+        .submit-btn:active { background: var(--brand-primary-dark); }
         
         /* Toast */
-        .toast { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 24px; border-radius: 24px; font-size: 14px; z-index: 200; }
+        .toast { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 24px; border-radius: 24px; font-size: 14px; z-index: 200; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(-10px); } }
     </style>
 </head>
 <body>
@@ -154,25 +170,25 @@
     </div>
 
     <div class="content">
-        <!-- ========== 楼盘信息 ========== -->
-        <div class="house-info">
-            <div class="house-header">
+        <!-- ========== 楼盘信息（折叠面板） ========== -->
+        <div class="house-card">
+            <div class="house-header open" onclick="toggleHouse()">
                 <div class="house-title">
-                    <i class="fa fa-building-o" style="color:var(--brand-primary);"></i>
-                    <span class="name">中海汇德里</span>
-                    <span class="tag tag-readonly">只读</span>
+                    <div class="icon">
+                        <i class="fa fa-building-o"></i>
+                    </div>
+                    <div class="info">
+                        <div class="name">中海汇德里</div>
+                        <div class="sub">在售 · 68,000 元/㎡</div>
+                    </div>
                 </div>
-                <span class="tag tag-status">在售</span>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
-            <div class="house-body">
+            <div class="house-body open">
                 <div class="house-grid">
                     <div class="house-item">
                         <span class="label">物业类型</span>
                         <span class="value">住宅</span>
-                    </div>
-                    <div class="house-item">
-                        <span class="label">均价</span>
-                        <span class="value primary">68,000 元/㎡</span>
                     </div>
                     <div class="house-item">
                         <span class="label">开发商</span>
@@ -182,21 +198,9 @@
                         <span class="label">建筑面积</span>
                         <span class="value">85,000 ㎡</span>
                     </div>
-                    <div class="house-item wide">
-                        <span class="label">户型</span>
-                        <span class="value">85㎡两室 / 105㎡三室 / 130㎡四室</span>
-                    </div>
-                    <div class="house-item">
-                        <span class="label">开盘时间</span>
-                        <span class="value">2026-03-01</span>
-                    </div>
                     <div class="house-item">
                         <span class="label">容积率</span>
                         <span class="value">2.5</span>
-                    </div>
-                    <div class="house-item">
-                        <span class="label">交付时间</span>
-                        <span class="value">2027-12-31</span>
                     </div>
                     <div class="house-item">
                         <span class="label">绿化率</span>
@@ -206,6 +210,18 @@
                         <span class="label">物业费</span>
                         <span class="value">5.8 元/㎡/月</span>
                     </div>
+                    <div class="house-item">
+                        <span class="label">开盘时间</span>
+                        <span class="value">2026-03-01</span>
+                    </div>
+                    <div class="house-item">
+                        <span class="label">交付时间</span>
+                        <span class="value">2027-12-31</span>
+                    </div>
+                    <div class="house-item wide">
+                        <span class="label">户型</span>
+                        <span class="value">85㎡两室 / 105㎡三室 / 130㎡四室</span>
+                    </div>
                     <div class="house-item wide">
                         <span class="label">楼盘地址</span>
                         <span class="value">上海市浦东新区张江高科技园区科苑路88号</span>
@@ -214,357 +230,404 @@
             </div>
         </div>
 
-        <!-- ========== 打卡配置 ========== -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fa fa-map-marker"></i>
-                打卡配置
-            </div>
-            
-            <!-- 打卡开关 -->
-            <div class="config-row">
-                <div>
-                    <div class="config-label">定位打卡</div>
-                    <div class="config-desc">开启后，需到达指定位置才能打卡</div>
+        <!-- ========== 打卡配置（手风琴） ========== -->
+        <div class="accordion">
+            <div class="accordion-header open" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa fa-map-marker"></i>
+                    打卡配置
                 </div>
-                <div class="toggle-switch active" id="locationSwitch" onclick="toggleLocation()"></div>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
-            
-            <!-- 打卡位置 -->
-            <div class="input-row" id="locationRow">
-                <span class="input-label">打卡位置</span>
-                <input type="text" class="input-field" id="checkinAddress" value="上海市浦东新区科苑路88号" readonly onclick="selectLocation()">
-            </div>
-            
-            <!-- 打卡范围 -->
-            <div class="input-row">
-                <span class="input-label">打卡范围</span>
-                <input type="number" class="input-field" id="rangeValue" value="200" min="50" style="width:100px;text-align:center;">
-                <span style="margin-left:8px;color:var(--color-sub);">米</span>
-            </div>
-            
-            <!-- 偏移阈值 -->
-            <div class="config-row">
-                <div style="flex:1;">
-                    <div class="config-label">偏移阈值</div>
-                    <div class="slider-row" style="padding:8px 0;">
-                        <input type="range" class="slider" min="200" max="1000" step="100" value="500" id="thresholdSlider" oninput="updateThreshold()">
-                        <span class="slider-value" id="thresholdValue">500m</span>
+            <div class="accordion-body open">
+                <!-- 打卡范围 -->
+                <div class="input-row">
+                    <span class="label">打卡范围</span>
+                    <input type="number" class="field" value="200" min="50" style="width:80px;text-align:center;">
+                    <span style="color:var(--color-sub);font-size:13px;">米</span>
+                </div>
+                
+                <!-- 偏移阈值 -->
+                <div class="config-item" style="flex-direction:column;gap:8px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+                        <span class="label">偏移阈值</span>
+                    </div>
+                    <div class="slider-row">
+                        <input type="range" min="200" max="1000" step="100" value="500" id="thresholdSlider" oninput="updateThreshold(this.value)">
+                        <span class="value" id="thresholdValue">500m</span>
                     </div>
                 </div>
-            </div>
-            
-            <!-- 阈值说明 -->
-            <div class="threshold-info">
-                <div class="title">打卡偏移阈值说明：</div>
-                <div class="items">
-                    <div class="item green">≤200m<br><small>正常打卡</small></div>
-                    <div class="item yellow">200-500m<br><small>警告（标记异常）</small></div>
-                    <div class="item red">>500m<br><small>拦截（不允许）</small></div>
+                
+                <!-- 阈值说明 -->
+                <div class="threshold-bar">
+                    <div class="threshold-item green">
+                        <strong>≤200m</strong>
+                        正常打卡
+                    </div>
+                    <div class="threshold-item yellow">
+                        <strong>200-500m</strong>
+                        警告标记
+                    </div>
+                    <div class="threshold-item red">
+                        <strong>>500m</strong>
+                        拦截
+                    </div>
                 </div>
-            </div>
-            
-            <!-- 允许补卡 -->
-            <div class="config-row" onclick="toggleMakeup()">
-                <div>
-                    <div class="config-label">允许补卡</div>
-                    <div class="config-desc">开启后，可在规定时间内补打卡</div>
+                
+                <!-- 允许补卡 -->
+                <div class="config-item">
+                    <div class="info">
+                        <div class="label">允许补卡</div>
+                        <div class="desc">开启后，可在规定时间内补打卡</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="allow-makeup" onchange="toggleMakeup(this)">
+                        <span class="slider"></span>
+                    </label>
                 </div>
-                <div class="toggle-switch" id="makeupSwitch"></div>
-            </div>
-            
-            <!-- 补卡配置（隐藏） -->
-            <div class="config-detail" id="makeupConfig">
-                <div class="input-row">
-                    <span class="input-label">补卡时限</span>
-                    <input type="number" class="input-field" id="makeupHours" value="24" min="1" style="width:80px;text-align:center;">
-                    <span style="margin-left:8px;color:var(--color-sub);">小时</span>
+                
+                <!-- 补卡配置（隐藏） -->
+                <div class="sub-config" id="makeup-config">
+                    <div class="input-row">
+                        <span class="label">补卡时限</span>
+                        <input type="number" class="field" value="24" min="1" style="width:60px;text-align:center;">
+                        <span style="color:var(--color-sub);font-size:13px;">小时</span>
+                    </div>
+                    <div class="input-row">
+                        <span class="label">补卡次数</span>
+                        <input type="number" class="field" value="1" min="1" style="width:60px;text-align:center;">
+                        <span style="color:var(--color-sub);font-size:13px;">次</span>
+                    </div>
                 </div>
-                <div class="input-row">
-                    <span class="input-label">补卡次数</span>
-                    <input type="number" class="input-field" id="makeupCount" value="1" min="1" style="width:80px;text-align:center;">
-                    <span style="margin-left:8px;color:var(--color-sub);">次</span>
+                
+                <!-- 打卡照片要求 -->
+                <div class="config-item" style="flex-direction:column;gap:10px;">
+                    <span class="label">打卡照片要求</span>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="photo_req" value="required" checked> 必填</label>
+                        <label class="radio-item"><input type="radio" name="photo_req" value="optional"> 选填</label>
+                        <label class="radio-item"><input type="radio" name="photo_req" value="none"> 无需拍照</label>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- 打卡照片要求 -->
-            <div class="config-row">
-                <div class="config-label">打卡照片要求</div>
-            </div>
-            <div class="radio-group" style="padding:8px 0 16px;">
-                <label class="radio-item"><input type="radio" name="photo_req" value="required" checked> 必填</label>
-                <label class="radio-item"><input type="radio" name="photo_req" value="optional"> 选填</label>
-                <label class="radio-item"><input type="radio" name="photo_req" value="none"> 无需拍照</label>
-            </div>
-            
-            <!-- 打卡话术要求 -->
-            <div class="config-row" onclick="toggleVoice()">
-                <div>
-                    <div class="config-label">打卡话术要求</div>
-                    <div class="config-desc">开启后，打卡时需录制话术</div>
+                
+                <!-- 打卡话术要求 -->
+                <div class="config-item">
+                    <div class="info">
+                        <div class="label">打卡话术要求</div>
+                        <div class="desc">开启后，打卡时需录制话术</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="voice-req">
+                        <span class="slider"></span>
+                    </label>
                 </div>
-                <div class="toggle-switch" id="voiceSwitch"></div>
             </div>
         </div>
 
         <!-- ========== 采集点位配置 ========== -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fa fa-map-markers"></i>
-                采集点位配置
-            </div>
-            
-            <!-- AI自动审核 -->
-            <div class="config-row" onclick="toggleAI()">
-                <div>
-                    <div class="config-label">AI自动审核</div>
-                    <div class="config-desc">开启后，上传物料会自动AI质量检测</div>
+        <div class="accordion">
+            <div class="accordion-header open" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa fa-map-markers"></i>
+                    采集点位配置
                 </div>
-                <div class="toggle-switch active" id="aiSwitch"></div>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
-            
-            <!-- 点位列表 -->
-            <div class="point-list" id="pointList">
-                <!-- 点位1 - 不可删除 -->
-                <div class="point-card">
-                    <div class="point-header">
-                        <div class="point-title">
-                            <span class="num">1</span>
-                            <span class="name">接待处</span>
-                            <span class="tag">必打卡点</span>
-                        </div>
-                        <span class="point-delete disabled"><i class="fa fa-ban"></i> 不可删除</span>
+            <div class="accordion-body open">
+                <!-- AI自动审核 -->
+                <div class="config-item">
+                    <div class="info">
+                        <div class="label">AI自动审核</div>
+                        <div class="desc">开启后，上传物料会自动AI质量检测</div>
                     </div>
-                    <div class="point-content">
-                        <span class="point-tag required"><i class="fa fa-camera"></i> 拍照</span>
-                        <span class="point-tag required"><i class="fa fa-pencil"></i> 填写内容</span>
+                    <label class="switch">
+                        <input type="checkbox" id="ai-audit" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <!-- 点位列表 -->
+                <div class="point-list" id="pointList">
+                    <!-- 点位1 - 不可删除 -->
+                    <div class="point-card">
+                        <div class="point-header">
+                            <div class="point-title">
+                                <span class="point-num">1</span>
+                                <span class="point-name">接待处</span>
+                                <span class="point-tag">必打卡点</span>
+                            </div>
+                            <span class="point-action disabled"><i class="fa fa-ban"></i> 不可删除</span>
+                        </div>
+                        <div class="point-tags">
+                            <span class="point-tag-item required"><i class="fa fa-camera"></i> 拍照</span>
+                            <span class="point-tag-item required"><i class="fa fa-pencil"></i> 填写内容</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 点位2 - 不可删除 -->
+                    <div class="point-card">
+                        <div class="point-header">
+                            <div class="point-title">
+                                <span class="point-num">2</span>
+                                <span class="point-name">沙盘区</span>
+                                <span class="point-tag">必打卡点</span>
+                            </div>
+                            <span class="point-action disabled"><i class="fa fa-ban"></i> 不可删除</span>
+                        </div>
+                        <div class="point-tags">
+                            <span class="point-tag-item required"><i class="fa fa-camera"></i> 拍照</span>
+                            <span class="point-tag-item required"><i class="fa fa-video-camera"></i> 录制视频</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 点位3 - 可删除 -->
+                    <div class="point-card">
+                        <div class="point-header">
+                            <div class="point-title">
+                                <span class="point-num">3</span>
+                                <span class="point-name">样板间</span>
+                                <span class="point-tag disabled">选打卡点</span>
+                            </div>
+                            <span class="point-action active" onclick="deletePoint(this)"><i class="fa fa-trash-o"></i> 删除</span>
+                        </div>
+                        <div class="point-tags">
+                            <span class="point-tag-item"><i class="fa fa-camera"></i> 拍照</span>
+                            <span class="point-tag-item"><i class="fa fa-video-camera"></i> 录制视频</span>
+                            <span class="point-tag-item"><i class="fa fa-pencil"></i> 填写内容</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 点位2 - 不可删除 -->
-                <div class="point-card">
-                    <div class="point-header">
-                        <div class="point-title">
-                            <span class="num">2</span>
-                            <span class="name">沙盘区</span>
-                            <span class="tag">必打卡点</span>
-                        </div>
-                        <span class="point-delete disabled"><i class="fa fa-ban"></i> 不可删除</span>
-                    </div>
-                    <div class="point-content">
-                        <span class="point-tag required"><i class="fa fa-camera"></i> 拍照</span>
-                        <span class="point-tag required"><i class="fa fa-video-camera"></i> 录制视频</span>
-                    </div>
-                </div>
-                
-                <!-- 点位3 - 可删除 -->
-                <div class="point-card">
-                    <div class="point-header">
-                        <div class="point-title">
-                            <span class="num">3</span>
-                            <span class="name">样板间</span>
-                            <span class="tag tag-disabled">选打卡点</span>
-                        </div>
-                        <span class="point-delete active" onclick="deletePoint(this)"><i class="fa fa-trash-o"></i> 删除</span>
-                    </div>
-                    <div class="point-content">
-                        <span class="point-tag"><i class="fa fa-camera"></i> 拍照</span>
-                        <span class="point-tag"><i class="fa fa-video-camera"></i> 录制视频</span>
-                        <span class="point-tag"><i class="fa fa-pencil"></i> 填写内容</span>
-                    </div>
-                </div>
+                <button class="add-btn" onclick="addPoint()">
+                    <i class="fa fa-plus"></i> 添加点位
+                </button>
             </div>
-            
-            <button class="add-point-btn" onclick="addPoint()">
-                <i class="fa fa-plus"></i> 添加点位
-            </button>
         </div>
 
         <!-- ========== 内容生成配置 ========== -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fa fa-magic"></i>
-                内容生成配置
-            </div>
-            
-            <div class="config-row" onclick="toggleCopywriting()">
-                <div>
-                    <div class="config-label">文案内容生成</div>
-                    <div class="config-desc">开启后，物料收集完成后自动解锁文案</div>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa fa-magic"></i>
+                    内容生成配置
                 </div>
-                <div class="toggle-switch active" id="copywritingSwitch"></div>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
-            
-            <div class="config-row" onclick="toggleMultimodal()">
-                <div>
-                    <div class="config-label">图片/视频生成</div>
-                    <div class="config-desc">开启后，文案确认后解锁多模态内容生成</div>
+            <div class="accordion-body">
+                <div class="config-item">
+                    <div class="info">
+                        <div class="label">文案内容生成</div>
+                        <div class="desc">开启后，物料收集完成后自动解锁文案</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="copywriting" checked>
+                        <span class="slider"></span>
+                    </label>
                 </div>
-                <div class="toggle-switch active" id="multimodalSwitch"></div>
+                <div class="config-item">
+                    <div class="info">
+                        <div class="label">图片/视频生成</div>
+                        <div class="desc">开启后，文案确认后解锁多模态内容生成</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="multimodal" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </div>
         </div>
 
         <!-- ========== 话术训练配置 ========== -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fa fa-graduation-cap"></i>
-                话术训练配置
-            </div>
-            
-            <div class="config-row" onclick="toggleTraining()">
-                <div>
-                    <div class="config-label">启用话术训练</div>
-                    <div class="config-desc">开启后，任务包含话术训练模块</div>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa fa-graduation-cap"></i>
+                    话术训练配置
                 </div>
-                <div class="toggle-switch" id="trainingSwitch"></div>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
-            
-            <!-- 训练配置（隐藏） -->
-            <div class="config-detail" id="trainingConfig">
-                <div style="padding:12px 0;border-top:1px solid var(--color-border);">
-                    <div class="config-label" style="margin-bottom:12px;">训练项目</div>
-                    <div class="radio-group" style="gap:8px;">
-                        <label class="radio-item"><input type="checkbox" checked> 产品知识</label>
-                        <label class="radio-item"><input type="checkbox"> 竞品对比</label>
-                        <label class="radio-item"><input type="checkbox"> 话术技巧</label>
-                        <label class="radio-item"><input type="checkbox"> 户型解读</label>
+            <div class="accordion-body">
+                <div class="config-item">
+                    <div class="info">
+                        <div class="label">启用话术训练</div>
+                        <div class="desc">开启后，任务包含话术训练模块</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="training" onchange="toggleTraining(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="sub-config" id="training-config">
+                    <div style="padding-top:12px;border-top:1px solid var(--color-border);">
+                        <div class="label" style="margin-bottom:10px;">训练项目</div>
+                        <div class="radio-group" style="gap:8px;">
+                            <label class="radio-item"><input type="checkbox" checked> 产品知识</label>
+                            <label class="radio-item"><input type="checkbox"> 竞品对比</label>
+                            <label class="radio-item"><input type="checkbox"> 话术技巧</label>
+                            <label class="radio-item"><input type="checkbox"> 户型解读</label>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- ========== 录音分析配置 ========== -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fa fa-microphone"></i>
-                录音分析配置
-            </div>
-            
-            <div class="config-row" onclick="toggleRecording()">
-                <div>
-                    <div class="config-label">启用录音分析</div>
-                    <div class="config-desc">开启后，任务包含邀约录音分析模块</div>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa fa-microphone"></i>
+                    录音分析配置
                 </div>
-                <div class="toggle-switch" id="recordingSwitch"></div>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
-            
-            <!-- 分析维度（隐藏） -->
-            <div class="config-detail" id="recordingConfig">
-                <div style="padding:12px 0;border-top:1px solid var(--color-border);">
-                    <div class="config-label" style="margin-bottom:12px;">分析维度</div>
-                    <div class="radio-group" style="gap:8px;">
-                        <label class="radio-item"><input type="checkbox" checked> 话术规范</label>
-                        <label class="radio-item"><input type="checkbox" checked> 情绪识别</label>
-                        <label class="radio-item"><input type="checkbox" checked> 关键词覆盖</label>
-                        <label class="radio-item"><input type="checkbox" checked> 邀约意向</label>
+            <div class="accordion-body">
+                <div class="config-item">
+                    <div class="info">
+                        <div class="label">启用录音分析</div>
+                        <div class="desc">开启后，任务包含邀约录音分析模块</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="recording" onchange="toggleRecording(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="sub-config" id="recording-config">
+                    <div style="padding-top:12px;border-top:1px solid var(--color-border);">
+                        <div class="label" style="margin-bottom:10px;">分析维度</div>
+                        <div class="radio-group" style="gap:8px;">
+                            <label class="radio-item"><input type="checkbox" checked> 话术规范</label>
+                            <label class="radio-item"><input type="checkbox" checked> 情绪识别</label>
+                            <label class="radio-item"><input type="checkbox" checked> 关键词覆盖</label>
+                            <label class="radio-item"><input type="checkbox" checked> 邀约意向</label>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========== 任务时间配置 ========== -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fa fa-clock-o"></i>
-                任务时间配置
+        <!-- ========== 任务截止时间 ========== -->
+        <div class="accordion">
+            <div class="accordion-header open" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa fa-clock-o"></i>
+                    任务截止时间
+                </div>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
-            
-            <div class="input-row">
-                <span class="input-label">任务结束</span>
-                <input type="datetime-local" class="input-field" id="deadline" value="2026-04-15T18:00">
+            <div class="accordion-body open">
+                <div class="input-row">
+                    <span class="label">截止时间</span>
+                    <input type="datetime-local" class="field" id="deadline" value="2026-04-15T18:00" style="flex:1;">
+                </div>
             </div>
         </div>
 
         <!-- ========== 提醒配置 ========== -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fa fa-bell"></i>
-                提醒配置
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa fa-bell"></i>
+                    提醒配置
+                </div>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
-            
-            <!-- 轻度提醒 -->
-            <div class="config-row">
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="background:#E8FFEA;color:var(--color-success);padding:2px 8px;border-radius:4px;font-size:12px;">轻度</span>
-                    <span class="config-label">提醒</span>
+            <div class="accordion-body">
+                <div class="reminder-item">
+                    <div class="reminder-left">
+                        <span class="reminder-badge light">轻度</span>
+                        <span style="font-size:13px;">提醒</span>
+                    </div>
+                    <div class="reminder-right">
+                        <span style="font-size:12px;color:var(--color-sub);">截止前</span>
+                        <input type="number" class="reminder-input" value="24" min="1">
+                        <span style="font-size:12px;color:var(--color-sub);">小时</span>
+                        <label class="switch" style="width:36px;height:22px;">
+                            <input type="checkbox" checked>
+                            <span class="slider" style="height:18px;border-radius:18px;"></span>
+                        </label>
+                    </div>
                 </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="color:var(--color-sub);font-size:13px;">截止前</span>
-                    <input type="number" class="input-field" value="24" min="1" style="width:60px;text-align:center;">
-                    <span style="color:var(--color-sub);font-size:13px;">小时</span>
-                    <div class="toggle-switch active" style="width:36px;height:22px;" onclick="this.classList.toggle('active')"><div style="width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;box-shadow:0 1px 3px rgba(0,0,0,0.2);transition:left 0.3s;"></div></div>
+                <div class="reminder-item">
+                    <div class="reminder-left">
+                        <span class="reminder-badge mid">中度</span>
+                        <span style="font-size:13px;">提醒</span>
+                    </div>
+                    <div class="reminder-right">
+                        <span style="font-size:12px;color:var(--color-sub);">截止前</span>
+                        <input type="number" class="reminder-input" value="12" min="1">
+                        <span style="font-size:12px;color:var(--color-sub);">小时</span>
+                        <label class="switch" style="width:36px;height:22px;">
+                            <input type="checkbox" checked>
+                            <span class="slider" style="height:18px;border-radius:18px;"></span>
+                        </label>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- 中度提醒 -->
-            <div class="config-row">
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="background:#FFF7E6;color:var(--color-warning);padding:2px 8px;border-radius:4px;font-size:12px;">中度</span>
-                    <span class="config-label">提醒</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="color:var(--color-sub);font-size:13px;">截止前</span>
-                    <input type="number" class="input-field" value="12" min="1" style="width:60px;text-align:center;">
-                    <span style="color:var(--color-sub);font-size:13px;">小时</span>
-                    <div class="toggle-switch active" style="width:36px;height:22px;" onclick="this.classList.toggle('active')"><div style="width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;box-shadow:0 1px 3px rgba(0,0,0,0.2);transition:left 0.3s;"></div></div>
-                </div>
-            </div>
-            
-            <!-- 严重提醒 -->
-            <div class="config-row">
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="background:#FFECE8;color:var(--color-danger);padding:2px 8px;border-radius:4px;font-size:12px;">严重</span>
-                    <span class="config-label">提醒</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="color:var(--color-sub);font-size:13px;">截止前</span>
-                    <input type="number" class="input-field" value="2" min="1" style="width:60px;text-align:center;">
-                    <span style="color:var(--color-sub);font-size:13px;">小时</span>
-                    <div class="toggle-switch active" style="width:36px;height:22px;" onclick="this.classList.toggle('active')"><div style="width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;box-shadow:0 1px 3px rgba(0,0,0,0.2);transition:left 0.3s;"></div></div>
+                <div class="reminder-item">
+                    <div class="reminder-left">
+                        <span class="reminder-badge high">严重</span>
+                        <span style="font-size:13px;">提醒</span>
+                    </div>
+                    <div class="reminder-right">
+                        <span style="font-size:12px;color:var(--color-sub);">截止前</span>
+                        <input type="number" class="reminder-input" value="2" min="1">
+                        <span style="font-size:12px;color:var(--color-sub);">小时</span>
+                        <label class="switch" style="width:36px;height:22px;">
+                            <input type="checkbox" checked>
+                            <span class="slider" style="height:18px;border-radius:18px;"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- ========== 执行人员 ========== -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fa fa-users"></i>
-                执行人员
-            </div>
-            
-            <div class="selector-row" onclick="openOrgSelector()">
-                <div class="selector-info">
-                    <div class="selector-label">选择执行人</div>
-                    <div class="selector-count" id="executorCount">已选择 2 人</div>
+        <div class="accordion">
+            <div class="accordion-header open" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa fa-users"></i>
+                    执行人员
                 </div>
-                <button class="selector-btn">
-                    <i class="fa fa-plus"></i> 选择
-                </button>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
-            <div class="person-tags" id="executorTags">
-                <span class="person-tag"><i class="fa fa-user"></i> 张三 <span class="remove" onclick="removeTag(this)">×</span></span>
-                <span class="person-tag"><i class="fa fa-user"></i> 李四 <span class="remove" onclick="removeTag(this)">×</span></span>
+            <div class="accordion-body open">
+                <div class="config-item" onclick="openOrgSelector()">
+                    <div class="info">
+                        <div class="label">选择执行人</div>
+                        <div class="desc">已选择 2 人</div>
+                    </div>
+                    <button style="padding:6px 12px;background:var(--brand-primary-light);color:var(--brand-primary);border:none;border-radius:6px;font-size:13px;">
+                        <i class="fa fa-plus"></i> 选择
+                    </button>
+                </div>
+                <div class="person-tags">
+                    <span class="person-tag"><i class="fa fa-user"></i> 张三 <span class="remove" onclick="removeTag(event, this)">×</span></span>
+                    <span class="person-tag"><i class="fa fa-user"></i> 李四 <span class="remove" onclick="removeTag(event, this)">×</span></span>
+                </div>
             </div>
         </div>
 
         <!-- ========== 通知人员 ========== -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fa fa-bell"></i>
-                通知人员
-            </div>
-            
-            <div class="selector-row" onclick="openOrgSelector('notify')">
-                <div class="selector-info">
-                    <div class="selector-label">选择需要通知的人</div>
-                    <div class="selector-count" id="notifyCount">已选择 1 人</div>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa fa-bell"></i>
+                    通知人员
                 </div>
-                <button class="selector-btn">
-                    <i class="fa fa-plus"></i> 选择
-                </button>
+                <i class="fa fa-chevron-down arrow"></i>
             </div>
-            <div class="person-tags" id="notifyTags">
-                <span class="person-tag"><i class="fa fa-user"></i> 管理员 <span class="remove" onclick="removeTag(this)">×</span></span>
+            <div class="accordion-body">
+                <div class="config-item" onclick="openOrgSelector('notify')">
+                    <div class="info">
+                        <div class="label">选择需要通知的人</div>
+                        <div class="desc">已选择 1 人</div>
+                    </div>
+                    <button style="padding:6px 12px;background:var(--brand-primary-light);color:var(--brand-primary);border:none;border-radius:6px;font-size:13px;">
+                        <i class="fa fa-plus"></i> 选择
+                    </button>
+                </div>
+                <div class="person-tags">
+                    <span class="person-tag"><i class="fa fa-user"></i> 管理员 <span class="remove" onclick="removeTag(event, this)">×</span></span>
+                </div>
             </div>
         </div>
     </div>
@@ -577,6 +640,8 @@
     <script>
         // Toast提示
         function showToast(msg) {
+            const exist = document.querySelector('.toast');
+            if (exist) exist.remove();
             const toast = document.createElement('div');
             toast.className = 'toast';
             toast.textContent = msg;
@@ -584,63 +649,42 @@
             setTimeout(() => toast.remove(), 2000);
         }
 
-        // 开关切换
-        function toggleSwitch(id) {
-            document.getElementById(id).classList.toggle('active');
+        // 楼盘信息折叠
+        function toggleHouse() {
+            const header = document.querySelector('.house-header');
+            const body = document.querySelector('.house-body');
+            header.classList.toggle('open');
+            body.classList.toggle('open');
         }
 
-        // 定位打卡开关
-        function toggleLocation() {
-            document.getElementById('locationSwitch').classList.toggle('active');
+        // 手风琴切换
+        function toggleAccordion(header) {
+            header.classList.toggle('open');
+            const body = header.nextElementSibling;
+            body.classList.toggle('open');
         }
 
         // 补卡开关
-        function toggleMakeup() {
-            document.getElementById('makeupSwitch').classList.toggle('active');
-            document.getElementById('makeupConfig').classList.toggle('show');
-        }
-
-        // 话术要求开关
-        function toggleVoice() {
-            document.getElementById('voiceSwitch').classList.toggle('active');
-        }
-
-        // AI审核开关
-        function toggleAI() {
-            document.getElementById('aiSwitch').classList.toggle('active');
-        }
-
-        // 文案生成开关
-        function toggleCopywriting() {
-            document.getElementById('copywritingSwitch').classList.toggle('active');
-        }
-
-        // 多模态开关
-        function toggleMultimodal() {
-            document.getElementById('multimodalSwitch').classList.toggle('active');
+        function toggleMakeup(checkbox) {
+            const config = document.getElementById('makeup-config');
+            config.classList.toggle('show', checkbox.checked);
         }
 
         // 话术训练开关
-        function toggleTraining() {
-            document.getElementById('trainingSwitch').classList.toggle('active');
-            document.getElementById('trainingConfig').classList.toggle('show');
+        function toggleTraining(checkbox) {
+            const config = document.getElementById('training-config');
+            config.classList.toggle('show', checkbox.checked);
         }
 
         // 录音分析开关
-        function toggleRecording() {
-            document.getElementById('recordingSwitch').classList.toggle('active');
-            document.getElementById('recordingConfig').classList.toggle('show');
+        function toggleRecording(checkbox) {
+            const config = document.getElementById('recording-config');
+            config.classList.toggle('show', checkbox.checked);
         }
 
         // 偏移阈值更新
-        function updateThreshold() {
-            const slider = document.getElementById('thresholdSlider');
-            document.getElementById('thresholdValue').textContent = slider.value + 'm';
-        }
-
-        // 移除标签
-        function removeTag(el) {
-            el.parentElement.remove();
+        function updateThreshold(value) {
+            document.getElementById('thresholdValue').textContent = value + 'm';
         }
 
         // 删除点位
@@ -653,6 +697,17 @@
             showToast('添加点位功能');
         }
 
+        // 移除标签
+        function removeTag(event, el) {
+            event.stopPropagation();
+            el.parentElement.remove();
+        }
+
+        // 选择人员
+        function openOrgSelector(type) {
+            showToast('选择人员功能');
+        }
+
         // 保存配置
         function saveConfig() {
             showToast('配置已保存');
@@ -662,16 +717,6 @@
         function saveAndPublish() {
             showToast('任务下发成功');
             setTimeout(() => history.back(), 1500);
-        }
-
-        // 选择位置
-        function selectLocation() {
-            showToast('选择位置功能');
-        }
-
-        // 选择组织人员
-        function openOrgSelector(type) {
-            showToast('选择人员功能');
         }
     </script>
 </body>
